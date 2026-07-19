@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light" data-lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عيادة نوفا لطب الجلدية والتجميل | Nova Derm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+[data-theme="light"]{--bg:#f8f7f4;--bg2:#efeee9;--card:#ffffff;--card2:#f2f1ec;--text:#111;--text2:#555;--text3:#888;--accent:#a855f7;--accent2:#9333ea;--accent-glow:rgba(168,85,247,0.1);--glass:rgba(0,0,0,0.03);--glass-border:rgba(0,0,0,0.08);--shadow:0 2px 20px rgba(0,0,0,0.06);--loader-bg:#f8f7f4}
+[data-theme="dark"]{--bg:#050505;--bg2:#0a0a0a;--card:#111;--card2:#161616;--text:#f0f0f0;--text2:#999;--text3:#555;--accent:#c084fc;--accent2:#a855f7;--accent-glow:rgba(192,132,252,0.15);--glass:rgba(255,255,255,0.04);--glass-border:rgba(255,255,255,0.08);--shadow:0 2px 20px rgba(0,0,0,0.2);--loader-bg:#050505}
+:root{--radius:20px;--radius-sm:12px;--ease:cubic-bezier(0.32,0.72,0,1)}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background 0.4s var(--ease),color 0.4s var(--ease)}
+::selection{background:var(--accent);color:#fff}
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.loader{position:fixed;inset:0;z-index:10000;background:var(--loader-bg);display:flex;align-items:center;justify-content:center;transition:opacity 0.8s var(--ease),visibility 0.8s}
+.loader.hidden{opacity:0;visibility:hidden}
+.loader-num{font-family:'Space Grotesk',monospace;font-size:clamp(4rem,15vw,10rem);font-weight:700;color:var(--accent);letter-spacing:-0.05em}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;transition:all 0.5s var(--ease)}
+.nav.scrolled{background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);padding:12px 40px}
+.nav-logo{font-family:'Space Grotesk',monospace;font-size:1.15rem;font-weight:700;color:var(--accent);text-decoration:none;letter-spacing:-0.02em}
+.nav-center{display:flex;align-items:center;gap:8px}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.3s var(--ease);position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;right:0;width:0;height:1.5px;background:var(--accent);transition:width 0.4s var(--ease)}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:10px 22px;border-radius:999px;text-decoration:none;font-size:0.85rem;font-weight:600;transition:all 0.4s var(--ease)}
+.nav-cta:hover{background:var(--accent2);transform:scale(0.97)}
+.toggle-btn,.lang-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--glass-border);background:var(--glass);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s var(--ease);font-family:'Space Grotesk',monospace}
+.toggle-btn{font-size:0.85rem}
+.lang-btn{font-size:0.7rem;font-weight:700}
+.toggle-btn:hover,.lang-btn:hover{background:var(--accent-glow);color:var(--accent);border-color:var(--accent)}
+.hamburger{display:none;width:44px;height:44px;background:none;border:none;cursor:pointer;position:relative;z-index:1001}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);position:absolute;left:11px;transition:all 0.4s var(--ease)}
+.hamburger span:nth-child(1){top:15px}.hamburger span:nth-child(2){top:21px}.hamburger span:nth-child(3){top:27px}
+.hamburger.active span:nth-child(1){transform:rotate(45deg);top:21px}.hamburger.active span:nth-child(2){opacity:0}.hamburger.active span:nth-child(3){transform:rotate(-45deg);top:21px}
+.mobile-menu{position:fixed;inset:0;z-index:999;background:color-mix(in srgb,var(--bg) 95%,transparent);backdrop-filter:blur(30px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;visibility:hidden;transition:all 0.5s var(--ease)}
+.mobile-menu.active{opacity:1;visibility:visible}
+.mobile-menu a{color:var(--text);text-decoration:none;font-size:1.5rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.5s var(--ease)}
+.mobile-menu.active a{transform:translateY(0);opacity:1}
+.mobile-menu.active a:nth-child(1){transition-delay:0.1s}.mobile-menu.active a:nth-child(2){transition-delay:0.15s}.mobile-menu.active a:nth-child(3){transition-delay:0.2s}.mobile-menu.active a:nth-child(4){transition-delay:0.25s}.mobile-menu.active a:nth-child(5){transition-delay:0.3s}.mobile-menu.active a:nth-child(6){transition-delay:0.35s}
+.hero{min-height:100dvh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 40px 80px}
+.hero::before{content:'';position:absolute;top:-30%;left:-20%;width:800px;height:800px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);pointer-events:none;animation:float 20s ease-in-out infinite}
+.hero::after{content:'';position:absolute;bottom:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(236,72,153,0.06) 0%,transparent 70%);pointer-events:none;animation:float 25s ease-in-out infinite reverse}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-40px)}}
+.hero-inner{max-width:1400px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--glass-border);border-radius:999px;padding:8px 20px;font-size:0.75rem;font-weight:600;color:var(--accent);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.hero-title{font-family:'Space Grotesk',monospace;font-size:clamp(2.5rem,5.5vw,4.2rem);font-weight:700;line-height:1.1;letter-spacing:-0.03em;margin-bottom:20px}
+.hero-title .accent{color:var(--accent)}
+.hero-desc{font-size:1.05rem;color:var(--text2);line-height:1.8;max-width:480px;margin-bottom:36px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;padding:15px 30px;border-radius:999px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.4s var(--ease);border:none;cursor:pointer;box-shadow:0 4px 20px var(--accent-glow)}
+.btn-primary:hover{background:var(--accent2);transform:scale(0.97);box-shadow:0 8px 32px var(--accent-glow)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--glass-border);color:var(--text);padding:15px 30px;border-radius:999px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.4s var(--ease);cursor:pointer}
+.btn-ghost:hover{background:var(--accent-glow);border-color:var(--accent);transform:scale(0.97)}
+.hero-stats{display:flex;gap:36px;margin-top:44px}
+.hero-stat .num{font-family:'Space Grotesk',monospace;font-size:1.75rem;font-weight:700;color:var(--accent)}
+.hero-stat .label{font-size:0.8rem;color:var(--text3);margin-top:4px}
+.hero-visual{position:relative;display:flex;justify-content:center}
+.hero-visual .main-card{width:100%;max-width:460px;aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden;position:relative;border:1px solid var(--glass-border);background:var(--card);box-shadow:var(--shadow)}
+.hero-visual .main-card img{width:100%;height:100%;object-fit:cover}
+.float-card{position:absolute;background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius-sm);padding:14px 18px;box-shadow:var(--shadow)}
+.float-card.top-right{top:-16px;left:-24px;animation:floatCard 6s ease-in-out infinite}
+.float-card.bottom-left{bottom:-16px;right:-24px;animation:floatCard 8s ease-in-out infinite reverse}
+@keyframes floatCard{0%,100%{transform:translate(0,0)}50%{transform:translate(8px,-12px)}}
+.float-card .fc-icon{width:36px;height:36px;border-radius:10px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.float-card .fc-icon svg{width:18px;height:18px;stroke:var(--accent);stroke-width:1.5;fill:none}
+.float-card .fc-text{font-size:0.7rem;color:var(--text3)}
+.float-card .fc-value{font-family:'Space Grotesk',monospace;font-size:1rem;font-weight:700;margin-top:1px}
+.section{padding:100px 40px;max-width:1400px;margin:0 auto}
+.section-badge{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--glass-border);border-radius:999px;padding:6px 16px;font-size:0.7rem;font-weight:600;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px}
+.section-title{font-family:'Space Grotesk',monospace;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-0.02em;margin-bottom:14px}
+.section-desc{font-size:1rem;color:var(--text2);line-height:1.8;max-width:560px}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:50px}
+.bento-card{background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden;transition:all 0.5s var(--ease);box-shadow:var(--shadow)}
+.bento-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-glow) 0%,transparent 50%);opacity:0;transition:opacity 0.5s var(--ease)}
+.bento-card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.bento-card:hover::before{opacity:1}
+.bento-card.c1{grid-column:span 8;min-height:280px}.bento-card.c2{grid-column:span 4;min-height:280px}
+.bento-card.c3{grid-column:span 4;min-height:260px}.bento-card.c4{grid-column:span 4;min-height:260px}.bento-card.c5{grid-column:span 4;min-height:260px}
+.bento-icon{width:50px;height:50px;border-radius:14px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.bento-icon svg{width:24px;height:24px;stroke:var(--accent);stroke-width:1.5;fill:none}
+.bento-card h3{font-family:'Space Grotesk',monospace;font-size:1.1rem;font-weight:600;margin-bottom:10px}
+.bento-card p{color:var(--text2);font-size:0.9rem;line-height:1.7}
+.doctors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+.doctor-card{background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius);overflow:hidden;transition:all 0.5s var(--ease);box-shadow:var(--shadow)}
+.doctor-card:hover{transform:translateY(-6px);border-color:var(--accent)}
+.doctor-img{aspect-ratio:1;overflow:hidden;background:var(--card2)}
+.doctor-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s var(--ease)}
+.doctor-card:hover .doctor-img img{transform:scale(1.05)}
+.doctor-info{padding:22px}
+.doctor-info h3{font-family:'Space Grotesk',monospace;font-size:1.05rem;font-weight:600;margin-bottom:4px}
+.doctor-info .spec{color:var(--accent);font-size:0.85rem;font-weight:500}
+.results-section{margin-top:70px}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+.result-card{background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.result-slider{position:relative;aspect-ratio:4/3;overflow:hidden;cursor:ew-resize}
+.result-slider .before,.result-slider .after{position:absolute;inset:0}
+.result-slider .before img,.result-slider .after img{width:100%;height:100%;object-fit:cover}
+.result-slider .after{clip-path:inset(0 50% 0 0)}
+.result-slider .divider{position:absolute;top:0;bottom:0;width:3px;background:var(--accent);left:50%;transform:translateX(-50%);z-index:2}
+.result-slider .handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:3;box-shadow:0 4px 20px rgba(0,0,0,0.25)}
+.result-label{position:absolute;bottom:10px;padding:5px 12px;background:rgba(0,0,0,0.55);backdrop-filter:blur(10px);border-radius:999px;font-size:0.7rem;font-weight:600;color:#fff;z-index:2}
+.result-label.before{right:10px}.result-label.after{left:10px}
+.result-info{padding:18px}
+.result-info h4{font-size:0.95rem;font-weight:600;margin-bottom:4px}
+.result-info p{color:var(--text2);font-size:0.85rem}
+.stats-section{background:var(--bg2);border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);padding:70px 40px}
+.stats-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:36px;text-align:center}
+.stat-item .stat-num{font-family:'Space Grotesk',monospace;font-size:clamp(2rem,4.5vw,3rem);font-weight:700;color:var(--accent);letter-spacing:-0.03em}
+.stat-item .stat-label{font-size:0.85rem;color:var(--text2);margin-top:6px}
+.testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:50px}
+.testimonial-card{background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius);padding:28px;transition:all 0.5s var(--ease);box-shadow:var(--shadow)}
+.testimonial-card:hover{transform:translateY(-3px);border-color:var(--accent)}
+.testimonial-card .stars{color:#f59e0b;font-size:0.85rem;margin-bottom:14px;letter-spacing:2px}
+.testimonial-card .quote{color:var(--text2);font-size:0.9rem;line-height:1.8;margin-bottom:18px;font-style:italic}
+.testimonial-card .author{display:flex;align-items:center;gap:12px}
+.testimonial-card .avatar{width:40px;height:40px;border-radius:50%;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:1rem}
+.testimonial-card .name{font-weight:600;font-size:0.9rem}
+.testimonial-card .role{font-size:0.75rem;color:var(--text3)}
+.booking-section{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+.booking-form{background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius);padding:36px;box-shadow:var(--shadow)}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:0.85rem;font-weight:500;margin-bottom:6px;color:var(--text2)}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:13px 16px;background:var(--bg);border:1px solid var(--glass-border);border-radius:var(--radius-sm);color:var(--text);font-family:inherit;font-size:0.9rem;transition:border-color 0.3s var(--ease)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.form-group textarea{min-height:100px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.whatsapp-btn{width:100%;padding:15px;background:#25d366;color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.95rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.4s var(--ease)}
+.whatsapp-btn:hover{background:#20bd5a;transform:scale(0.98);box-shadow:0 8px 30px rgba(37,211,102,0.3)}
+.booking-info{display:flex;flex-direction:column;gap:20px}
+.booking-info-card{background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius);padding:22px;display:flex;gap:14px;align-items:start;transition:all 0.4s var(--ease);box-shadow:var(--shadow)}
+.booking-info-card:hover{transform:translateX(-4px);border-color:var(--accent)}
+.booking-info-card .bi-icon{width:44px;height:44px;border-radius:12px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.booking-info-card .bi-icon svg{width:20px;height:20px;stroke:var(--accent);stroke-width:1.5;fill:none}
+.booking-info-card h4{font-weight:600;margin-bottom:3px;font-size:0.9rem}
+.booking-info-card p{color:var(--text2);font-size:0.85rem;line-height:1.5}
+.map-section{margin-top:70px}
+.map-container{width:100%;height:420px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--glass-border);margin-top:36px;box-shadow:var(--shadow)}
+.map-container iframe{width:100%;height:100%;border:0}
+.cta-section{text-align:center;padding:100px 40px;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,var(--accent-glow) 0%,transparent 70%);pointer-events:none}
+.cta-title{font-family:'Space Grotesk',monospace;font-size:clamp(1.8rem,4.5vw,3rem);font-weight:700;margin-bottom:18px;position:relative}
+.cta-desc{font-size:1.05rem;color:var(--text2);margin-bottom:36px;position:relative}
+.cta-actions{display:flex;gap:14px;justify-content:center;position:relative}
+.footer{border-top:1px solid var(--glass-border);padding:50px 40px 24px}
+.footer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px}
+.footer-brand .logo{font-family:'Space Grotesk',monospace;font-size:1.15rem;font-weight:700;color:var(--accent);margin-bottom:10px}
+.footer-brand p{color:var(--text2);font-size:0.85rem;line-height:1.7;max-width:280px}
+.footer-col h4{font-weight:600;margin-bottom:14px;font-size:0.9rem}
+.footer-col a{display:block;color:var(--text2);text-decoration:none;font-size:0.85rem;padding:3px 0;transition:color 0.3s var(--ease)}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{max-width:1400px;margin:24px auto 0;padding-top:16px;border-top:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;color:var(--text3);font-size:0.75rem}
+.wa-float{position:fixed;bottom:24px;left:24px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 6px 30px rgba(37,211,102,0.4);z-index:998;text-decoration:none;transition:all 0.4s var(--ease)}
+.wa-float:hover{transform:scale(1.1) rotate(5deg);box-shadow:0 10px 40px rgba(37,211,102,0.5)}
+.reveal{opacity:0;transform:translateY(30px);transition:all 0.7s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}.reveal-delay-2{transition-delay:0.2s}.reveal-delay-3{transition-delay:0.3s}
+@media(max-width:1024px){.hero-inner{grid-template-columns:1fr;text-align:center}.hero-desc{margin:0 auto 36px}.hero-actions{justify-content:center}.hero-stats{justify-content:center}.hero-visual{margin-top:36px}.bento{grid-template-columns:repeat(6,1fr)}.bento-card.c1,.bento-card.c2,.bento-card.c3,.bento-card.c4,.bento-card.c5{grid-column:span 6}.doctors-grid,.results-grid{grid-template-columns:repeat(2,1fr)}.stats-grid{grid-template-columns:repeat(2,1fr)}.booking-section{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}.nav-links,.nav-center .nav-cta-wrap{display:none}.hamburger{display:block}}
+@media(max-width:768px){.hero{padding:100px 20px 60px}.section{padding:70px 20px}.bento{grid-template-columns:1fr}.bento-card.c1,.bento-card.c2,.bento-card.c3,.bento-card.c4,.bento-card.c5{grid-column:span 1}.doctors-grid,.results-grid,.testimonials-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}.footer-bottom{flex-direction:column;text-align:center;gap:8px}}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><div class="loader-num" id="loaderNum">0</div></div>
+<nav class="nav" id="nav">
+<a href="#" class="nav-logo">NOVA DERM</a>
+<div class="nav-center"><ul class="nav-links">
+<li><a href="#services" data-ar="الخدمات" data-fr="Services">الخدمات</a></li>
+<li><a href="#doctors" data-ar="الأطباء" data-fr="Médecins">الأطباء</a></li>
+<li><a href="#results" data-ar="النتائج" data-fr="Résultats">النتائج</a></li>
+<li><a href="#testimonials" data-ar="آراء المرضى" data-fr="Avis">آراء المرضى</a></li>
+<li><a href="#booking" data-ar="الحجز" data-fr="Réservation">الحجز</a></li>
+<li><a href="#map" data-ar="الموقع" data-fr="Localisation">الموقع</a></li>
+</ul></div>
+<div class="nav-actions">
+<button class="toggle-btn" id="themeToggle" aria-label="Toggle theme">☀</button>
+<button class="lang-btn" id="langToggle" aria-label="Toggle language">FR</button>
+<a href="https://wa.me/213770433364" class="nav-cta" data-ar="حجز موعد" data-fr="Prendre RDV">حجز موعد</a>
+</div>
+<button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="#services" onclick="closeMenu()" data-ar="الخدمات" data-fr="Services">الخدمات</a>
+<a href="#doctors" onclick="closeMenu()" data-ar="الأطباء" data-fr="Médecins">الأطباء</a>
+<a href="#results" onclick="closeMenu()" data-ar="النتائج" data-fr="Résultats">النتائج</a>
+<a href="#testimonials" onclick="closeMenu()" data-ar="آراء المرضى" data-fr="Avis">آراء المرضى</a>
+<a href="#booking" onclick="closeMenu()" data-ar="الحجز" data-fr="Réservation">الحجز</a>
+<a href="#map" onclick="closeMenu()" data-ar="الموقع" data-fr="Localisation">الموقع</a>
+</div>
+<section class="hero"><div class="hero-inner">
+<div class="hero-content reveal">
+<div class="hero-badge"><span class="dot"></span><span data-ar="عيادة جلدية وتجميل" data-fr="Clinique dermatologique">عيادة جلدية وتجميل</span></div>
+<h1 class="hero-title"><span data-ar="جمالك" data-fr="Votre beauté">جمالك</span><br><span class="accent" data-ar="يبدأ من هنا" data-fr="commence ici">يبدأ من هنا</span></h1>
+<p class="hero-desc" data-ar="عيادة نوفا لطب الجلدية والتجميل — نقدم أحدث تقنيات العلاج والتجميل بنتائج طبيعية وآمنة في الجزائر العاصمة." data-fr="Clinique Nova — les dernières techniques dermatologiques et esthétiques pour des résultats naturels et sûrs à Alger.">عيادة نوفا لطب الجلدية والتجميل — نقدم أحدث تقنيات العلاج والتجميل بنتائج طبيعية وآمنة في الجزائر العاصمة.</p>
+<div class="hero-actions"><a href="https://wa.me/213770433364" class="btn-primary"><span data-ar="احجز الآن" data-fr="Réservez maintenant">احجز الآن</span></a><a href="#services" class="btn-ghost" data-ar="اكتشف خدماتنا" data-fr="Découvrir nos services">اكتشف خدماتنا</a></div>
+<div class="hero-stats">
+<div class="hero-stat"><div class="num" data-count="8000" data-prefix="+">0</div><div class="label" data-ar="مريض سعيد" data-fr="Patients satisfaits">مريض سعيد</div></div>
+<div class="hero-stat"><div class="num" data-count="12">0</div><div class="label" data-ar="سنة خبرة" data-fr="Ans d'expérience">سنة خبرة</div></div>
+<div class="hero-stat"><div class="num" data-count="97" data-suffix="%">0</div><div class="label" data-ar="نسبة الرضا" data-fr="Taux de satisfaction">نسبة الرضا</div></div>
+</div></div>
+<div class="hero-visual reveal reveal-delay-1"><div class="main-card"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80" alt="Dermatology" loading="eager"></div>
+<div class="float-card top-right"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="fc-text" data-ar="تقييم المرضى" data-fr="Note">تقييم المرضى</div><div class="fc-value">4.9 ★</div></div>
+<div class="float-card bottom-left"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="fc-text" data-ar="علاجات ناجحة" data-fr="Traitements">علاجات ناجحة</div><div class="fc-value">+3000</div></div>
+</div></div></section>
+<section class="section" id="services"><div class="section-badge reveal"><span data-ar="خدماتنا" data-fr="Nos services">خدماتنا</span></div>
+<h2 class="section-title reveal"><span data-ar="علاجات متقدمة" data-fr="Traitements avancés">علاجات متقدمة</span><br><span data-ar="لنتائج طبيعية" data-fr="pour des résultats naturels">لنتائج طبيعية</span></h2>
+<p class="section-desc reveal" data-ar="نستخدم أحدث تقنيات الليزر والحقن التجميلي لضمان أفضل نتائج." data-fr="Nous utilisons les dernières techniques de laser et d'injections esthétiques.">نستخدم أحدث تقنيات الليزر والحقن التجميلي لضمان أفضل نتائج.</p>
+<div class="bento">
+<div class="bento-card c1 reveal"><div class="bento-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><h3 data-ar="بوتوكس وفيلر" data-fr="Botox et Filler">بوتوكس وفيلر</h3><p data-ar="حقن بوتوكس وفيلر هيلالوريك أسيد — تجعيد وتنعيم البشرة بنتائج طبيعية تدوم 6-12 شهر." data-fr="Injections de Botox et acide hyaluronique — résultats naturels durables 6 à 12 mois.">حقن بوتوكس وفيلر هيلالوريك أسيد — تجعيد وتنعيم البشرة بنتائج طبيعية تدوم 6-12 شهر.</p></div>
+<div class="bento-card c2 reveal reveal-delay-1"><div class="bento-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3 data-ar="ازالة شعر بالليزر" data-fr="Épilation laser">ازالة شعر بالليزر</h3><p data-ar="ازالة شعر بالليزر — نتائج دائمة في جلسات قليلة." data-fr="Épilation laser — résultats permanents en quelques séances.">ازالة شعر بالليزر — نتائج دائمة في جلسات قليلة.</p></div>
+<div class="bento-card c3 reveal"><div class="bento-icon"><svg viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/></svg></div><h3 data-ar="تقشير كيميائي" data-fr="Peeling chimique">تقشير كيميائي</h3><p data-ar="تقشير عميق ومتوسط — تجديد خلايا البشرة وعلاج الندبات." data-fr="Peeling profond — renouvellement cellulaire et traitement des cicatrices.">تقشير عميق ومتوسط — تجديد خلايا البشرة وعلاج الندبات.</p></div>
+<div class="bento-card c4 reveal reveal-delay-1"><div class="bento-icon"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div><h3 data-ar="علاج حب الشباب" data-fr="Traitement acné">علاج حب الشباب</h3><p data-ar="بروتوكولات علاج متقدمة — من الموضعية إلى الإشعاعية." data-fr="Protocoles de traitement avancés — topiques à radiologiques.">بروتوكولات علاج متقدمة — من الموضعية إلى الإشعاعية.</p></div>
+<div class="bento-card c5 reveal reveal-delay-2"><div class="bento-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h3 data-ar="mezotherapy" data-fr="Mésothérapie">mezotherapy</h3><p data-ar="mezotherapy للبشرة والشعر — فيتامينات وبروتينات مغذية." data-fr="Mésothérapie peau et cheveux — vitamines et protéines nourrissantes.">mezotherapy للبشرة والشعر — فيتامينات وبروتينات مغذية.</p></div>
+</div></section>
+<section class="section" id="doctors"><div class="section-badge reveal"><span data-ar="فريقنا" data-fr="Notre équipe">فريقنا</span></div>
+<h2 class="section-title reveal"><span data-ar="أطباء متخصصون" data-fr="Des médecins spécialisés">أطباء متخصصون</span><br><span data-ar="بخبرة عالمية" data-fr="d'expérience mondiale">بخبرة عالمية</span></h2>
+<div class="doctors-grid">
+<div class="doctor-card reveal"><div class="doctor-img"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=500&q=80" alt="Dr Nadia" loading="lazy"></div><div class="doctor-info"><h3 data-ar="د. نادية" data-fr="Dr. Nadia">د. نادية</h3><div class="spec" data-ar="استشارية جلدية وتجميل" data-fr="Spécialiste dermatologie">استشارية جلدية وتجميل</div></div></div>
+<div class="doctor-card reveal reveal-delay-1"><div class="doctor-img"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=500&q=80" alt="Dr Karim" loading="lazy"></div><div class="doctor-info"><h3 data-ar="د. كريم" data-fr="Dr. Karim">د. كريم</h3><div class="spec" data-ar="أخصائي ليزر وتقشير" data-fr="Spécialiste laser et peeling">أخصائي ليزر وتقشير</div></div></div>
+<div class="doctor-card reveal reveal-delay-2"><div class="doctor-img"><img src="https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=500&q=80" alt="Dr Meriem" loading="lazy"></div><div class="doctor-info"><h3 data-ar="د. مريم" data-fr="Dr. Meriem">د. مريم</h3><div class="spec" data-ar="أخصائية botulinum toxin" data-fr="Spécialiste botulinum toxin">أخصائية botulinum toxin</div></div></div>
+</div></section>
+<section class="section results-section" id="results"><div class="section-badge reveal"><span data-ar="النتائج" data-fr="Résultats">النتائج</span></div>
+<h2 class="section-title reveal"><span data-ar="نتائج تتحدث" data-fr="Des résultats qui">نتائج تتحدث</span><br><span data-ar="عن نفسها" data-fr="parlent d'eux-mêmes">عن نفسها</span></h2>
+<div class="results-grid">
+<div class="result-card reveal"><div class="result-slider" data-slider><div class="before"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80" alt="Before" loading="lazy" style="filter:brightness(0.78) saturate(0.55) sepia(0.1)"></div><div class="after"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80" alt="After" loading="lazy" style="filter:brightness(1.2) saturate(1.5) contrast(1.05)"></div><div class="divider"></div><div class="handle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 8l4 4-4 4M6 8l-4 4 4 4"/></svg></div><span class="result-label before" data-ar="قبل" data-fr="Avant">قبل</span><span class="result-label after" data-ar="بعد" data-fr="Après">بعد</span></div><div class="result-info"><h4 data-ar="بوتوكس كامل" data-fr="Botox complet">بوتوكس كامل</h4><p data-ar="تنعيم التجاعيد — نتائج طبيعية" data-fr="Lissage des rides — résultats naturels">تنعيم التجاعيد — نتائج طبيعية</p></div></div>
+<div class="result-card reveal reveal-delay-1"><div class="result-slider" data-slider><div class="before"><img src="https://images.unsplash.com/photo-1519415943484-9fa1612ea2b4?w=600&q=80" alt="Before" loading="lazy" style="filter:brightness(0.8) saturate(0.6)"></div><div class="after"><img src="https://images.unsplash.com/photo-1519415943484-9fa1612ea2b4?w=600&q=80" alt="After" loading="lazy" style="filter:brightness(1.25) saturate(1.6) contrast(1.08)"></div><div class="divider"></div><div class="handle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 8l4 4-4 4M6 8l-4 4 4 4"/></svg></div><span class="result-label before" data-ar="قبل" data-fr="Avant">قبل</span><span class="result-label after" data-ar="بعد" data-fr="Après">بعد</span></div><div class="result-info"><h4 data-ar="ازالة ندبات" data-fr="Traitement cicatrices">ازالة ندبات</h4><p data-ar="تقشير كيميائي — تحسين ملمس البشرة" data-fr="Peeling — amélioration de la texture">تقشير كيميائي — تحسين ملمس البشرة</p></div></div>
+<div class="result-card reveal reveal-delay-2"><div class="result-slider" data-slider><div class="before"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80" alt="Before" loading="lazy" style="filter:brightness(0.82) saturate(0.5) sepia(0.08)"></div><div class="after"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80" alt="After" loading="lazy" style="filter:brightness(1.18) saturate(1.4) contrast(1.06)"></div><div class="divider"></div><div class="handle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 8l4 4-4 4M6 8l-4 4 4 4"/></svg></div><span class="result-label before" data-ar="قبل" data-fr="Avant">قبل</span><span class="result-label after" data-ar="بعد" data-fr="Après">بعد</span></div><div class="result-info"><h4 data-ar="ازالة شعر بالليزر" data-fr="Épilation laser">ازالة شعر بالليزر</h4><p data-ar="نتائج دائمة بعد 6 جلسات" data-fr="Résultats permanents après 6 séances">نتائج دائمة بعد 6 جلسات</p></div></div>
+</div></section>
+<section class="stats-section"><div class="stats-grid">
+<div class="stat-item reveal"><div class="stat-num" data-count="8000" data-prefix="+">0</div><div class="stat-label" data-ar="مريض سعيد" data-fr="Patients satisfaits">مريض سعيد</div></div>
+<div class="stat-item reveal reveal-delay-1"><div class="stat-num" data-count="12">0</div><div class="stat-label" data-ar="سنة خبرة" data-fr="Ans d'expérience">سنة خبرة</div></div>
+<div class="stat-item reveal reveal-delay-2"><div class="stat-num" data-count="97" data-suffix="%">0</div><div class="stat-label" data-ar="نسبة الرضا" data-fr="Taux de satisfaction">نسبة الرضا</div></div>
+<div class="stat-item reveal reveal-delay-3"><div class="stat-num" data-count="3000" data-prefix="+">0</div><div class="stat-label" data-ar="علاج ناجح" data-fr="Traitements réussis">علاج ناجح</div></div>
+</div></section>
+<section class="section" id="testimonials"><div class="section-badge reveal"><span data-ar="آراء المرضى" data-fr="Avis patients">آراء المرضى</span></div>
+<h2 class="section-title reveal"><span data-ar="ماذا يقول" data-fr="Ce que disent">ماذا يقول</span><br><span data-ar="مرضانا" data-fr="nos patients">مرضانا</span></h2>
+<div class="testimonials-grid">
+<div class="testimonial-card reveal"><div class="stars">★★★★★</div><div class="quote" data-ar="&quot;تجربة ممتازة! البوتوكس كان طبيعي جداً. أنصح الجميع بعيادة نوفا.&quot;" data-fr="&quot;Expérience excellente ! Le Botox était très naturel. Je recommande Nova.&quot;">&quot;تجربة ممتازة! البوتوكس كان طبيعي جداً. أنصح الجميع بعيادة نوفا.&quot;</div><div class="author"><div class="avatar">س</div><div><div class="name" data-ar="سارة بن عمر" data-fr="Sara Ben Omar">سارة بن عمر</div><div class="role" data-ar="بوتوكس وفيلر" data-fr="Botox et Filler">بوتوكس وفيلر</div></div></div></div>
+<div class="testimonial-card reveal reveal-delay-1"><div class="stars">★★★★★</div><div class="quote" data-ar="&quot;ازالة الشعر بالليزر كانت رائعة. النتائج أحسن مما توقعت.&quot;" data-fr="&quot;L'épilation laser était superbe. Les résultats ont dépassé mes attentes.&quot;">&quot;ازالة الشعر بالليزر كانت رائعة. النتائج أحسن مما توقعت.&quot;</div><div class="author"><div class="avatar">ل</div><div><div class="name" data-ar="ليلى بوعلام" data-fr="Lydia Boualam">ليلى بوعلام</div><div class="role" data-ar="ازالة شعر بالليزر" data-fr="Épilation laser">ازالة شعر بالليزر</div></div></div></div>
+<div class="testimonial-card reveal reveal-delay-2"><div class="stars">★★★★★</div><div class="quote" data-ar="&quot;كنت أعاني من حب الشباب. بعد البروتوكول، بشرتي تحسنت بشكل ملحوظ.&quot;" data-fr="&quot;Je souffrais d'acné. Après le protocole, ma peau s'est nettement améliorée.&quot;">&quot;كنت أعاني من حب الشباب. بعد البروتوكول، بشرتي تحسنت بشكل ملحوظ.&quot;</div><div class="author"><div class="avatar">ي</div><div><div class="name" data-ar="يوسف مرابط" data-fr="Youcef Mourabbi">يوسف مرابط</div><div class="role" data-ar="علاج حب الشباب" data-fr="Traitement acné">علاج حب الشباب</div></div></div></div>
+<div class="testimonial-card reveal reveal-delay-3"><div class="stars">★★★★★</div><div class="quote" data-ar="&quot;التقشير الكيميائي غيّر ملمس بشرتي تماماً.&quot;" data-fr="&quot;Le peeling a complètement changé la texture de ma peau.&quot;">&quot;التقشير الكيميائي غيّر ملمس بشرتي تماماً.&quot;</div><div class="author"><div class="avatar">ن</div><div><div class="name" data-ar="نور الهدى" data-fr="Nour El Houda">نور الهدى</div><div class="role" data-ar="تقشير كيميائي" data-fr="Peeling chimique">تقشير كيميائي</div></div></div></div>
+</div></section>
+<section class="section" id="booking"><div class="booking-section">
+<div class="reveal"><div class="section-badge"><span data-ar="احجز موعدك" data-fr="Réservez votre RDV">احجز موعدك</span></div>
+<h2 class="section-title"><span data-ar="تواصل معنا" data-fr="Contactez-nous">تواصل معنا</span><br><span data-ar="الآن" data-fr="Maintenant">الآن</span></h2>
+<p class="section-desc" style="margin-bottom:36px" data-ar="أرسل لنا بياناتك وسنتواصل معك في أقرب وقت." data-fr="Envoyez-nous vos informations et nous vous contacterons rapidement.">أرسل لنا بياناتك وسنتواصل معك في أقرب وقت.</p>
+<div class="booking-info">
+<div class="booking-info-card"><div class="bi-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><h4 data-ar="الموقع" data-fr="Adresse">الموقع</h4><p data-ar="حي بن عكنون، الجزائر العاصمة" data-fr="Ben Aknoun, Alger">حي بن عكنون، الجزائر العاصمة</p></div></div>
+<div class="booking-info-card"><div class="bi-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><h4 data-ar="الهاتف" data-fr="Téléphone">الهاتف</h4><p>+213 770 433 364</p></div></div>
+<div class="booking-info-card"><div class="bi-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><h4 data-ar="ساعات العمل" data-fr="Horaires">ساعات العمل</h4><p data-ar="السبت - الخميس: 9:00 - 18:00" data-fr="Sam - Jeu : 9h00 - 18h00">السبت - الخميس: 9:00 - 18:00</p></div></div>
+</div></div>
+<div class="booking-form reveal reveal-delay-1"><form id="bookingForm">
+<div class="form-row"><div class="form-group"><label data-ar="الاسم الكامل" data-fr="Nom complet">الاسم الكامل</label><input type="text" id="nameInput" data-placeholder-ar="الاسم واللقب" data-placeholder-fr="Nom et prénom" placeholder="الاسم واللقب" required></div><div class="form-group"><label data-ar="رقم الهاتف" data-fr="Téléphone">رقم الهاتف</label><input type="tel" id="phoneInput" placeholder="0555 55 55 55" required></div></div>
+<div class="form-group"><label data-ar="الخدمة المطلوبة" data-fr="Service souhaité">الخدمة المطلوبة</label><select id="serviceInput">
+<option value="بوتوكس وفيلر" data-ar="بوتوكس وفيلر" data-fr="Botox et Filler">بوتوكس وفيلر</option>
+<option value="ازالة شعر بالليزر" data-ar="ازالة شعر بالليزر" data-fr="Épilation laser">ازالة شعر بالليزر</option>
+<option value="تقشير كيميائي" data-ar="تقشير كيميائي" data-fr="Peeling chimique">تقشير كيميائي</option>
+<option value="علاج حب الشباب" data-ar="علاج حب الشباب" data-fr="Traitement acné">علاج حب الشباب</option>
+<option value="mezotherapy" data-ar="mezotherapy" data-fr="Mésothérapie">mezotherapy</option>
+<option value="استشارة عامة" data-ar="استشارة عامة" data-fr="Consultation">استشارة عامة</option>
+</select></div>
+<div class="form-group"><label data-ar="ملاحظات" data-fr="Notes">ملاحظات</label><textarea id="notesInput" data-placeholder-ar="أي ملاحظات..." data-placeholder-fr="Notes..." placeholder="أي ملاحظات..."></textarea></div>
+<button type="submit" class="whatsapp-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span data-ar="إرسال عبر واتساب" data-fr="Envoyer via WhatsApp">إرسال عبر واتساب</span></button>
+</form></div></div></section>
+<section class="section map-section" id="map"><div class="section-badge reveal"><span data-ar="الموقع" data-fr="Localisation">الموقع</span></div>
+<h2 class="section-title reveal"><span data-ar="أين تجدنا" data-fr="Où nous trouver">أين تجدنا</span></h2>
+<div class="map-container reveal"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3199.5!2d3.0!3d36.78!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDQ2JzQ4LjAiTiAzwrAwMCcwMC4wIkU!5e0!3m2!1sar!2sdz!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></section>
+<section class="cta-section"><h2 class="cta-title reveal"><span data-ar="جاهز لبشرة" data-fr="Prêt pour une peau">جاهز لبشرة</span><br><span data-ar="جديدة؟" data-fr="nouvelle ?">جديدة؟</span></h2>
+<p class="cta-desc reveal" data-ar="احجز استشارتك المجانية الآن واحصل على خصم 20%." data-fr="Réservez votre consultation gratuite avec 20% de réduction.">احجز استشارتك المجانية الآن واحصل على خصم 20%.</p>
+<div class="cta-actions reveal"><a href="https://wa.me/213770433364" class="btn-primary"><span data-ar="تواصل عبر واتساب" data-fr="Contactez via WhatsApp">تواصل عبر واتساب</span></a></div></section>
+<footer class="footer"><div class="footer-inner">
+<div class="footer-brand"><div class="logo">NOVA DERM</div><p data-ar="عيادة نوفا لطب الجلدية والتجميل — أحدث علاجات البشرة بأيدي أطباء متخصصين." data-fr="Clinique Nova — derniers traitements dermatologiques par des spécialistes.">عيادة نوفا لطب الجلدية والتجميل — أحدث علاجات البشرة بأيدي أطباء متخصصين.</p></div>
+<div class="footer-col"><h4 data-ar="روابط سريعة" data-fr="Liens rapides">روابط سريعة</h4><a href="#services" data-ar="الخدمات" data-fr="Services">الخدمات</a><a href="#doctors" data-ar="الأطباء" data-fr="Médecins">الأطباء</a><a href="#map" data-ar="الموقع" data-fr="Localisation">الموقع</a></div>
+<div class="footer-col"><h4 data-ar="الخدمات" data-fr="Services">الخدمات</h4><a href="#" data-ar="بوتوكس وفيلر" data-fr="Botox">بوتوكس وفيلر</a><a href="#" data-ar="ليزر" data-fr="Laser">ليزر</a><a href="#" data-ar="تقشير" data-fr="Peeling">تقشير</a></div>
+<div class="footer-col"><h4 data-ar="تواصل معنا" data-fr="Contact">تواصل معنا</h4><a href="tel:+213770433364">+213 770 433 364</a><a href="https://wa.me/213770433364">WhatsApp</a><a href="#">Instagram</a></div>
+</div><div class="footer-bottom"><p>© 2026 Nova Derm Clinic.</p><p data-ar="صُمم بـ ❤ في الجزائر" data-fr="Fait avec ❤ en Algérie">صُمم بـ ❤ في الجزائر</p></div></footer>
+<a href="https://wa.me/213770433364" class="wa-float" aria-label="WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+<script>
+(function(){const n=document.getElementById('loaderNum'),l=document.getElementById('loader');let c=0;const i=setInterval(()=>{c+=Math.floor(Math.random()*8)+3;if(c>=100){c=100;clearInterval(i);setTimeout(()=>l.classList.add('hidden'),400)}n.textContent=c},30)})();
+const nav=document.getElementById('nav');window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>50)});
+const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');mobileMenu.classList.toggle('active')});
+function closeMenu(){hamburger.classList.remove('active');mobileMenu.classList.remove('active')}
+const themeToggle=document.getElementById('themeToggle');
+const savedTheme=localStorage.getItem('theme')||'light';
+document.documentElement.setAttribute('data-theme',savedTheme);
+themeToggle.textContent=savedTheme==='light'?'🌙':'☀';
+themeToggle.addEventListener('click',()=>{const c=document.documentElement.getAttribute('data-theme'),n=c==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);themeToggle.textContent=n==='light'?'🌙':'☀'});
+const langToggle=document.getElementById('langToggle');
+function setLang(lang){document.documentElement.setAttribute('data-lang',lang);document.documentElement.setAttribute('dir',lang==='ar'?'rtl':'ltr');document.documentElement.setAttribute('lang',lang);langToggle.textContent=lang==='ar'?'FR':'AR';document.querySelectorAll('[data-ar][data-fr]').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});document.querySelectorAll('#serviceInput option').forEach(opt=>{if(opt.getAttribute('data-'+lang))opt.textContent=opt.getAttribute('data-'+lang)})}
+const savedLang=localStorage.getItem('lang')||'ar';setLang(savedLang);
+langToggle.addEventListener('click',()=>{const c=document.documentElement.getAttribute('data-lang'),n=c==='ar'?'fr':'ar';localStorage.setItem('lang',n);setLang(n)});
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const co=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target,t=parseInt(el.getAttribute('data-count')),p=el.getAttribute('data-prefix')||'',s=el.getAttribute('data-suffix')||'';let c=0;const st=t/125;const up=()=>{c+=st;if(c<t){el.textContent=p+Math.floor(c).toLocaleString()+s;requestAnimationFrame(up)}else{el.textContent=p+t.toLocaleString()+s}};up();co.unobserve(el)}})},{threshold:0.5});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+document.querySelectorAll('[data-slider]').forEach(sl=>{const af=sl.querySelector('.after'),dv=sl.querySelector('.divider'),hn=sl.querySelector('.handle');let dr=false;function up(x){const r=sl.getBoundingClientRect();let p=(x-r.left)/r.width;p=Math.max(0.05,Math.min(0.95,p));af.style.clipPath=`inset(0 ${(1-p)*100}% 0 0)`;dv.style.left=p*100+'%';hn.style.left=p*100+'%'}sl.addEventListener('mousedown',e=>{dr=true;up(e.clientX)});sl.addEventListener('touchstart',e=>{dr=true;up(e.touches[0].clientX)});document.addEventListener('mousemove',e=>{if(dr)up(e.clientX)});document.addEventListener('touchmove',e=>{if(dr)up(e.touches[0].clientX)});document.addEventListener('mouseup',()=>dr=false);document.addEventListener('touchend',()=>dr=false)});
+document.getElementById('bookingForm').addEventListener('submit',function(e){e.preventDefault();const lang=document.documentElement.getAttribute('data-lang'),n=document.getElementById('nameInput').value,p=document.getElementById('phoneInput').value,s=document.getElementById('serviceInput').value,nt=document.getElementById('notesInput').value;const msg=lang==='ar'?`مرحباً، أريد حجز موعد في عيادة نوفا.\n\nالاسم: ${n}\nالهاتف: ${p}\nالخدمة: ${s}\nملاحظات: ${nt||'لا توجد'}`:`Bonjour, je veux prendre rendez-vous à la clinique Nova.\n\nNom: ${n}\nTél: ${p}\nService: ${s}\nNotes: ${nt||'Aucune'}`;window.open(`https://wa.me/213770433364?text=${encodeURIComponent(msg)}`,'_blank')});
+</script></body></html>
