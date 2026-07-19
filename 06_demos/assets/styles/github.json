@@ -1,0 +1,92 @@
+{
+  "body": {
+    "backgroundColor": "rgb(13, 17, 23)",
+    "color": "rgb(240, 246, 252)",
+    "fontFamily": "\"Mona Sans VF\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Noto Sans\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+    "fontSize": "14px"
+  },
+  "headings": [
+    {
+      "tag": "H1",
+      "color": "rgb(240, 246, 252)",
+      "fontSize": "32px",
+      "fontWeight": "600",
+      "lineHeight": "48px",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "H1",
+      "color": "rgb(240, 246, 252)",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "21px",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "H1",
+      "color": "rgb(240, 246, 252)",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "21px",
+      "letterSpacing": "normal"
+    }
+  ],
+  "buttons": [
+    {
+      "text": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(145, 152, 161)",
+      "borderRadius": "6px",
+      "padding": "0px",
+      "fontWeight": "500",
+      "border": "1px solid rgb(61, 68, 77)",
+      "boxShadow": "none"
+    },
+    {
+      "text": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(240, 246, 252)",
+      "borderRadius": "50%",
+      "padding": "0px",
+      "fontWeight": "500",
+      "border": "1px solid rgba(0, 0, 0, 0)",
+      "boxShadow": "none"
+    },
+    {
+      "text": "Type / to search",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(240, 246, 252)",
+      "borderRadius": "6px",
+      "padding": "0px 12px",
+      "fontWeight": "500",
+      "border": "1px solid rgb(61, 68, 77)",
+      "boxShadow": "none"
+    }
+  ],
+  "cards": [
+    {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(240, 246, 252)",
+      "borderRadius": "0px",
+      "padding": "0px",
+      "border": "0px none rgb(240, 246, 252)",
+      "boxShadow": "none"
+    }
+  ],
+  "navigation": {
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(240, 246, 252)",
+    "padding": "0px",
+    "backdropFilter": "none"
+  },
+  "footer": {
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(145, 152, 161)",
+    "padding": "48px 0px 40px"
+  },
+  "uniqueColors": [
+    "rgb(13, 17, 23)",
+    "rgb(240, 246, 252)"
+  ],
+  "gradients": []
+}

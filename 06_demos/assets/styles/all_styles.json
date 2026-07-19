@@ -1,0 +1,401 @@
+{
+  "linear": {
+    "body": {
+      "backgroundColor": "rgb(8, 9, 10)",
+      "color": "rgb(247, 248, 248)",
+      "fontFamily": "\"Inter Variable\", \"SF Pro Display\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "fontSize": "16px"
+    },
+    "headings": [
+      {
+        "tag": "H1",
+        "color": "rgb(247, 248, 248)",
+        "fontSize": "64px",
+        "fontWeight": "510",
+        "lineHeight": "64px",
+        "letterSpacing": "-1.408px"
+      },
+      {
+        "tag": "H3",
+        "color": "rgb(208, 214, 224)",
+        "fontSize": "20px",
+        "fontWeight": "590",
+        "lineHeight": "26.6px",
+        "letterSpacing": "-0.24px"
+      },
+      {
+        "tag": "H2",
+        "color": "rgb(138, 143, 152)",
+        "fontSize": "48px",
+        "fontWeight": "510",
+        "lineHeight": "48px",
+        "letterSpacing": "-1.056px"
+      }
+    ],
+    "buttons": [
+      {
+        "text": "Product",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(138, 143, 152)",
+        "borderRadius": "9999px",
+        "padding": "0px 12px",
+        "fontWeight": "400",
+        "border": "0px none rgb(138, 143, 152)",
+        "boxShadow": "none"
+      },
+      {
+        "text": "Resources",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(138, 143, 152)",
+        "borderRadius": "9999px",
+        "padding": "0px 12px",
+        "fontWeight": "400",
+        "border": "0px none rgb(138, 143, 152)",
+        "boxShadow": "none"
+      },
+      {
+        "text": "",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(247, 248, 248)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "fontWeight": "400",
+        "border": "0px none rgb(247, 248, 248)",
+        "boxShadow": "none"
+      }
+    ],
+    "cards": [
+      {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(247, 248, 248)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "border": "0px none rgb(247, 248, 248)",
+        "boxShadow": "none"
+      },
+      {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(247, 248, 248)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "border": "0px none rgb(247, 248, 248)",
+        "boxShadow": "none"
+      },
+      {
+        "backgroundColor": "rgb(15, 16, 17)",
+        "color": "rgb(247, 248, 248)",
+        "borderRadius": "8px",
+        "padding": "0px 24px 28px",
+        "border": "1px solid rgba(255, 255, 255, 0.05)",
+        "boxShadow": "none"
+      }
+    ],
+    "navigation": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(247, 248, 248)",
+      "padding": "0px",
+      "backdropFilter": "none"
+    },
+    "footer": {
+      "backgroundColor": "rgb(8, 9, 10)",
+      "color": "rgb(247, 248, 248)",
+      "padding": "0px"
+    },
+    "uniqueColors": [
+      "rgb(8, 9, 10)",
+      "rgb(247, 248, 248)"
+    ],
+    "gradients": []
+  },
+  "stripe": {
+    "body": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "fontFamily": "sohne-var, \"SF Pro Display\", sans-serif",
+      "fontSize": "16px"
+    },
+    "headings": [
+      {
+        "tag": "H1",
+        "color": "rgb(129, 184, 26)",
+        "fontSize": "48px",
+        "fontWeight": "300",
+        "lineHeight": "55.2px",
+        "letterSpacing": "-0.96px"
+      },
+      {
+        "tag": "H1",
+        "color": "rgba(0, 14, 255, 0.5)",
+        "fontSize": "48px",
+        "fontWeight": "300",
+        "lineHeight": "55.2px",
+        "letterSpacing": "-0.96px"
+      },
+      {
+        "tag": "H2",
+        "color": "rgb(6, 27, 49)",
+        "fontSize": "32px",
+        "fontWeight": "300",
+        "lineHeight": "35.2px",
+        "letterSpacing": "-0.64px"
+      }
+    ],
+    "buttons": [
+      {
+        "text": "Products",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(6, 27, 49)",
+        "borderRadius": "4px",
+        "padding": "12px 0px",
+        "fontWeight": "400",
+        "border": "0px none rgb(6, 27, 49)",
+        "boxShadow": "none"
+      },
+      {
+        "text": "Solutions",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(6, 27, 49)",
+        "borderRadius": "4px",
+        "padding": "12px 0px",
+        "fontWeight": "400",
+        "border": "0px none rgb(6, 27, 49)",
+        "boxShadow": "none"
+      },
+      {
+        "text": "Developers",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(6, 27, 49)",
+        "borderRadius": "4px",
+        "padding": "12px 0px",
+        "fontWeight": "400",
+        "border": "0px none rgb(6, 27, 49)",
+        "boxShadow": "none"
+      }
+    ],
+    "cards": [
+      {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "boxShadow": "none"
+      },
+      {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "boxShadow": "none"
+      },
+      {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "boxShadow": "none"
+      }
+    ],
+    "navigation": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "padding": "10px 16px",
+      "backdropFilter": "none"
+    },
+    "footer": {
+      "backgroundColor": "rgb(248, 250, 253)",
+      "color": "rgb(0, 0, 0)",
+      "padding": "0px 16px"
+    },
+    "uniqueColors": [
+      "rgb(0, 0, 0)"
+    ],
+    "gradients": []
+  },
+  "vercel": {
+    "body": {
+      "backgroundColor": "rgb(0, 0, 0)",
+      "color": "rgb(237, 237, 237)",
+      "fontFamily": "GeistSans, \"GeistSans Fallback\"",
+      "fontSize": "16px"
+    },
+    "headings": [
+      {
+        "tag": "H3",
+        "color": "rgb(143, 143, 143)",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "16px",
+        "letterSpacing": "0.6px"
+      },
+      {
+        "tag": "H3",
+        "color": "rgb(143, 143, 143)",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "16px",
+        "letterSpacing": "0.6px"
+      },
+      {
+        "tag": "H3",
+        "color": "rgb(143, 143, 143)",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "16px",
+        "letterSpacing": "0.6px"
+      }
+    ],
+    "buttons": [
+      {
+        "text": "Copy Logo as SVG",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(237, 237, 237)",
+        "borderRadius": "4px",
+        "padding": "12px",
+        "fontWeight": "400",
+        "border": "0px solid rgb(31, 31, 31)",
+        "boxShadow": "none"
+      },
+      {
+        "text": "Copy Wordmark as SVG",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(237, 237, 237)",
+        "borderRadius": "4px",
+        "padding": "12px",
+        "fontWeight": "400",
+        "border": "0px solid rgb(31, 31, 31)",
+        "boxShadow": "none"
+      },
+      {
+        "text": "Brand Guidelines",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(237, 237, 237)",
+        "borderRadius": "4px",
+        "padding": "12px",
+        "fontWeight": "400",
+        "border": "0px solid rgb(31, 31, 31)",
+        "boxShadow": "none"
+      }
+    ],
+    "cards": [
+      {
+        "backgroundColor": "rgb(10, 10, 10)",
+        "color": "rgb(237, 237, 237)",
+        "borderRadius": "6px",
+        "padding": "0px",
+        "border": "0px solid rgb(31, 31, 31)",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.145) 0px 0px 0px 1px, rgba(0, 0, 0, 0.02) 0px 1px 1px 0px, rgba(0, 0, 0, 0.04) 0px 4px 8px 0px, rgb(0, 0, 0) 0px 0px 0px 1px, rgb(10, 10, 10) 0px 0px 0px 1px"
+      }
+    ],
+    "navigation": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(237, 237, 237)",
+      "padding": "0px",
+      "backdropFilter": "none"
+    },
+    "footer": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(237, 237, 237)",
+      "padding": "40px 24px"
+    },
+    "uniqueColors": [
+      "rgb(0, 0, 0)",
+      "rgb(237, 237, 237)"
+    ],
+    "gradients": []
+  },
+  "github": {
+    "body": {
+      "backgroundColor": "rgb(13, 17, 23)",
+      "color": "rgb(240, 246, 252)",
+      "fontFamily": "\"Mona Sans VF\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Noto Sans\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+      "fontSize": "14px"
+    },
+    "headings": [
+      {
+        "tag": "H1",
+        "color": "rgb(240, 246, 252)",
+        "fontSize": "32px",
+        "fontWeight": "600",
+        "lineHeight": "48px",
+        "letterSpacing": "normal"
+      },
+      {
+        "tag": "H1",
+        "color": "rgb(240, 246, 252)",
+        "fontSize": "14px",
+        "fontWeight": "600",
+        "lineHeight": "21px",
+        "letterSpacing": "normal"
+      },
+      {
+        "tag": "H1",
+        "color": "rgb(240, 246, 252)",
+        "fontSize": "14px",
+        "fontWeight": "600",
+        "lineHeight": "21px",
+        "letterSpacing": "normal"
+      }
+    ],
+    "buttons": [
+      {
+        "text": "",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(145, 152, 161)",
+        "borderRadius": "6px",
+        "padding": "0px",
+        "fontWeight": "500",
+        "border": "1px solid rgb(61, 68, 77)",
+        "boxShadow": "none"
+      },
+      {
+        "text": "",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(240, 246, 252)",
+        "borderRadius": "50%",
+        "padding": "0px",
+        "fontWeight": "500",
+        "border": "1px solid rgba(0, 0, 0, 0)",
+        "boxShadow": "none"
+      },
+      {
+        "text": "Type / to search",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(240, 246, 252)",
+        "borderRadius": "6px",
+        "padding": "0px 12px",
+        "fontWeight": "500",
+        "border": "1px solid rgb(61, 68, 77)",
+        "boxShadow": "none"
+      }
+    ],
+    "cards": [
+      {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(240, 246, 252)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "border": "0px none rgb(240, 246, 252)",
+        "boxShadow": "none"
+      }
+    ],
+    "navigation": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(240, 246, 252)",
+      "padding": "0px",
+      "backdropFilter": "none"
+    },
+    "footer": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(145, 152, 161)",
+      "padding": "48px 0px 40px"
+    },
+    "uniqueColors": [
+      "rgb(13, 17, 23)",
+      "rgb(240, 246, 252)"
+    ],
+    "gradients": []
+  }
+}

@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Temporary
+*.tmp
+*.temp
+*.log
+
+# Keep screenshots for demos
+!06_demos/screenshots/
+
+# Keep all demo files
+!06_demos/**/*.html
+!06_demos/**/*.css
+!06_demos/**/*.js
+!06_demos/**/*.png
+!06_demos/**/*.jpg
+!06_demos/**/*.svg
