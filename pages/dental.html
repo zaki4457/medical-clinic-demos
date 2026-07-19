@@ -1,1048 +1,563 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="light" data-lang="ar">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="عيادة سمايل لطب الأسنان في الجزائر العاصمة - خبرة 15 سنة مع أكثر من 12,000 مريض">
-<title>عيادة سمايل لطب الأسنان | الجزائر العاصمة</title>
+<title>عيادة رازس لطب الأسنان | Razes Dental</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
---primary:#1B4332;
---primary-light:#2D6A4F;
---primary-dark:#0F2B1F;
---accent:#D4A373;
---accent-light:#E9C46A;
---accent-warm:#C9956B;
---n0:#FFFCF7;
---n50:#FAF8F5;
---n100:#F5F0EB;
---n200:#E8E0D8;
---n300:#D4C8BC;
---n400:#A89888;
---n500:#7A6E62;
---n600:#5C524A;
---n700:#3D3630;
---n800:#2A2520;
---n900:#1A1612;
---font-heading:'Playfair Display',Georgia,serif;
---font-body:'IBM Plex Sans Arabic',system-ui,sans-serif;
---ease-out-expo:cubic-bezier(0.16, 1, 0.3, 1);
---ease-out-quart:cubic-bezier(0.25, 1, 0.5, 1);
---ease-spring:cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:var(--font-body);color:var(--n800);background:var(--n0);line-height:1.7;overflow-x:hidden}
-img{max-width:100%;display:block}
-::selection{background:var(--primary);color:#fff}
 
-/* Smooth Reveal Animations */
-.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo)}
-.reveal.active{opacity:1;transform:translateY(0)}
+/* ===== THEME TOKENS ===== */
+[data-theme="light"]{
+--bg:#f8f7f4;--bg2:#efeee9;--card:#ffffff;--card2:#f2f1ec;
+--text:#111111;--text2:#555;--text3:#888;
+--accent:#0d9488;--accent2:#0f766e;--accent-glow:rgba(13,148,136,0.1);
+--glass:rgba(0,0,0,0.03);--glass-border:rgba(0,0,0,0.08);
+--shadow:0 2px 20px rgba(0,0,0,0.06);
+--loader-bg:#f8f7f4;
+}
+[data-theme="dark"]{
+--bg:#050505;--bg2:#0a0a0a;--card:#111111;--card2:#161616;
+--text:#f0f0f0;--text2:#999;--text3:#555;
+--accent:#14b8a6;--accent2:#2dd4bf;--accent-glow:rgba(20,184,166,0.15);
+--glass:rgba(255,255,255,0.04);--glass-border:rgba(255,255,255,0.08);
+--shadow:0 2px 20px rgba(0,0,0,0.2);
+--loader-bg:#050505;
+}
+
+:root{--radius:20px;--radius-sm:12px;--ease:cubic-bezier(0.32,0.72,0,1)}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background 0.4s var(--ease),color 0.4s var(--ease)}
+::selection{background:var(--accent);color:#fff}
+
+[data-theme="light"] body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+[data-theme="dark"] body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* LOADER */
+.loader{position:fixed;inset:0;z-index:10000;background:var(--loader-bg);display:flex;align-items:center;justify-content:center;transition:opacity 0.8s var(--ease),visibility 0.8s}
+.loader.hidden{opacity:0;visibility:hidden}
+.loader-num{font-family:'Space Grotesk',monospace;font-size:clamp(4rem,15vw,10rem);font-weight:700;color:var(--accent);letter-spacing:-0.05em}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;transition:all 0.5s var(--ease)}
+.nav.scrolled{background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);padding:12px 40px}
+.nav-logo{font-family:'Space Grotesk',monospace;font-size:1.15rem;font-weight:700;color:var(--accent);text-decoration:none;letter-spacing:-0.02em}
+.nav-center{display:flex;align-items:center;gap:8px}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.3s var(--ease);position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;right:0;width:0;height:1.5px;background:var(--accent);transition:width 0.4s var(--ease)}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:10px 22px;border-radius:999px;text-decoration:none;font-size:0.85rem;font-weight:600;transition:all 0.4s var(--ease)}
+.nav-cta:hover{background:var(--accent2);transform:scale(0.97)}
+
+/* THEME & LANG TOGGLES */
+.toggle-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--glass-border);background:var(--glass);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s var(--ease);font-size:0.75rem;font-weight:700;font-family:'Space Grotesk',monospace}
+.toggle-btn:hover{background:var(--accent-glow);color:var(--accent);border-color:var(--accent)}
+.lang-btn{font-size:0.7rem;font-weight:700;padding:0;width:36px;height:36px;border-radius:50%;border:1px solid var(--glass-border);background:var(--glass);color:var(--text2);cursor:pointer;transition:all 0.3s var(--ease);font-family:'Space Grotesk',monospace}
+.lang-btn:hover{background:var(--accent-glow);color:var(--accent);border-color:var(--accent)}
+
+.hamburger{display:none;width:44px;height:44px;background:none;border:none;cursor:pointer;position:relative;z-index:1001}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);position:absolute;left:11px;transition:all 0.4s var(--ease)}
+.hamburger span:nth-child(1){top:15px}
+.hamburger span:nth-child(2){top:21px}
+.hamburger span:nth-child(3){top:27px}
+.hamburger.active span:nth-child(1){transform:rotate(45deg);top:21px}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg);top:21px}
+
+.mobile-menu{position:fixed;inset:0;z-index:999;background:color-mix(in srgb,var(--bg) 95%,transparent);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;visibility:hidden;transition:all 0.5s var(--ease)}
+.mobile-menu.active{opacity:1;visibility:visible}
+.mobile-menu a{color:var(--text);text-decoration:none;font-size:1.5rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.5s var(--ease)}
+.mobile-menu.active a{transform:translateY(0);opacity:1}
+.mobile-menu.active a:nth-child(1){transition-delay:0.1s}
+.mobile-menu.active a:nth-child(2){transition-delay:0.15s}
+.mobile-menu.active a:nth-child(3){transition-delay:0.2s}
+.mobile-menu.active a:nth-child(4){transition-delay:0.25s}
+.mobile-menu.active a:nth-child(5){transition-delay:0.3s}
+.mobile-menu.active a:nth-child(6){transition-delay:0.35s}
+
+/* HERO */
+.hero{min-height:100dvh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 40px 80px}
+.hero::before{content:'';position:absolute;top:-30%;left:-20%;width:800px;height:800px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);pointer-events:none;animation:float 20s ease-in-out infinite}
+.hero::after{content:'';position:absolute;bottom:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(59,130,246,0.06) 0%,transparent 70%);pointer-events:none;animation:float 25s ease-in-out infinite reverse}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-40px)}}
+.hero-inner{max-width:1400px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--glass-border);border-radius:999px;padding:8px 20px;font-size:0.75rem;font-weight:600;color:var(--accent);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.hero-title{font-family:'Space Grotesk',monospace;font-size:clamp(2.5rem,5.5vw,4.2rem);font-weight:700;line-height:1.1;letter-spacing:-0.03em;margin-bottom:20px}
+.hero-title .accent{color:var(--accent)}
+.hero-desc{font-size:1.05rem;color:var(--text2);line-height:1.8;max-width:480px;margin-bottom:36px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;padding:15px 30px;border-radius:999px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.4s var(--ease);border:none;cursor:pointer;box-shadow:0 4px 20px var(--accent-glow)}
+.btn-primary:hover{background:var(--accent2);transform:scale(0.97);box-shadow:0 8px 32px var(--accent-glow)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--glass-border);color:var(--text);padding:15px 30px;border-radius:999px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.4s var(--ease);cursor:pointer}
+.btn-ghost:hover{background:var(--accent-glow);border-color:var(--accent);transform:scale(0.97)}
+.hero-stats{display:flex;gap:36px;margin-top:44px}
+.hero-stat .num{font-family:'Space Grotesk',monospace;font-size:1.75rem;font-weight:700;color:var(--accent)}
+.hero-stat .label{font-size:0.8rem;color:var(--text3);margin-top:4px}
+.hero-visual{position:relative;display:flex;justify-content:center}
+.hero-visual .main-card{width:100%;max-width:460px;aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden;position:relative;border:1px solid var(--glass-border);background:var(--card);box-shadow:var(--shadow)}
+.hero-visual .main-card img{width:100%;height:100%;object-fit:cover}
+.float-card{position:absolute;background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius-sm);padding:14px 18px;box-shadow:var(--shadow)}
+.float-card.top-right{top:-16px;left:-24px;animation:floatCard 6s ease-in-out infinite}
+.float-card.bottom-left{bottom:-16px;right:-24px;animation:floatCard 8s ease-in-out infinite reverse}
+@keyframes floatCard{0%,100%{transform:translate(0,0)}50%{transform:translate(8px,-12px)}}
+.float-card .fc-icon{width:36px;height:36px;border-radius:10px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.float-card .fc-icon svg{width:18px;height:18px;stroke:var(--accent);stroke-width:1.5;fill:none}
+.float-card .fc-text{font-size:0.7rem;color:var(--text3)}
+.float-card .fc-value{font-family:'Space Grotesk',monospace;font-size:1rem;font-weight:700;margin-top:1px}
+
+/* SECTIONS */
+.section{padding:100px 40px;max-width:1400px;margin:0 auto}
+.section-badge{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--glass-border);border-radius:999px;padding:6px 16px;font-size:0.7rem;font-weight:600;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px}
+.section-title{font-family:'Space Grotesk',monospace;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-0.02em;margin-bottom:14px}
+.section-desc{font-size:1rem;color:var(--text2);line-height:1.8;max-width:560px}
+
+/* BENTO */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:50px}
+.bento-card{background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden;transition:all 0.5s var(--ease);box-shadow:var(--shadow)}
+.bento-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-glow) 0%,transparent 50%);opacity:0;transition:opacity 0.5s var(--ease)}
+.bento-card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.bento-card:hover::before{opacity:1}
+.bento-card.c1{grid-column:span 8;min-height:280px}
+.bento-card.c2{grid-column:span 4;min-height:280px}
+.bento-card.c3{grid-column:span 4;min-height:260px}
+.bento-card.c4{grid-column:span 4;min-height:260px}
+.bento-card.c5{grid-column:span 4;min-height:260px}
+.bento-icon{width:50px;height:50px;border-radius:14px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.bento-icon svg{width:24px;height:24px;stroke:var(--accent);stroke-width:1.5;fill:none}
+.bento-card h3{font-family:'Space Grotesk',monospace;font-size:1.1rem;font-weight:600;margin-bottom:10px}
+.bento-card p{color:var(--text2);font-size:0.9rem;line-height:1.7}
+
+/* DOCTORS */
+.doctors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+.doctor-card{background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius);overflow:hidden;transition:all 0.5s var(--ease);box-shadow:var(--shadow)}
+.doctor-card:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 20px 50px rgba(0,0,0,0.1)}
+.doctor-img{aspect-ratio:1;overflow:hidden;background:var(--card2)}
+.doctor-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s var(--ease)}
+.doctor-card:hover .doctor-img img{transform:scale(1.05)}
+.doctor-info{padding:22px}
+.doctor-info h3{font-family:'Space Grotesk',monospace;font-size:1.05rem;font-weight:600;margin-bottom:4px}
+.doctor-info .spec{color:var(--accent);font-size:0.85rem;font-weight:500}
+
+/* RESULTS */
+.results-section{margin-top:70px}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+.result-card{background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.result-slider{position:relative;aspect-ratio:4/3;overflow:hidden;cursor:ew-resize}
+.result-slider .before,.result-slider .after{position:absolute;inset:0}
+.result-slider .before img,.result-slider .after img{width:100%;height:100%;object-fit:cover}
+.result-slider .after{clip-path:inset(0 50% 0 0)}
+.result-slider .divider{position:absolute;top:0;bottom:0;width:3px;background:var(--accent);left:50%;transform:translateX(-50%);z-index:2}
+.result-slider .handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:3;box-shadow:0 2px 12px rgba(0,0,0,0.2);border:3px solid #fff;transition:transform 0.2s var(--ease)}.result-slider:hover .handle{transform:translate(-50%,-50%) scale(1.08)}.result-slider:hover .handle{transform:translate(-50%,-50%) scale(1.08)}
+
+.result-label{position:absolute;bottom:10px;padding:5px 12px;background:rgba(0,0,0,0.55);backdrop-filter:blur(10px);border-radius:999px;font-size:0.7rem;font-weight:600;color:#fff;z-index:2}
+.result-label.before{right:10px}
+.result-label.after{left:10px}
+.result-info{padding:18px}
+.result-info h4{font-size:0.95rem;font-weight:600;margin-bottom:4px}
+.result-info p{color:var(--text2);font-size:0.85rem}
+
+/* STATS */
+.stats-section{background:var(--bg2);border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);padding:70px 40px}
+.stats-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:36px;text-align:center}
+.stat-item .stat-num{font-family:'Space Grotesk',monospace;font-size:clamp(2rem,4.5vw,3rem);font-weight:700;color:var(--accent);letter-spacing:-0.03em}
+.stat-item .stat-label{font-size:0.85rem;color:var(--text2);margin-top:6px}
+
+/* TESTIMONIALS */
+.testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:50px}
+.testimonial-card{background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius);padding:28px;transition:all 0.5s var(--ease);box-shadow:var(--shadow)}
+.testimonial-card:hover{transform:translateY(-3px);border-color:var(--accent)}
+.testimonial-card .stars{color:#f59e0b;font-size:0.85rem;margin-bottom:14px;letter-spacing:2px}
+.testimonial-card .quote{color:var(--text2);font-size:0.9rem;line-height:1.8;margin-bottom:18px;font-style:italic}
+.testimonial-card .author{display:flex;align-items:center;gap:12px}
+.testimonial-card .avatar{width:40px;height:40px;border-radius:50%;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:1rem}
+.testimonial-card .name{font-weight:600;font-size:0.9rem}
+.testimonial-card .role{font-size:0.75rem;color:var(--text3)}
+
+/* BOOKING */
+.booking-section{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+.booking-form{background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius);padding:36px;box-shadow:var(--shadow)}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:0.85rem;font-weight:500;margin-bottom:6px;color:var(--text2)}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:13px 16px;background:var(--bg);border:1px solid var(--glass-border);border-radius:var(--radius-sm);color:var(--text);font-family:inherit;font-size:0.9rem;transition:border-color 0.3s var(--ease)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.form-group textarea{min-height:100px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.whatsapp-btn{width:100%;padding:15px;background:#25d366;color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.95rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.4s var(--ease)}
+.whatsapp-btn:hover{background:#20bd5a;transform:scale(0.98);box-shadow:0 8px 30px rgba(37,211,102,0.3)}
+.booking-info{display:flex;flex-direction:column;gap:20px}
+.booking-info-card{background:var(--card);border:1px solid var(--glass-border);border-radius:var(--radius);padding:22px;display:flex;gap:14px;align-items:start;transition:all 0.4s var(--ease);box-shadow:var(--shadow)}
+.booking-info-card:hover{transform:translateX(-4px);border-color:var(--accent)}
+.booking-info-card .bi-icon{width:44px;height:44px;border-radius:12px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.booking-info-card .bi-icon svg{width:20px;height:20px;stroke:var(--accent);stroke-width:1.5;fill:none}
+.booking-info-card h4{font-weight:600;margin-bottom:3px;font-size:0.9rem}
+.booking-info-card p{color:var(--text2);font-size:0.85rem;line-height:1.5}
+
+/* MAP */
+.map-section{margin-top:70px}
+.map-container{width:100%;height:420px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--glass-border);margin-top:36px;box-shadow:var(--shadow)}
+.map-container iframe{width:100%;height:100%;border:0;filter:grayscale(0.2)}
+[data-theme="dark"] .map-container iframe{filter:grayscale(0.6) brightness(0.7)}
+
+/* CTA */
+.cta-section{text-align:center;padding:100px 40px;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,var(--accent-glow) 0%,transparent 70%);pointer-events:none}
+.cta-title{font-family:'Space Grotesk',monospace;font-size:clamp(1.8rem,4.5vw,3rem);font-weight:700;margin-bottom:18px;position:relative}
+.cta-desc{font-size:1.05rem;color:var(--text2);margin-bottom:36px;position:relative}
+.cta-actions{display:flex;gap:14px;justify-content:center;position:relative}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--glass-border);padding:50px 40px 24px}
+.footer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px}
+.footer-brand .logo{font-family:'Space Grotesk',monospace;font-size:1.15rem;font-weight:700;color:var(--accent);margin-bottom:10px}
+.footer-brand p{color:var(--text2);font-size:0.85rem;line-height:1.7;max-width:280px}
+.footer-col h4{font-weight:600;margin-bottom:14px;font-size:0.9rem}
+.footer-col a{display:block;color:var(--text2);text-decoration:none;font-size:0.85rem;padding:3px 0;transition:color 0.3s var(--ease)}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{max-width:1400px;margin:24px auto 0;padding-top:16px;border-top:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;color:var(--text3);font-size:0.75rem}
+
+.wa-float{position:fixed;bottom:24px;left:24px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 6px 30px rgba(37,211,102,0.4);z-index:998;text-decoration:none;transition:all 0.4s var(--ease)}
+.wa-float:hover{transform:scale(1.1) rotate(5deg);box-shadow:0 10px 40px rgba(37,211,102,0.5)}
+
+.reveal{opacity:0;transform:translateY(30px);transition:all 0.7s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-delay-1{transition-delay:0.1s}
 .reveal-delay-2{transition-delay:0.2s}
 .reveal-delay-3{transition-delay:0.3s}
-.reveal-delay-4{transition-delay:0.4s}
-
-/* Header */
-header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,252,247,0.85);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(232,224,216,0.5);transition:all 0.4s var(--ease-out-expo)}
-header.scrolled{background:rgba(255,252,247,0.95);box-shadow:0 4px 30px rgba(26,22,18,0.08)}
-nav{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
-.logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:var(--n900);font-family:var(--font-heading);font-weight:600;font-size:1.125rem;transition:transform 0.3s var(--ease-spring)}
-.logo:hover{transform:scale(1.02)}
-.logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 15px rgba(27,67,50,0.25);transition:all 0.3s var(--ease-spring)}
-.logo:hover .logo-icon{transform:rotate(-10deg) scale(1.1);box-shadow:0 6px 20px rgba(27,67,50,0.35)}
-.nav-links{display:flex;gap:2.5rem;list-style:none}
-.nav-links a{text-decoration:none;color:var(--n600);font-weight:500;font-size:0.9375rem;transition:all 0.3s var(--ease-out-expo);min-height:44px;display:flex;align-items:center;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:0;right:0;width:0;height:2px;background:var(--primary);transition:width 0.4s var(--ease-out-expo)}
-.nav-links a:hover{color:var(--primary)}
-.nav-links a:hover::after{width:100%}
-.nav-cta{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);color:#fff;border:none;padding:0.75rem 1.5rem;border-radius:100px;font-weight:600;cursor:pointer;transition:all 0.4s var(--ease-spring);min-height:44px;font-family:var(--font-body);font-size:0.9375rem;box-shadow:0 4px 15px rgba(27,67,50,0.25);position:relative;overflow:hidden}
-.nav-cta::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s var(--ease-out-expo)}
-.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(27,67,50,0.35)}
-.nav-cta:hover::before{left:100%}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:0.5rem}
-.hamburger span{width:24px;height:2px;background:var(--n800);transition:all 0.3s var(--ease-out-expo);transform-origin:center}
-
-/* Hero - Premium Editorial Split */
-.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 2rem 4rem;background:linear-gradient(180deg,var(--n0) 0%,var(--n50) 100%);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:0;right:0;width:50%;height:100%;background:radial-gradient(ellipse at 70% 50%,rgba(212,163,115,0.08) 0%,transparent 70%);pointer-events:none}
-.hero-container{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:2}
-.hero-content{max-width:560px}
-.hero-eyebrow{font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent-warm);font-weight:600;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem;opacity:0;animation:fadeInRight 0.8s var(--ease-out-expo) 0.2s forwards}
-.hero-eyebrow::before{content:'';width:40px;height:2px;background:var(--accent);transform-origin:left}
-.hero h1{font-family:var(--font-heading);font-size:clamp(2.5rem,5vw,4rem);font-weight:600;line-height:1.1;color:var(--n900);margin-bottom:1.5rem;opacity:0;animation:fadeInUp 0.8s var(--ease-out-expo) 0.4s forwards}
-.hero h1 em{font-style:italic;color:var(--primary);position:relative}
-.hero h1 em::after{content:'';position:absolute;bottom:0.1em;right:0;width:100%;height:0.3em;background:var(--accent-light);opacity:0.3;z-index:-1}
-.hero-desc{font-size:1.0625rem;color:var(--n500);line-height:1.8;margin-bottom:2.5rem;max-width:480px;opacity:0;animation:fadeInUp 0.8s var(--ease-out-expo) 0.6s forwards}
-.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem;opacity:0;animation:fadeInUp 0.8s var(--ease-out-expo) 0.8s forwards}
-.btn{padding:1rem 2rem;border-radius:100px;font-weight:600;text-decoration:none;transition:all 0.4s var(--ease-spring);display:inline-flex;align-items:center;gap:0.5rem;min-height:48px;cursor:pointer;border:none;font-size:1rem;font-family:var(--font-body);position:relative;overflow:hidden}
-.btn::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,0.2);border-radius:50%;transform:translate(-50%,-50%);transition:width 0.6s ease,height 0.6s ease}
-.btn:active::after{width:300px;height:300px}
-.btn-primary{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);color:#fff;box-shadow:0 4px 15px rgba(27,67,50,0.25)}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(27,67,50,0.35)}
-.btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
-.btn-outline:hover{background:var(--primary);color:#fff;transform:translateY(-3px);box-shadow:0 8px 25px rgba(27,67,50,0.2)}
-.hero-trust{display:flex;gap:3rem;padding-top:2rem;border-top:1px solid var(--n200);opacity:0;animation:fadeInUp 0.8s var(--ease-out-expo) 1s forwards}
-.trust-item{display:flex;flex-direction:column;transition:transform 0.3s var(--ease-spring)}
-.trust-item:hover{transform:translateY(-5px)}
-.trust-number{font-family:var(--font-heading);font-size:2rem;font-weight:600;color:var(--primary);line-height:1}
-.trust-label{font-size:0.8125rem;color:var(--n400);margin-top:0.25rem}
-.hero-visual{position:relative;opacity:0;animation:fadeInLeft 1s var(--ease-out-expo) 0.6s forwards}
-.hero-image{width:100%;aspect-ratio:4/5;border-radius:24px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(27,67,50,0.2)}
-.hero-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.8s var(--ease-out-expo)}
-.hero-image:hover img{transform:scale(1.05)}
-.floating-badge{position:absolute;bottom:2rem;left:-2rem;background:#fff;padding:1rem 1.5rem;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,0.12);display:flex;align-items:center;gap:0.75rem;z-index:5;animation:float 4s ease-in-out infinite;opacity:0;animation:fadeInUp 0.8s var(--ease-out-expo) 1.2s forwards, float 4s ease-in-out 2s infinite}
-.floating-badge-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--accent-light) 0%,var(--accent) 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(212,163,115,0.3)}
-.floating-badge-text{font-size:0.875rem;font-weight:600;color:var(--n800)}
-.floating-badge-sub{font-size:0.75rem;color:var(--n400)}
-
-/* Floating Decorative Elements */
-.float-dot{position:absolute;border-radius:50%;z-index:1;pointer-events:none}
-.float-dot-1{width:100px;height:100px;background:radial-gradient(circle,var(--accent-light) 0%,transparent 70%);top:10%;right:-30px;animation:floatA 8s ease-in-out infinite;opacity:0.5}
-.float-dot-2{width:150px;height:150px;background:radial-gradient(circle,var(--primary-light) 0%,transparent 70%);bottom:15%;left:-50px;animation:floatB 10s ease-in-out infinite;opacity:0.3}
-.float-dot-3{width:80px;height:80px;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);top:60%;right:10%;animation:floatA 9s ease-in-out infinite;opacity:0.4}
-@keyframes floatA{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(20px,-25px) rotate(180deg)}}
-@keyframes floatB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-15px,20px) scale(1.15)}}
-
-/* Trust Bar */
-.trust-bar{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:#fff;padding:1.25rem 2rem;position:relative;overflow:hidden}
-.trust-bar::before{content:'';position:absolute;top:0;left:-100%;width:200%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.05),transparent);animation:shimmer 3s infinite}
-@keyframes shimmer{0%{transform:translateX(-50%)}100%{transform:translateX(50%)}}
-.trust-bar-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:1rem}
-.trust-bar-item{display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;font-weight:500}
-.trust-bar-item svg{width:20px;height:20px;opacity:0.8}
-
-/* Services - Premium Grid */
-.services{padding:6rem 2rem;background:var(--n50);position:relative}
-.section-container{max-width:1400px;margin:0 auto}
-.section-eyebrow{font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent-warm);font-weight:600;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
-.section-eyebrow::before{content:'';width:30px;height:2px;background:var(--accent)}
-.section-title{font-family:var(--font-heading);font-size:clamp(2rem,4vw,2.75rem);font-weight:600;color:var(--n900);margin-bottom:1rem}
-.section-desc{font-size:1.0625rem;color:var(--n500);max-width:560px;margin-bottom:3rem}
-
-/* Featured Service */
-.featured-service{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:4rem}
-.featured-service.reverse{direction:rtl}
-.featured-service.reverse .featured-content{direction:ltr}
-.featured-service.reverse .featured-visual{direction:ltr}
-.featured-visual{background:var(--n100);border-radius:20px;aspect-ratio:16/10;overflow:hidden;position:relative}
-.featured-visual img{width:100%;height:100%;object-fit:cover;transition:transform 0.8s var(--ease-out-expo)}
-.featured-visual:hover img{transform:scale(1.05)}
-.featured-content h3{font-family:var(--font-heading);font-size:1.75rem;font-weight:600;color:var(--n900);margin-bottom:1rem}
-.featured-content p{color:var(--n500);line-height:1.8;margin-bottom:1.5rem}
-.featured-list{list-style:none;margin-bottom:1.5rem}
-.featured-list li{padding:0.5rem 0;padding-right:1.5rem;position:relative;color:var(--n600)}
-.featured-list li::before{content:"";position:absolute;right:0;top:0.75rem;width:8px;height:8px;background:var(--accent);border-radius:50%}
-.featured-price{font-size:0.875rem;color:var(--n400);margin-bottom:1rem}
-.featured-price strong{font-size:1.25rem;color:var(--primary);font-weight:700}
-
-/* Services Grid */
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
-.service-card{background:#fff;border:1px solid var(--n200);border-radius:16px;padding:2rem;transition:all 0.5s var(--ease-spring);position:relative;overflow:hidden}
-.service-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--primary),var(--accent));transform:scaleX(0);transform-origin:right;transition:transform 0.5s var(--ease-out-expo)}
-.service-card:hover::before{transform:scaleX(1);transform-origin:left}
-.service-card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(27,67,50,0.15)}
-.service-card-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--n100) 0%,var(--n50) 100%);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;color:var(--primary);transition:all 0.4s var(--ease-spring)}
-.service-card:hover .service-card-icon{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);color:#fff;transform:rotate(-8deg) scale(1.1);box-shadow:0 8px 20px rgba(27,67,50,0.3)}
-.service-card h3{font-family:var(--font-heading);font-size:1.125rem;font-weight:600;color:var(--n900);margin-bottom:0.5rem}
-.service-card p{font-size:0.9375rem;color:var(--n500);line-height:1.7}
-.service-card-price{font-size:0.8125rem;color:var(--accent);font-weight:600;margin-top:1rem;display:flex;align-items:center;gap:0.5rem}
-
-/* Doctors */
-.doctors{padding:6rem 2rem;background:var(--n0)}
-.doctors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-.doctor-card{background:#fff;border:1px solid var(--n200);border-radius:20px;overflow:hidden;transition:all 0.5s var(--ease-spring)}
-.doctor-card:hover{transform:translateY(-10px);box-shadow:0 25px 70px rgba(27,67,50,0.15)}
-.doctor-image{aspect-ratio:1;background:var(--n100);overflow:hidden;position:relative}
-.doctor-image img{transition:transform 0.6s var(--ease-out-expo);width:100%;height:100%;object-fit:cover}
-.doctor-card:hover .doctor-image img{transform:scale(1.1)}
-.doctor-image::after{content:'';position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to top,rgba(0,0,0,0.4),transparent);opacity:0;transition:opacity 0.4s ease}
-.doctor-card:hover .doctor-image::after{opacity:1}
-.doctor-info{padding:1.5rem}
-.doctor-name{font-family:var(--font-heading);font-size:1.25rem;font-weight:600;color:var(--n900);margin-bottom:0.25rem}
-.doctor-specialty{font-size:0.875rem;color:var(--accent);font-weight:500;margin-bottom:0.75rem}
-.doctor-bio{font-size:0.875rem;color:var(--n500);line-height:1.7}
-.doctor-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem}
-.doctor-tag{background:var(--n100);color:var(--n600);padding:0.25rem 0.75rem;border-radius:100px;font-size:0.75rem;transition:all 0.3s var(--ease-spring)}
-.doctor-card:hover .doctor-tag{background:var(--primary);color:#fff}
-
-/* Before/After */
-.results{padding:6rem 2rem;background:var(--n50)}
-.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-.result-card{background:#fff;border-radius:20px;overflow:hidden;border:1px solid var(--n200);transition:all 0.5s var(--ease-spring)}
-.result-card:hover{transform:translateY(-8px);box-shadow:0 25px 70px rgba(27,67,50,0.15)}
-.ba-slider{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;cursor:ew-resize;user-select:none;-webkit-user-select:none}
-.ba-before,.ba-after{position:absolute;top:0;left:0;width:100%;height:100%}
-.ba-before{z-index:2;overflow:hidden}
-.ba-after{z-index:1}
-.ba-before img,.ba-after img{width:100%;height:100%;object-fit:cover;display:block}
-.ba-before{clip-path:inset(0 50% 0 0)}
-.ba-label{position:absolute;bottom:12px;padding:6px 14px;border-radius:20px;background:rgba(0,0,0,0.7);color:#fff;font-size:0.75rem;font-weight:600;letter-spacing:0.5px;z-index:5;backdrop-filter:blur(8px);transition:all 0.3s ease}
-.ba-before .ba-label{right:12px}
-.ba-after .ba-label{left:12px}
-.ba-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;width:52px;height:52px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 25px rgba(0,0,0,0.25);pointer-events:none;transition:all 0.3s var(--ease-spring)}
-.ba-slider:active .ba-handle{transform:translate(-50%,-50%) scale(1.2);box-shadow:0 8px 35px rgba(0,0,0,0.35)}
-.ba-handle::before,.ba-handle::after{content:'';position:absolute;width:2px;height:18px;background:var(--primary);border-radius:1px}
-.ba-handle::before{left:50%;transform:translateX(-7px)}
-.ba-handle::after{right:50%;transform:translateX(7px)}
-.ba-slider .ba-before{transition:clip-path 0.05s ease-out}
-@keyframes ba-pulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.1)}}
-.ba-slider[data-ba-slider]:not(:active) .ba-handle{animation:ba-pulse 2.5s ease-in-out infinite}
-.result-info{padding:1.25rem}
-.result-title{font-weight:600;color:var(--n900);margin-bottom:0.25rem}
-.result-desc{font-size:0.875rem;color:var(--n500)}
-
-/* Stats */
-.stats{padding:5rem 2rem;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:#fff;position:relative;overflow:hidden}
-.stats::before{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-.stats::after{content:'';position:absolute;bottom:-30%;left:-5%;width:300px;height:300px;background:radial-gradient(circle,rgba(212,163,115,0.15) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-.stats-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center;position:relative;z-index:1}
-.stat-item{padding:2rem;border-radius:16px;transition:all 0.4s var(--ease-spring);background:rgba(255,255,255,0.05)}
-.stat-item:hover{background:rgba(255,255,255,0.1);transform:translateY(-5px)}
-.stat-number{font-family:var(--font-heading);font-size:3rem;font-weight:600;margin-bottom:0.5rem;transition:transform 0.4s var(--ease-spring)}
-.stat-item:hover .stat-number{transform:scale(1.1)}
-.stat-label{font-size:0.875rem;opacity:0.8}
-
-/* Testimonials */
-.testimonials{padding:6rem 2rem;background:var(--n0)}
-.testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
-.testimonial-card{background:var(--n50);border-radius:20px;padding:2.5rem;position:relative;transition:all 0.5s var(--ease-spring);border:1px solid transparent;overflow:hidden}
-.testimonial-card::before{content:'"';position:absolute;top:-15px;right:25px;font-size:10rem;font-family:var(--font-heading);color:var(--primary);opacity:0.05;line-height:1;pointer-events:none}
-.testimonial-card:hover{transform:translateY(-8px);box-shadow:0 25px 70px rgba(27,67,50,0.1);border-color:var(--accent)}
-.testimonial-quote{font-size:1.0625rem;color:var(--n700);line-height:1.8;margin-bottom:1.5rem;font-style:italic}
-.testimonial-author{display:flex;align-items:center;gap:1rem}
-.testimonial-avatar{width:52px;height:52px;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;transition:all 0.4s var(--ease-spring);box-shadow:0 4px 15px rgba(27,67,50,0.25)}
-.testimonial-card:hover .testimonial-avatar{transform:scale(1.15);box-shadow:0 8px 25px rgba(27,67,50,0.35)}
-.testimonial-name{font-weight:600;color:var(--n900)}
-.testimonial-role{font-size:0.8125rem;color:var(--n400)}
-.testimonial-stars{color:var(--accent-light);font-size:1rem;margin-bottom:1rem}
-
-/* Booking */
-.booking{padding:6rem 2rem;background:var(--n50)}
-.booking-container{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem}
-.booking-info h2{font-family:var(--font-heading);font-size:2rem;font-weight:600;color:var(--n900);margin-bottom:1rem}
-.booking-info p{color:var(--n500);line-height:1.8;margin-bottom:2rem}
-.booking-contact-item{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;padding:1rem;border-radius:12px;transition:all 0.4s var(--ease-spring);background:transparent}
-.booking-contact-item:hover{background:rgba(27,67,50,0.05);transform:translateX(-6px)}
-.booking-contact-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--n100) 0%,var(--n50) 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--primary);transition:all 0.4s var(--ease-spring)}
-.booking-contact-item:hover .booking-contact-icon{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);color:#fff;transform:rotate(-8deg);box-shadow:0 6px 18px rgba(27,67,50,0.3)}
-.booking-contact-text{font-size:0.9375rem;color:var(--n600)}
-.booking-contact-text strong{display:block;color:var(--n900)}
-.booking-form{background:#fff;border-radius:20px;padding:2.5rem;border:1px solid var(--n200);box-shadow:0 10px 40px rgba(26,22,18,0.05)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
-.form-group{margin-bottom:1rem}
-.form-group label{display:block;font-size:0.875rem;font-weight:500;color:var(--n700);margin-bottom:0.5rem}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:0.875rem 1rem;border:2px solid var(--n200);border-radius:12px;font-family:var(--font-body);font-size:0.9375rem;transition:all 0.3s var(--ease-out-expo);background:var(--n50)}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(27,67,50,0.1);background:#fff}
-.form-group textarea{resize:vertical;min-height:100px}
-.form-submit{width:100%;padding:1rem;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);color:#fff;border:none;border-radius:12px;font-family:var(--font-body);font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.4s var(--ease-spring);position:relative;overflow:hidden;box-shadow:0 4px 15px rgba(27,67,50,0.25)}
-.form-submit:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(27,67,50,0.35)}
-.form-submit:active{transform:translateY(0)}
-
-/* FAQ */
-.faq{padding:6rem 2rem;background:var(--n0)}
-.faq-list{max-width:800px;margin:0 auto}
-.faq-item{border-bottom:1px solid var(--n200);transition:all 0.3s ease;border-radius:12px;padding:0 0.5rem}
-.faq-item:hover{background:var(--n50)}
-.faq-question{width:100%;background:none;border:none;padding:1.25rem 0;text-align:right;font-family:var(--font-body);font-size:1rem;font-weight:600;color:var(--n800);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px;transition:color 0.3s ease}
-.faq-item:hover .faq-question{color:var(--primary)}
-.faq-question::after{content:"+";font-size:1.5rem;color:var(--n400);transition:all 0.4s var(--ease-spring)}
-.faq-item:hover .faq-question::after{color:var(--primary);transform:rotate(45deg)}
-.faq-item.active .faq-question::after{content:"−";transform:rotate(0)}
-.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.5s var(--ease-out-expo)}
-.faq-answer-inner{padding:0 0 1.25rem;color:var(--n500);line-height:1.7}
-
-/* Map */
-.map{padding:6rem 2rem;background:var(--n50)}
-.map-container{max-width:1400px;margin:0 auto}
-.map-embed{width:100%;height:450px;border-radius:20px;border:none;background:var(--n100);box-shadow:0 10px 40px rgba(26,22,18,0.08)}
-
-/* CTA */
-.cta{padding:5rem 2rem;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:#fff;text-align:center;position:relative;overflow:hidden}
-.cta::before{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,0.05) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-.cta h2{font-family:var(--font-heading);font-size:clamp(1.75rem,4vw,2.5rem);font-weight:600;margin-bottom:1rem}
-.cta p{font-size:1.0625rem;opacity:0.9;margin-bottom:2rem;max-width:600px;margin-left:auto;margin-right:auto}
-.cta .btn{background:#fff;color:var(--primary);box-shadow:0 4px 15px rgba(0,0,0,0.15)}
-.cta .btn:hover{background:var(--n100);transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,0,0,0.2)}
-
-/* Footer */
-footer{background:var(--n900);color:var(--n300);padding:5rem 2rem 2rem}
-.footer-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
-.footer-brand .logo{color:#fff;margin-bottom:1rem}
-.footer-brand .logo-icon{background:var(--accent)}
-.footer-brand p{color:var(--n400);line-height:1.7;font-size:0.9375rem}
-.footer-col h3{color:#fff;font-size:0.9375rem;font-weight:600;margin-bottom:1rem}
-.footer-col ul{list-style:none}
-.footer-col li{margin-bottom:0.5rem}
-.footer-col a{color:var(--n400);text-decoration:none;transition:all 0.3s var(--ease-out-expo);font-size:0.9375rem;min-height:44px;display:flex;align-items:center;position:relative}
-.footer-col a::after{content:'';position:absolute;bottom:0;right:0;width:0;height:1px;background:var(--accent);transition:width 0.3s var(--ease-out-expo)}
-.footer-col a:hover{color:var(--accent)}
-.footer-col a:hover::after{width:100%}
-.footer-bottom{max-width:1400px;margin:0 auto;padding-top:2rem;border-top:1px solid var(--n700);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.footer-bottom p{font-size:0.875rem}
-
-/* WhatsApp Float */
-.whatsapp-float{position:fixed;bottom:2rem;left:2rem;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.75rem;box-shadow:0 6px 25px rgba(37,211,102,0.4);z-index:999;transition:all 0.4s var(--ease-spring);text-decoration:none}
-.whatsapp-float:hover{transform:scale(1.1) rotate(5deg);box-shadow:0 10px 35px rgba(37,211,102,0.5)}
-
-/* Mobile Menu */
-.mobile-menu{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;opacity:0;transition:opacity 0.3s ease}
-.mobile-menu.active{display:block;opacity:1}
-.mobile-menu-content{position:absolute;top:0;right:0;width:80%;max-width:320px;height:100%;background:#fff;padding:2rem;transform:translateX(100%);transition:transform 0.4s var(--ease-out-expo)}
-.mobile-menu.active .mobile-menu-content{transform:translateX(0)}
-.mobile-menu-close{background:none;border:none;font-size:1.5rem;cursor:pointer;padding:0.5rem;min-width:44px;min-height:44px}
-.mobile-menu-links{list-style:none;margin-top:2rem}
-.mobile-menu-links a{display:block;padding:1rem;color:var(--n800);text-decoration:none;font-weight:500;border-radius:8px;min-height:44px;transition:all 0.3s ease}
-.mobile-menu-links a:hover{background:var(--n100)}
 
 @media(max-width:1024px){
-.hero-container{grid-template-columns:1fr;text-align:center}
-.hero-content{max-width:100%}
-.hero-desc{margin-left:auto;margin-right:auto}
-.hero-actions,.hero-trust{justify-content:center}
-.hero-visual{display:none}
-.featured-service{grid-template-columns:1fr}
-.services-grid,.doctors-grid,.results-grid{grid-template-columns:repeat(2,1fr)}
-.stats-inner{grid-template-columns:repeat(2,1fr)}
-.testimonials-grid{grid-template-columns:1fr}
-.booking-container{grid-template-columns:1fr}
-.nav-links,.nav-cta{display:none}
-.hamburger{display:flex}
-.footer-grid{grid-template-columns:1fr 1fr}
+.hero-inner{grid-template-columns:1fr;text-align:center}
+.hero-desc{margin:0 auto 36px}
+.hero-actions{justify-content:center}
+.hero-stats{justify-content:center}
+.hero-visual{margin-top:36px}
+.bento{grid-template-columns:repeat(6,1fr)}
+.bento-card.c1,.bento-card.c2,.bento-card.c3,.bento-card.c4,.bento-card.c5{grid-column:span 6}
+.doctors-grid,.results-grid{grid-template-columns:repeat(2,1fr)}
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+.booking-section{grid-template-columns:1fr}
+.footer-inner{grid-template-columns:1fr 1fr}
+.nav-links,.nav-center .nav-cta-wrap{display:none}
+.hamburger{display:block}
 }
 @media(max-width:768px){
-.hero{min-height:auto;padding:6rem 1.5rem 3rem}
-.services-grid,.doctors-grid,.results-grid{grid-template-columns:1fr}
-.stats-inner{grid-template-columns:1fr}
+.hero{padding:100px 20px 60px}
+.section{padding:70px 20px}
+.bento{grid-template-columns:1fr}
+.bento-card.c1,.bento-card.c2,.bento-card.c3,.bento-card.c4,.bento-card.c5{grid-column:span 1}
+.doctors-grid,.results-grid,.testimonials-grid{grid-template-columns:1fr}
+.stats-grid{grid-template-columns:1fr}
 .form-row{grid-template-columns:1fr}
-.footer-grid{grid-template-columns:1fr}
-.footer-bottom{flex-direction:column;text-align:center}
-}
-
-/* Animations */
-@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeInLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
-@keyframes fadeInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-@keyframes scaleIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-
-@media (prefers-reduced-motion:reduce){
-*,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
-.reveal{opacity:1;transform:none}
+.footer-inner{grid-template-columns:1fr}
+.footer-bottom{flex-direction:column;text-align:center;gap:8px}
 }
 </style>
 </head>
 <body>
 
-<!-- Header -->
-<header id="header">
-<nav>
-<a href="#" class="logo">
-<div class="logo-icon">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10H12V2z"></path><path d="M20.66 8A10 10 0 0 0 12 2v10h10a10 10 0 0 0-1.34-4z"></path><path d="M12 12a10 10 0 0 0-8.66 5L12 12z"></path></svg>
-</div>
-<span>سمايل</span>
-</a>
+<div class="loader" id="loader"><div class="loader-num" id="loaderNum">0</div></div>
+
+<nav class="nav" id="nav">
+<a href="#" class="nav-logo" data-ar="RAZES DENTAL" data-fr="RAZES DENTAL">RAZES DENTAL</a>
+<div class="nav-center">
 <ul class="nav-links">
-<li><a href="#services">خدماتنا</a></li>
-<li><a href="#doctors">أطباؤنا</a></li>
-<li><a href="#results">نتائج</a></li>
-<li><a href="#testimonials">آراء المرضى</a></li>
-<li><a href="#booking">حجز موعد</a></li>
+<li><a href="#services" data-ar="الخدمات" data-fr="Services">الخدمات</a></li>
+<li><a href="#doctors" data-ar="الأطباء" data-fr="Médecins">الأطباء</a></li>
+<li><a href="#results" data-ar="النتائج" data-fr="Résultats">النتائج</a></li>
+<li><a href="#testimonials" data-ar="آراء المرضى" data-fr="Avis">آراء المرضى</a></li>
+<li><a href="#booking" data-ar="الحجز" data-fr="Réservation">الحجز</a></li>
+<li><a href="#map" data-ar="الموقع" data-fr="Localisation">الموقع</a></li>
 </ul>
-<button class="nav-cta">احجز موعدك الآن</button>
-<button class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('active')">
-<span></span><span></span><span></span>
-</button>
+</div>
+<div class="nav-actions">
+<button class="toggle-btn" id="themeToggle" aria-label="Toggle theme">☀</button>
+<button class="lang-btn" id="langToggle" aria-label="Toggle language">FR</button>
+<a href="https://wa.me/213770433364" class="nav-cta" data-ar="حجز موعد" data-fr="Prendre RDV">حجز موعد</a>
+</div>
+<button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
-</header>
 
-<!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
-<div class="mobile-menu-content">
-<button class="mobile-menu-close" onclick="this.closest('.mobile-menu').classList.remove('active')">✕</button>
-<ul class="mobile-menu-links">
-<li><a href="#services" onclick="this.closest('.mobile-menu').classList.remove('active')">خدماتنا</a></li>
-<li><a href="#doctors" onclick="this.closest('.mobile-menu').classList.remove('active')">أطباؤنا</a></li>
-<li><a href="#results" onclick="this.closest('.mobile-menu').classList.remove('active')">نتائج</a></li>
-<li><a href="#testimonials" onclick="this.closest('.mobile-menu').classList.remove('active')">آراء المرضى</a></li>
-<li><a href="#booking" onclick="this.closest('.mobile-menu').classList.remove('active')">حجز موعد</a></li>
-</ul>
-</div>
+<a href="#services" onclick="closeMenu()" data-ar="الخدمات" data-fr="Services">الخدمات</a>
+<a href="#doctors" onclick="closeMenu()" data-ar="الأطباء" data-fr="Médecins">الأطباء</a>
+<a href="#results" onclick="closeMenu()" data-ar="النتائج" data-fr="Résultats">النتائج</a>
+<a href="#testimonials" onclick="closeMenu()" data-ar="آراء المرضى" data-fr="Avis">آراء المرضى</a>
+<a href="#booking" onclick="closeMenu()" data-ar="الحجز" data-fr="Réservation">الحجز</a>
+<a href="#map" onclick="closeMenu()" data-ar="الموقع" data-fr="Localisation">الموقع</a>
 </div>
 
-<!-- Hero -->
 <section class="hero">
-<div class="float-dot float-dot-1"></div>
-<div class="float-dot float-dot-2"></div>
-<div class="float-dot float-dot-3"></div>
-<div class="hero-container">
-<div class="hero-content">
-<div class="hero-eyebrow">عيادة طب أسنان متخصصة</div>
-<h1>ابتسامتك <em>أجمل</em> مع سمايل</h1>
-<p class="hero-desc">خبرة 15 سنة في طب الأسنان التجميلي والعلاجي. نستخدم أحدث التقنيات والأجهزة العالمية لضمان ابتسامتك المثالية</p>
+<div class="hero-inner">
+<div class="hero-content reveal">
+<div class="hero-badge"><span class="dot"></span><span data-ar="عيادة أسنان متخصصة" data-fr="Clinique dentaire spécialisée">عيادة أسنان متخصصة</span></div>
+<h1 class="hero-title"><span data-ar="ابتسامتك" data-fr="Votre sourire">ابتسامتك</span><br><span class="accent" data-ar="أولويتنا" data-fr="Notre priorité">أولويتنا</span></h1>
+<p class="hero-desc" data-ar="عيادة رازس لطب الأسنان — نقدم أحدث تقنيات زراعة الأسنان والتجميل بأسعار مناسبة لجميع المرضى في الجزائر." data-fr="Clinique Razes — nous offrons les dernières techniques d'implantation et d'esthétique dentaire à des prix accessibles en Algérie.">عيادة رازس لطب الأسنان — نقدم أحدث تقنيات زراعة الأسنان والتجميل بأسعار مناسبة لجميع المرضى في الجزائر.</p>
 <div class="hero-actions">
-<a href="#booking" class="btn btn-primary">احجز استشارة مجانية</a>
-<a href="#services" class="btn btn-outline">اكتشف خدماتنا</a>
+<a href="https://wa.me/213770433364" class="btn-primary"><span data-ar="احجز الآن" data-fr="Réservez maintenant">احجز الآن</span></a>
+<a href="#services" class="btn-ghost" data-ar="اكتشف خدماتنا" data-fr="Découvrir nos services">اكتشف خدماتنا</a>
 </div>
-<div class="hero-trust">
-<div class="trust-item">
-<div class="trust-number">+12,000</div>
-<div class="trust-label">مريض سعيد</div>
-</div>
-<div class="trust-item">
-<div class="trust-number">15</div>
-<div class="trust-label">سنة خبرة</div>
-</div>
-<div class="trust-item">
-<div class="trust-number">98%</div>
-<div class="trust-label">نسبة الرضا</div>
+<div class="hero-stats">
+<div class="hero-stat"><div class="num" data-count="12000" data-prefix="+">0</div><div class="label" data-ar="مريض سعيد" data-fr="Patients satisfaits">مريض سعيد</div></div>
+<div class="hero-stat"><div class="num" data-count="15">0</div><div class="label" data-ar="سنة خبرة" data-fr="Ans d'expérience">سنة خبرة</div></div>
+<div class="hero-stat"><div class="num" data-count="98" data-suffix="%">0</div><div class="label" data-ar="نسبة الرضا" data-fr="Taux de satisfaction">نسبة الرضا</div></div>
 </div>
 </div>
+<div class="hero-visual reveal reveal-delay-1">
+<div class="main-card">
+<img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80" alt="Dental clinic" loading="eager">
 </div>
-<div class="hero-visual">
-<div class="hero-image">
-<img src="https://images.unsplash.com/photo-1606811841689-d328b600c70d?w=800&h=1000&fit=crop" alt="عيادة أسنان حديثة">
+<div class="float-card top-right">
+<div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+<div class="fc-text" data-ar="حالات ناجحة" data-fr="Cas réussis">حالات ناجحة</div>
+<div class="fc-value">+500</div>
 </div>
-<div class="floating-badge">
-<div class="floating-badge-icon">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-</div>
-<div>
-<div class="floating-badge-text">تقييم 4.9/5</div>
-<div class="floating-badge-sub">+500 تقييم على Google</div>
-</div>
+<div class="float-card bottom-left">
+<div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+<div class="fc-text" data-ar="تقييم المرضى" data-fr="Note patients">تقييم المرضى</div>
+<div class="fc-value">4.9 ★</div>
 </div>
 </div>
 </div>
 </section>
 
-<!-- Trust Bar -->
-<div class="trust-bar">
-<div class="trust-bar-inner">
-<div class="trust-bar-item">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-<span>معتمد من وزارة الصحة</span>
+<section class="section" id="services">
+<div class="section-badge reveal"><span data-ar="خدماتنا" data-fr="Nos services">خدماتنا</span></div>
+<h2 class="section-title reveal"><span data-ar="علاجات متطورة" data-fr="Traitements avancés">علاجات متطورة</span><br><span data-ar="لابتسامة مشرقة" data-fr="Pour un sourire éclatant">لابتسامة مشرقة</span></h2>
+<p class="section-desc reveal" data-ar="نستخدم أحدث التقنيات والأدوات الطبية لضمان أفضل نتائج لمرضانا." data-fr="Nous utilisons les dernières technologies pour garantir les meilleurs résultats à nos patients.">نستخدم أحدث التقنيات والأدوات الطبية لضمان أفضل نتائج لمرضانا.</p>
+<div class="bento">
+<div class="bento-card c1 reveal">
+<div class="bento-icon"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+<h3 data-ar="زراعة الأسنان" data-fr="Implants dentaires">زراعة الأسنان</h3>
+<p data-ar="زراعة بتقنية Zirconia المتطورة — دائمة وطبيعية المظهر. نستخدم زرعات سويسرية وألمانية بأعلى معايير الجودة." data-fr="Implants en Zirconia — durables et naturels. Utilisation de implants suisses et allemands de haute qualité.">زراعة بتقنية Zirconia المتطورة — دائمة وطبيعية المظهر. نستخدم زرعات سويسرية وألمانية بأعلى معايير الجودة.</p>
 </div>
-<div class="trust-bar-item">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-<span>مواعيد مرنة</span>
+<div class="bento-card c2 reveal reveal-delay-1">
+<div class="bento-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+<h3 data-ar="تبييض الأسنان" data-fr="Blanchiment dentaire">تبييض الأسنان</h3>
+<p data-ar="تبييض بتقنية LED — نتائج فورية في جلسة واحدة." data-fr="Blanchiment LED — résultats immédiats en une seule séance.">تبييض بتقنية LED — نتائج فورية في جلسة واحدة.</p>
 </div>
-<div class="trust-bar-item">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-<span>دفع مريح</span>
+<div class="bento-card c3 reveal">
+<div class="bento-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+<h3 data-ar="تقويم الأسنان" data-fr="Orthodontie">تقويم الأسنان</h3>
+<p data-ar="تقويم شفاف أو معدني — تصحيح إطباق الأسنان في أقصر وقت." data-fr="Bagues transparentes ou métalliques — correction en un temps record.">تقويم شفاف أو معدني — تصحيح إطباق الأسنان في أقصر وقت.</p>
 </div>
-<div class="trust-bar-item">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-<span>استشارة هاتفية مجانية</span>
+<div class="bento-card c4 reveal reveal-delay-1">
+<div class="bento-icon"><svg viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/></svg></div>
+<h3 data-ar="حشوات تجميلية" data-fr="Plombages esthétiques">حشوات تجميلية</h3>
+<p data-ar="حشوات بلون الأسنان الطبيعي — لا أحد يلاحظ الفرق." data-fr="Plombages couleur dent — personne ne remarque la différence.">حشوات بلون الأسنان الطبيعي — لا أحد يلاحظ الفرق.</p>
 </div>
-</div>
-</div>
-
-<!-- Services -->
-<section class="services" id="services">
-<div class="section-container">
-<div class="reveal">
-<div class="section-eyebrow">خدماتنا</div>
-<h2 class="section-title">حلول أسنان متكاملة</h2>
-<p class="section-desc">نقدم مجموعة شاملة من خدمات طب الأسنان بأحدث التقنيات العالمية</p>
-</div>
-
-<!-- Featured Service -->
-<div class="featured-service reveal">
-<div class="featured-visual">
-<img src="https://images.unsplash.com/photo-1606811841689-d328b600c70d?w=800&h=500&fit=crop" alt="تبييض الأسنان">
-</div>
-<div class="featured-content">
-<h3>تبييض الأسنان بالليزر</h3>
-<p>تقنية متقدمة للتبييض تمنحك ابتسامة ناصعة البياض في جلسة واحدة فقط. نستخدم أحدث أجهزة الليزر العالمية لتحقيق نتائج فورية وطويلة الأمد</p>
-<ul class="featured-list">
-<li>نتائج فورية في 45 دقيقة</li>
-<li>آمن 100% على المينا</li>
-<li>تدوم حتى سنتين</li>
-<li>بدون ألم أو حساسية</li>
-</ul>
-<div class="featured-price">يبدأ من <strong>15,000 دج</strong></div>
-<a href="#booking" class="btn btn-primary">احجز الآن</a>
-</div>
-</div>
-
-<!-- Services Grid -->
-<div class="services-grid">
-<div class="service-card reveal">
-<div class="service-card-icon">
-<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10H12V2z"></path><path d="M20.66 8A10 10 0 0 0 12 2v10h10a10 10 0 0 0-1.34-4z"></path><path d="M12 12a10 10 0 0 0-8.66 5L12 12z"></path></svg>
-</div>
-<h3>تقويم الأسنان</h3>
-<p>تقويم معدني وشفاف ل Teeth المcrooked مع نتائج مضمونة</p>
-<div class="service-card-price">يبدأ من 25,000 دج</div>
-</div>
-
-<div class="service-card reveal reveal-delay-1">
-<div class="service-card-icon">
-<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect x="2" y="6" width="20" height="12" rx="2"></rect><path d="M6 12h4"></path><path d="M14 12h4"></path><path d="M10 12v4"></path><path d="M14 12v4"></path></svg>
-</div>
-<h3>زراعة الأسنان</h3>
-<p>زراعة بأجسام سيراميكية ألمانية مع ضمان مدى الحياة</p>
-<div class="service-card-price">يبدأ من 35,000 دج</div>
-</div>
-
-<div class="service-card reveal reveal-delay-2">
-<div class="service-card-icon">
-<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-</div>
-<h3>علاج الجذور</h3>
-<p>علاج جذور بأحدث التقنيات بدون ألم مع نتائج دائمة</p>
-<div class="service-card-price">يبدأ من 8,000 دج</div>
-</div>
-
-<div class="service-card reveal">
-<div class="service-card-icon">
-<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
-</div>
-<h3>ابتسامة هوليوود</h3>
-<p>تصميم ابتسامتك المثالية مع فينيرات سيراميكية عالمية</p>
-<div class="service-card-price">يبدأ من 20,000 دج</div>
-</div>
-
-<div class="service-card reveal reveal-delay-1">
-<div class="service-card-icon">
-<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-</div>
-<h3>علاج اللثة</h3>
-<p>علاج أمراض اللثة والتئامها بأحدث الطرق الطبية</p>
-<div class="service-card-price">يبدأ من 5,000 دج</div>
-</div>
-
-<div class="service-card reveal reveal-delay-2">
-<div class="service-card-icon">
-<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-</div>
-<h3>طب أسنان الأطفال</h3>
-<p>بيئة مريحة وممتعة لأطفالكم مع أطباء متخصصين</p>
-<div class="service-card-price">يبدأ من 3,000 دج</div>
-</div>
+<div class="bento-card c5 reveal reveal-delay-2">
+<div class="bento-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+<h3 data-ar="علاج الجذور" data-fr="Dépulpage">علاج الجذور</h3>
+<p data-ar="علاج جذور بدون ألم بأحدث تقنيات الميكانيكا الدقيقة." data-fr="Traitement sans douleur grâce aux techniques modernes.">علاج جذور بدون ألم بأحدث تقنيات الميكانيكا الدقيقة.</p>
 </div>
 </div>
 </section>
 
-<!-- Doctors -->
-<section class="doctors" id="doctors">
-<div class="section-container">
-<div class="reveal">
-<div class="section-eyebrow">فريقنا الطبي</div>
-<h2 class="section-title">أطباء بخبرة عالمية</h2>
-<p class="section-desc">فريق من أفضل أطباء الأسنان في الجزائر مع خبرة دولية</p>
-</div>
+<section class="section" id="doctors">
+<div class="section-badge reveal"><span data-ar="فريقنا" data-fr="Notre équipe">فريقنا</span></div>
+<h2 class="section-title reveal"><span data-ar="أطباء بخبرة" data-fr="Des médecins expérimentés">أطباء بخبرة</span><br><span data-ar="عالمية" data-fr="Au niveau mondial">عالمية</span></h2>
+<p class="section-desc reveal" data-ar="فريق متخصص من أطباء الأسنان الحاصلين على أعلى الشهادات الدولية." data-fr="Une équipe de dentistes titulaires des plus hautes certifications internationales.">فريق متخصص من أطباء الأسنان الحاصلين على أعلى الشهادات الدولية.</p>
 <div class="doctors-grid">
-<div class="doctor-card reveal">
-<div class="doctor-image">
-<img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face" alt="د. أحمد بن علي">
-</div>
-<div class="doctor-info">
-<div class="doctor-name">د. أحمد بن علي</div>
-<div class="doctor-specialty">استشاري تقويم الأسنان</div>
-<p class="doctor-bio">خبرة 15 سنة في تقويم الأسنان مع زمالة من جامعة باريس</p>
-<div class="doctor-tags">
-<span class="doctor-tag">تقويم</span>
-<span class="doctor-tag">تجميل</span>
-<span class="doctor-tag">زراعة</span>
-</div>
-</div>
-</div>
-
-<div class="doctor-card reveal reveal-delay-1">
-<div class="doctor-image">
-<img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face" alt="د. فاطمة الزهراء">
-</div>
-<div class="doctor-info">
-<div class="doctor-name">د. فاطمة الزهراء</div>
-<div class="doctor-specialty">أخصائية تجميل الأسنان</div>
-<p class="doctor-bio">متخصصة في ابتسامة هوليوود والفينيرات السيراميكية</p>
-<div class="doctor-tags">
-<span class="doctor-tag">تجميل</span>
-<span class="doctor-tag">فينير</span>
-<span class="doctor-tag">تبييض</span>
-</div>
-</div>
-</div>
-
-<div class="doctor-card reveal reveal-delay-2">
-<div class="doctor-image">
-<img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop&crop=face" alt="د. محمد الأمين">
-</div>
-<div class="doctor-info">
-<div class="doctor-name">د. محمد الأمين</div>
-<div class="doctor-specialty">جراح فم ووجه وفكين</div>
-<p class="doctor-bio">خبرة 20 سنة في جراحات الزراعة والتركيبات الفكية</p>
-<div class="doctor-tags">
-<span class="doctor-tag">جراحة</span>
-<span class="doctor-tag">زراعة</span>
-<span class="doctor-tag">تركيبات</span>
-</div>
-</div>
-</div>
-</div>
+<div class="doctor-card reveal"><div class="doctor-img"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=500&q=80" alt="Dr Razes" loading="lazy"></div><div class="doctor-info"><h3 data-ar="د. رازس" data-fr="Dr. Razes">د. رازس</h3><div class="spec" data-ar="استشاري زراعة الأسنان" data-fr="Spécialiste en implants">استشاري زراعة الأسنان</div></div></div>
+<div class="doctor-card reveal reveal-delay-1"><div class="doctor-img"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=500&q=80" alt="Dr Sara" loading="lazy"></div><div class="doctor-info"><h3 data-ar="د. سارة" data-fr="Dr. Sara">د. سارة</h3><div class="spec" data-ar="أخصائية تقويم الأسنان" data-fr="Spécialiste en orthodontie">أخصائية تقويم الأسنان</div></div></div>
+<div class="doctor-card reveal reveal-delay-2"><div class="doctor-img"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=500&q=80" alt="Dr Karim" loading="lazy"></div><div class="doctor-info"><h3 data-ar="د. كريم" data-fr="Dr. Karim">د. كريم</h3><div class="spec" data-ar="أخصائي تجميل الأسنان" data-fr="Spécialiste esthétique dentaire">أخصائي تجميل الأسنان</div></div></div>
 </div>
 </section>
 
-<!-- Results -->
-<section class="results" id="results">
-<div class="section-container">
-<div class="reveal">
-<div class="section-eyebrow">نتائج حقيقية</div>
-<h2 class="section-title">transformations مذهلة</h2>
-<p class="section-desc">شاهد النتائج المبهرة لمرضانا قبل وبعد العلاج</p>
-</div>
+<section class="section results-section" id="results">
+<div class="section-badge reveal"><span data-ar="النتائج" data-fr="Résultats">النتائج</span></div>
+<h2 class="section-title reveal"><span data-ar="نتائج تتحدث" data-fr="Des résultats qui">نتائج تتحدث</span><br><span data-ar="عن نفسها" data-fr="Parlent d'eux-mêmes">عن نفسها</span></h2>
+<p class="section-desc reveal" data-ar="شاهد الفرق بنفسك — صور حقيقية من مرضانا." data-fr="Voyez la différence par vous-même — photos réelles de nos patients.">شاهد الفرق بنفسك — صور حقيقية من مرضانا.</p>
 <div class="results-grid">
 <div class="result-card reveal">
-<div class="ba-slider" data-ba-slider>
-<div class="ba-after">
-<img src="https://images.unsplash.com/photo-1606811841689-d328b600c70d?w=600&h=450&fit=crop" alt="بعد العلاج">
-<span class="ba-label">بعد</span>
+<div class="result-slider" data-slider><div class="before"><img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&q=80" alt="Before" loading="lazy" style="filter:brightness(0.85) saturate(0.7)"></div><div class="after"><img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&q=80" alt="After" loading="lazy" style="filter:brightness(1.15) saturate(1.4) contrast(1.05)"></div><div class="divider"></div><div class="handle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 8l4 4-4 4M6 8l-4 4 4 4"/></svg></div><span class="result-label before" data-ar="قبل" data-fr="Avant">قبل</span><span class="result-label after" data-ar="بعد" data-fr="Après">بعد</span></div>
+<div class="result-info"><h4 data-ar="زراعة أسنان كاملة" data-fr="Implants complets">زراعة أسنان كاملة</h4><p data-ar="12 زرعة Zirconia — ابتسامة جديدة بالكامل" data-fr="12 implants Zirconia — un tout nouveau sourire">12 زرعة Zirconia — ابتسامة جديدة بالكامل</p></div>
 </div>
-<div class="ba-before">
-<img src="https://images.unsplash.com/photo-1606811841689-d328b600c70d?w=600&h=450&fit=crop&sat=-100" alt="قبل العلاج">
-<span class="ba-label">قبل</span>
-</div>
-<div class="ba-handle">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8L22 12L18 16"></path><path d="M6 8L2 12L6 16"></path></svg>
-</div>
-</div>
-<div class="result-info">
-<div class="result-title">تبييض الأسنان بالليزر</div>
-<div class="result-desc">نتيجة مذهلة في جلسة واحدة</div>
-</div>
-</div>
-
 <div class="result-card reveal reveal-delay-1">
-<div class="ba-slider" data-ba-slider>
-<div class="ba-after">
-<img src="https://images.unsplash.com/photo-1606811841689-d328b600c70d?w=600&h=450&fit=crop&sat=50" alt="بعد العلاج">
-<span class="ba-label">بعد</span>
+<div class="result-slider" data-slider><div class="before"><img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=600&q=80" alt="Before" loading="lazy" style="filter:brightness(0.8) saturate(0.6) sepia(0.15)"></div><div class="after"><img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=600&q=80" alt="After" loading="lazy" style="filter:brightness(1.2) saturate(1.5) contrast(1.1)"></div><div class="divider"></div><div class="handle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 8l4 4-4 4M6 8l-4 4 4 4"/></svg></div><span class="result-label before" data-ar="قبل" data-fr="Avant">قبل</span><span class="result-label after" data-ar="بعد" data-fr="Après">بعد</span></div>
+<div class="result-info"><h4 data-ar="تبييض احترافي" data-fr="Blanchiment professionnel">تبييض احترافي</h4><p data-ar="تبييض LED — فرق واضح في جلسة واحدة" data-fr="Blanchiment LED — une différence visible en une séance">تبييض LED — فرق واضح في جلسة واحدة</p></div>
 </div>
-<div class="ba-before">
-<img src="https://images.unsplash.com/photo-1606811841689-d328b600c70d?w=600&h=450&fit=crop&sat=-100" alt="قبل العلاج">
-<span class="ba-label">قبل</span>
-</div>
-<div class="ba-handle">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8L22 12L18 16"></path><path d="M6 8L2 12L6 16"></path></svg>
-</div>
-</div>
-<div class="result-info">
-<div class="result-title">ابتسامة هوليوود</div>
-<div class="result-desc">8 فينيرات سيراميكية</div>
-</div>
-</div>
-
 <div class="result-card reveal reveal-delay-2">
-<div class="ba-slider" data-ba-slider>
-<div class="ba-after">
-<img src="https://images.unsplash.com/photo-1606811841689-d328b600c70d?w=600&h=450&fit=crop&hue=30" alt="بعد العلاج">
-<span class="ba-label">بعد</span>
-</div>
-<div class="ba-before">
-<img src="https://images.unsplash.com/photo-1606811841689-d328b600c70d?w=600&h=450&fit=crop&sat=-100" alt="قبل العلاج">
-<span class="ba-label">قبل</span>
-</div>
-<div class="ba-handle">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8L22 12L18 16"></path><path d="M6 8L2 12L6 16"></path></svg>
-</div>
-</div>
-<div class="result-info">
-<div class="result-title">تقويم الأسنان</div>
-<div class="result-desc">نتيجة بعد 18 شهر</div>
-</div>
-</div>
+<div class="result-slider" data-slider><div class="before"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&q=80" alt="Before" loading="lazy" style="filter:brightness(0.82) saturate(0.65)"></div><div class="after"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&q=80" alt="After" loading="lazy" style="filter:brightness(1.18) saturate(1.45) contrast(1.08)"></div><div class="divider"></div><div class="handle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 8l4 4-4 4M6 8l-4 4 4 4"/></svg></div><span class="result-label before" data-ar="قبل" data-fr="Avant">قبل</span><span class="result-label after" data-ar="بعد" data-fr="Après">بعد</span></div>
+<div class="result-info"><h4 data-ar="تقويم أسنان" data-fr="Orthodontie">تقويم أسنان</h4><p data-ar="تقويم شفاف — نتائج مذهلة في 12 شهر" data-fr="Bagues transparentes — résultats impressionnants en 12 mois">تقويم شفاف — نتائج مذهلة في 12 شهر</p></div>
 </div>
 </div>
 </section>
 
-<!-- Stats -->
-<section class="stats">
-<div class="stats-inner">
-<div class="stat-item reveal">
-<div class="stat-number" data-count="12000" data-prefix="+">0</div>
-<div class="stat-label">مريض سعيد</div>
-</div>
-<div class="stat-item reveal reveal-delay-1">
-<div class="stat-number" data-count="15">0</div>
-<div class="stat-label">سنة خبرة</div>
-</div>
-<div class="stat-item reveal reveal-delay-2">
-<div class="stat-number" data-count="98" data-suffix="%">0</div>
-<div class="stat-label">نسبة الرضا</div>
-</div>
-<div class="stat-item reveal reveal-delay-3">
-<div class="stat-number" data-count="500" data-prefix="+">0</div>
-<div class="stat-label">تقييم ممتاز</div>
-</div>
+<section class="stats-section">
+<div class="stats-grid">
+<div class="stat-item reveal"><div class="stat-num" data-count="12000" data-prefix="+">0</div><div class="stat-label" data-ar="مريض سعيد" data-fr="Patients satisfaits">مريض سعيد</div></div>
+<div class="stat-item reveal reveal-delay-1"><div class="stat-num" data-count="15">0</div><div class="stat-label" data-ar="سنة خبرة" data-fr="Ans d'expérience">سنة خبرة</div></div>
+<div class="stat-item reveal reveal-delay-2"><div class="stat-num" data-count="98" data-suffix="%">0</div><div class="stat-label" data-ar="نسبة الرضا" data-fr="Taux de satisfaction">نسبة الرضا</div></div>
+<div class="stat-item reveal reveal-delay-3"><div class="stat-num" data-count="500" data-prefix="+">0</div><div class="stat-label" data-ar="تقييم ممتاز" data-fr="Avis excellents">تقييم ممتاز</div></div>
 </div>
 </section>
 
-<!-- Testimonials -->
-<section class="testimonials" id="testimonials">
-<div class="section-container">
-<div class="reveal">
-<div class="section-eyebrow">آراء المرضى</div>
-<h2 class="section-title">قصص نجاح حقيقية</h2>
-<p class="section-desc">سماع من مرضانا الذين غيّروا حياتهم مع سمايل</p>
-</div>
+<section class="section" id="testimonials">
+<div class="section-badge reveal"><span data-ar="آراء المرضى" data-fr="Avis patients">آراء المرضى</span></div>
+<h2 class="section-title reveal"><span data-ar="ماذا يقول" data-fr="Ce que disent">ماذا يقول</span><br><span data-ar="مرضانا" data-fr="nos patients">مرضانا</span></h2>
 <div class="testimonials-grid">
-<div class="testimonial-card reveal">
-<div class="testimonial-stars">★★★★★</div>
-<p class="testimonial-quote">"كنت أخجل من ابتسامتي طوال حياتي. بعد العلاج مع د. أحمد، أصبحت أبتسم بكل ثقة. شكراً سمايل على تغيير حياتي!"</p>
-<div class="testimonial-author">
-<div class="testimonial-avatar">م</div>
-<div>
-<div class="testimonial-name">محمد أمين</div>
-<div class="testimonial-role">مهندس معماري - الجزائر</div>
-</div>
-</div>
-</div>
-
-<div class="testimonial-card reveal reveal-delay-1">
-<div class="testimonial-stars">★★★★★</div>
-<p class="testimonial-quote">"أفضل عيادة أسنان في الجزائر! الطاقم طيب جداً والنتائج مذهلة. أنصح الجميع بعيادة سمايل."</p>
-<div class="testimonial-author">
-<div class="testimonial-avatar">ن</div>
-<div>
-<div class="testimonial-name">نادية بوزيد</div>
-<div class="testimonial-role">أستاذة جامعية - قسنطينة</div>
-</div>
-</div>
-</div>
-
-<div class="testimonial-card reveal">
-<div class="testimonial-stars">★★★★★</div>
-<p class="testimonial-quote">"طفلي كان يخاف من طبيب الأسنان، لكن الفريق هنا جعله يشعر بالراحة. الآن يطلب زيارة العيادة ب рад!"</p>
-<div class="testimonial-author">
-<div class="testimonial-avatar">س</div>
-<div>
-<div class="testimonial-name">سميرة مراد</div>
-<div class="testimonial-role">أم لطفلين - وهران</div>
-</div>
-</div>
-</div>
-
-<div class="testimonial-card reveal reveal-delay-1">
-<div class="testimonial-stars">★★★★★</div>
-<p class="testimonial-quote">"العلاج بالزراعات كان ممتازاً. لا ألم ولا مشاكل. أخيراً أستطيع الأكل بشكل طبيعي."</p>
-<div class="testimonial-author">
-<div class="testimonial-avatar">ع</div>
-<div>
-<div class="testimonial-name">عبدالرحمن خالدي</div>
-<div class="testimonial-role">رجل أعمال - عنابة</div>
-</div>
-</div>
-</div>
-</div>
+<div class="testimonial-card reveal"><div class="stars">★★★★★</div><div class="quote" data-ar="&quot;تجربة ممتازة! الدكتور كان دقيقاً ومحترفاً. النتيجة فاقت توقعاتي.&quot;" data-fr="&quot;Expérience excellente ! Le docteur était précis et professionnel. Le résultat a dépassé mes attentes.&quot;">&quot;تجربة ممتازة! الدكتور كان دقيقاً ومحترفاً. النتيجة فاقت توقعاتي.&quot;</div><div class="author"><div class="avatar">أ</div><div><div class="name" data-ar="أحمد بن محمد" data-fr="Ahmed Ben Mohamed">أحمد بن محمد</div><div class="role" data-ar="زراعة أسنان" data-fr="Implants dentaires">زراعة أسنان</div></div></div></div>
+<div class="testimonial-card reveal reveal-delay-1"><div class="stars">★★★★★</div><div class="quote" data-ar="&quot;أخيراً وجدت عيادة أسنان أثق بها. التبييض كان رائع والأسعار معقولة.&quot;" data-fr="&quot;J'ai enfin trouvé un dentiste de confiance. Le blanchiment était superbe et les prix raisonnables.&quot;">&quot;أخيراً وجدت عيادة أسنان أثق بها. التبييض كان رائع والأسعار معقولة.&quot;</div><div class="author"><div class="avatar">ف</div><div><div class="name" data-ar="فاطمة الزهراء" data-fr="Fatima Zahra">فاطمة الزهراء</div><div class="role" data-ar="تبييض أسنان" data-fr="Blanchiment dentaire">تبييض أسنان</div></div></div></div>
+<div class="testimonial-card reveal reveal-delay-2"><div class="stars">★★★★★</div><div class="quote" data-ar="&quot;ابنتي كانت خائفة لكن الفريق كان لطيفاً جداً معها. شكراً لكم.&quot;" data-fr="&quot;Ma fille avait peur mais l'équipe a été très gentille avec elle. Merci !&quot;">&quot;ابنتي كانت خائفة لكن الفريق كان لطيفاً جداً معها. شكراً لكم.&quot;</div><div class="author"><div class="avatar">م</div><div><div class="name" data-ar="مريم بول-manع" data-fr="Meriem Boualem">مريم بول-manع</div><div class="role" data-ar="علاج أطفال" data-fr="Soins pédiatriques">علاج أطفال</div></div></div></div>
+<div class="testimonial-card reveal reveal-delay-3"><div class="stars">★★★★★</div><div class="quote" data-ar="&quot;التقويم الشفاف كان خياراً مثالياً. لم أشعر بأي ألم والنتائج كانت سريعة.&quot;" data-fr="&quot;Les bagues透明es étaient parfaites. Aucune douleur et des résultats rapides.&quot;">&quot;التقويم الشفاف كان خياراً مثالياً. لم أشعر بأي ألم والنتائج كانت سريعة.&quot;</div><div class="author"><div class="avatar">ي</div><div><div class="name" data-ar="يوسف العلوي" data-fr="Youcef El Aloui">يوسف العلوي</div><div class="role" data-ar="تقويم أسنان" data-fr="Orthodontie">تقويم أسنان</div></div></div></div>
 </div>
 </section>
 
-<!-- Booking -->
-<section class="booking" id="booking">
-<div class="booking-container">
-<div class="booking-info reveal">
-<h2>احجز موعدك الآن</h2>
-<p>تواصل معنا اليوم للحصول على استشارة مجانية. فريقنا جاهز للإجابة على جميع أسئلتك ومساعدتك في اختيار العلاج المناسب</p>
-<div class="booking-contact-item">
-<div class="booking-contact-icon">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-</div>
-<div class="booking-contact-text">
-<strong>+213 555 123 456</strong>
-متاح من السبت إلى الخميس، 9 صباحاً - 8 مساءً
+<section class="section" id="booking">
+<div class="booking-section">
+<div class="reveal">
+<div class="section-badge"><span data-ar="احجز موعدك" data-fr="Réservez votre RDV">احجز موعدك</span></div>
+<h2 class="section-title"><span data-ar="تواصل معنا" data-fr="Contactez-nous">تواصل معنا</span><br><span data-ar="الآن" data-fr="Maintenant">الآن</span></h2>
+<p class="section-desc" style="margin-bottom:36px" data-ar="أرسل لنا بياناتك وسنتواصل معك في أقرب وقت لحجز موعدك." data-fr="Envoyez-nous vos informations et nous vous contacterons rapidement.">أرسل لنا بياناتك وسنتواصل معك في أقرب وقت لحجز موعدك.</p>
+<div class="booking-info">
+<div class="booking-info-card"><div class="bi-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><h4 data-ar="الموقع" data-fr="Adresse">الموقع</h4><p data-ar="باب الزوار، الجزائر العاصمة" data-fr="Bab Ezzouar, Alger">باب الزوار، الجزائر العاصمة</p></div></div>
+<div class="booking-info-card"><div class="bi-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><h4 data-ar="الهاتف" data-fr="Téléphone">الهاتف</h4><p>+213 770 433 364</p></div></div>
+<div class="booking-info-card"><div class="bi-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><h4 data-ar="ساعات العمل" data-fr="Horaires">ساعات العمل</h4><p data-ar="السبت - الخميس: 9:00 - 18:00" data-fr="Sam - Jeu : 9h00 - 18h00">السبت - الخميس: 9:00 - 18:00</p></div></div>
 </div>
 </div>
-<div class="booking-contact-item">
-<div class="booking-contact-icon">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-</div>
-<div class="booking-contact-text">
-<strong>شارع الحرية، الجزائر العاصمة</strong>
-بجوار مول الحبوب
-</div>
-</div>
-<div class="booking-contact-item">
-<div class="booking-contact-icon">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-</div>
-<div class="booking-contact-text">
-<strong>ساعات العمل</strong>
-السبت - الخميس: 9:00 - 20:00
-</div>
-</div>
-</div>
-
-<form class="booking-form reveal">
+<div class="booking-form reveal reveal-delay-1">
+<form id="bookingForm">
 <div class="form-row">
-<div class="form-group">
-<label>الاسم الكامل</label>
-<input type="text" placeholder="أدخل اسمك">
+<div class="form-group"><label data-ar="الاسم الكامل" data-fr="Nom complet">الاسم الكامل</label><input type="text" id="nameInput" data-placeholder-ar="الاسم واللقب" data-placeholder-fr="Nom et prénom" placeholder="الاسم واللقب" required></div>
+<div class="form-group"><label data-ar="رقم الهاتف" data-fr="Numéro de téléphone">رقم الهاتف</label><input type="tel" id="phoneInput" data-placeholder-ar="0555 55 55 55" data-placeholder-fr="0555 55 55 55" placeholder="0555 55 55 55" required></div>
 </div>
-<div class="form-group">
-<label>رقم الهاتف</label>
-<input type="tel" placeholder="0555 123 456">
-</div>
-</div>
-<div class="form-row">
-<div class="form-group">
-<label>البريد الإلكتروني</label>
-<input type="email" placeholder="example@email.com">
-</div>
-<div class="form-group">
-<label>الخدمة المطلوبة</label>
-<select>
-<option>اختر الخدمة</option>
-<option>تبييض الأسنان</option>
-<option>تقويم الأسنان</option>
-<option>زراعة الأسنان</option>
-<option>ابتسامة هوليوود</option>
-<option>علاج الجذور</option>
-<option>علاج اللثة</option>
-<option>طب أسنان الأطفال</option>
-</select>
-</div>
-</div>
-<div class="form-group">
-<label>رسالتك</label>
-<textarea placeholder="اكتب استفسارك أو طلبك هنا..."></textarea>
-</div>
-<button type="submit" class="form-submit">إرسال الحجز</button>
+<div class="form-group"><label data-ar="الخدمة المطلوبة" data-fr="Service souhaité">الخدمة المطلوبة</label>
+<select id="serviceInput">
+<option value="زراعة أسنان" data-ar="زراعة أسنان" data-fr="Implants dentaires">زراعة أسنان</option>
+<option value="تبييض أسنان" data-ar="تبييض أسنان" data-fr="Blanchiment dentaire">تبييض أسنان</option>
+<option value="تقويم أسنان" data-ar="تقويم أسنان" data-fr="Orthodontie">تقويم أسنان</option>
+<option value="علاج جذور" data-ar="علاج جذور" data-fr="Dépulpage">علاج جذور</option>
+<option value="حشوات تجميلية" data-ar="حشوات تجميلية" data-fr="Plombages esthétiques">حشوات تجميلية</option>
+<option value="فحص عام" data-ar="فحص عام" data-fr="Consultation générale">فحص عام</option>
+</select></div>
+<div class="form-group"><label data-ar="ملاحظات" data-fr="Notes">ملاحظات</label><textarea id="notesInput" data-placeholder-ar="أي ملاحظات أو أسئلة..." data-placeholder-fr="Any questions or notes..." placeholder="أي ملاحظات أو أسئلة..."></textarea></div>
+<button type="submit" class="whatsapp-btn">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<span data-ar="إرسال عبر واتساب" data-fr="Envoyer via WhatsApp">إرسال عبر واتساب</span>
+</button>
 </form>
 </div>
-</section>
-
-<!-- FAQ -->
-<section class="faq" id="faq">
-<div class="section-container">
-<div class="reveal" style="text-align:center">
-<div class="section-eyebrow" style="justify-content:center">الأسئلة الشائعة</div>
-<h2 class="section-title">لديك سؤال؟</h2>
-<p class="section-desc" style="margin-left:auto;margin-right:auto">إليك إجابات أكثر الأسئلة شيوعاً</p>
-</div>
-<div class="faq-list">
-<div class="faq-item reveal">
-<button class="faq-question">هل العلاجمؤلم؟</button>
-<div class="faq-answer"><div class="faq-answer-inner">لا، نستخدم مواد تخدير موضعية متطورة تضمن عدم الشعور بأي ألم أثناء العلاج. كما نوفر خيارات تخدير متعددة تناسب جميع المرضى</div></div>
-</div>
-<div class="faq-item reveal">
-<button class="faq-question">كم تستمر جلسة التبييض؟</button>
-<div class="faq-answer"><div class="faq-answer-inner">تستغرق جلسة التبييض بالليزر حوالي 45-60 دقيقة. النتائج فورية وتظهر مباشرة بعد الجلسة. للحفاظ على النتائج، ننصح بتجنب المشروبات الملونة لمدة 48 ساعة</div></div>
-</div>
-<div class="faq-item reveal">
-<button class="faq-question">هل تقبلون الدفع بالتقسيط؟</button>
-<div class="faq-answer"><div class="faq-answer-inner">نعم، نوفر خيارات دفع مرنة تشمل الدفع عبر BaridiMob أو التقسيط على несколько أشهر بدون فوائد. تواصل معنا لمعرفة التفاصيل</div></div>
-</div>
-<div class="faq-item reveal">
-<button class="faq-question">ما هي ساعات العمل؟</button>
-<div class="faq-answer"><div class="faq-answer-inner">نعمل من السبت إلى الخميس، من الساعة 9 صباحاً حتى 8 مساءً. نوفر مواعيد مسائية للموظفين ومواعيد خاصة للطوارئ</div></div>
-</div>
-<div class="faq-item reveal">
-<button class="faq-question">هل أحتاج إلى موعد مسبق؟</button>
-<div class="faq-answer"><div class="faq-answer-inner">نعم، ننصح بحجز موعد مسبق للحصول على أفضل خدمة. يمكنك الحجز عبر الهاتف أو عبر نموذج الحجز الإلكتروني. كما نوفر استشارة مجانية أولى</div></div>
-</div>
-</div>
 </div>
 </section>
 
-<!-- Map -->
-<section class="map">
-<div class="map-container">
-<div class="reveal" style="text-align:center;margin-bottom:2rem">
-<div class="section-eyebrow" style="justify-content:center">موقعنا</div>
-<h2 class="section-title">زورنا في الجزائر العاصمة</h2>
-</div>
-<iframe class="map-embed reveal" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3190.8875463450937!2d3.0588!3d36.7538!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDQ1JzEzLjYiTiAzwrAwMyczMi43IkU!5e0!3m2!1sfr!2sdz!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+<section class="section map-section" id="map">
+<div class="section-badge reveal"><span data-ar="الموقع" data-fr="Localisation">الموقع</span></div>
+<h2 class="section-title reveal"><span data-ar="أين تجدنا" data-fr="Où nous trouver">أين تجدنا</span></h2>
+<p class="section-desc reveal" data-ar="زورنا في أي وقت — نحن في قلب الجزائر العاصمة." data-fr="Rendez-nous visite à tout moment — au cœur d'Alger.">زورنا في أي وقت — نحن في قلب الجزائر العاصمة.</p>
+<div class="map-container reveal">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3199.8!2d3.2!3d36.75!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDQ1JzAwLjAiTiAzwrAxMicwMC4wIkU!5e0!3m2!1sar!2sdz!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 </section>
 
-<!-- CTA -->
-<section class="cta">
-<h2>جاهز لابتسامتك المثالية؟</h2>
-<p>احجز استشارتك المجانية اليوم ودع فريقنا المتخصص يساعدك في تحقيق الابتسامة التي تحلم بها</p>
-<a href="#booking" class="btn">احجز الآن - مجاناً</a>
+<section class="cta-section">
+<h2 class="cta-title reveal"><span data-ar="جاهز لابتسامة" data-fr="Prêt pour un nouveau">جاهز لابتسامة</span><br><span data-ar="جديدة؟" data-fr="sourire ?">جديدة؟</span></h2>
+<p class="cta-desc reveal" data-ar="احجز استشارتك المجانية الآن واحصل على خصم 20% على جميع العلاجات." data-fr="Réservez votre consultation gratuite et bénéficiez de 20% de réduction.">احجز استشارتك المجانية الآن واحصل على خصم 20% على جميع العلاجات.</p>
+<div class="cta-actions reveal">
+<a href="https://wa.me/213770433364?text=مرحباً، أريد حجز موعد في عيادة رازس" class="btn-primary"><span data-ar="تواصل عبر واتساب" data-fr="Contactez-nous sur WhatsApp">تواصل عبر واتساب</span></a>
+</div>
 </section>
 
-<!-- Footer -->
-<footer>
-<div class="footer-grid">
+<footer class="footer">
+<div class="footer-inner">
 <div class="footer-brand">
-<a href="#" class="logo">
-<div class="logo-icon">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10H12V2z"></path><path d="M20.66 8A10 10 0 0 0 12 2v10h10a10 10 0 0 0-1.34-4z"></path><path d="M12 12a10 10 0 0 0-8.66 5L12 12z"></path></svg>
+<div class="logo">RAZES DENTAL</div>
+<p data-ar="عيادة رازس لطب الأسنان — نقدم أفضل علاجات الأسنان بأحدث التقنيات في الجزائر." data-fr="Clinique Razes — les meilleurs soins dentaires avec les dernières technologies en Algérie.">عيادة رازس لطب الأسنان — نقدم أفضل علاجات الأسنان بأحدث التقنيات في الجزائر.</p>
 </div>
-<span>سمايل</span>
-</a>
-<p>عيادة سمايل لطب الأسنان - خبرة 15 سنة في خدمة صحة أسنانكم. نلتزم بأعلى معايير الجودة العالمية</p>
-</div>
-<div class="footer-col">
-<h3>خدماتنا</h3>
-<ul>
-<li><a href="#services">تبييض الأسنان</a></li>
-<li><a href="#services">تقويم الأسنان</a></li>
-<li><a href="#services">زراعة الأسنان</a></li>
-<li><a href="#services">ابتسامة هوليوود</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h3>روابط مفيدة</h3>
-<ul>
-<li><a href="#doctors">فريقنا الطبي</a></li>
-<li><a href="#results">نتائج العلاج</a></li>
-<li><a href="#testimonials">آراء المرضى</a></li>
-<li><a href="#faq">الأسئلة الشائعة</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h3>تواصل معنا</h3>
-<ul>
-<li><a href="tel:+213555123456">+213 555 123 456</a></li>
-<li><a href="mailto:info@smile-dz.com">info@smile-dz.com</a></li>
-<li><a href="#">شارع الحرية، الجزائر</a></li>
-</ul>
-</div>
+<div class="footer-col"><h4 data-ar="روابط سريعة" data-fr="Liens rapides">روابط سريعة</h4><a href="#services" data-ar="الخدمات" data-fr="Services">الخدمات</a><a href="#doctors" data-ar="الأطباء" data-fr="Médecins">الأطباء</a><a href="#results" data-ar="النتائج" data-fr="Résultats">النتائج</a><a href="#map" data-ar="الموقع" data-fr="Localisation">الموقع</a></div>
+<div class="footer-col"><h4 data-ar="الخدمات" data-fr="Services">الخدمات</h4><a href="#" data-ar="زراعة الأسنان" data-fr="Implants">زراعة الأسنان</a><a href="#" data-ar="تبييض الأسنان" data-fr="Blanchiment">تبييض الأسنان</a><a href="#" data-ar="تقويم الأسنان" data-fr="Orthodontie">تقويم الأسنان</a><a href="#" data-ar="علاج الجذور" data-fr="Dépulpage">علاج الجذور</a></div>
+<div class="footer-col"><h4 data-ar="تواصل معنا" data-fr="Contact">تواصل معنا</h4><a href="tel:+213770433364">+213 770 433 364</a><a href="https://wa.me/213770433364">WhatsApp</a><a href="#">Instagram</a></div>
 </div>
 <div class="footer-bottom">
-<p>© 2024 عيادة سمايل لطب الأسنان. جميع الحقوق محفوظة</p>
-<p>تصميم وتطوير بعناية</p>
+<p>© 2026 Razes Dental Clinic.</p>
+<p data-ar="صُمم بـ ❤ في الجزائر" data-fr="Fait avec ❤ en Algérie">صُمم بـ ❤ في الجزائر</p>
 </div>
 </footer>
 
-<!-- WhatsApp Float -->
-<a href="https://wa.me/213555123456" class="whatsapp-float" target="_blank">
-<svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+<a href="https://wa.me/213770433364?text=مرحباً، أريد معرفة المزيد" class="wa-float" aria-label="WhatsApp">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
 <script>
-// Header scroll effect
-window.addEventListener('scroll', () => {
-const header = document.getElementById('header');
-if (window.scrollY > 50) {
-header.classList.add('scrolled');
-} else {
-header.classList.remove('scrolled');
+// LOADER
+(function(){const n=document.getElementById('loaderNum'),l=document.getElementById('loader');let c=0;const i=setInterval(()=>{c+=Math.floor(Math.random()*8)+3;if(c>=100){c=100;clearInterval(i);setTimeout(()=>l.classList.add('hidden'),400)}n.textContent=c},30)})();
+
+// NAV SCROLL
+const nav=document.getElementById('nav');window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>50)});
+
+// HAMBURGER
+const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');mobileMenu.classList.toggle('active')});
+function closeMenu(){hamburger.classList.remove('active');mobileMenu.classList.remove('active')}
+
+// THEME TOGGLE
+const themeToggle=document.getElementById('themeToggle');
+const savedTheme=localStorage.getItem('theme')||'light';
+document.documentElement.setAttribute('data-theme',savedTheme);
+themeToggle.textContent=savedTheme==='light'?'🌙':'☀';
+themeToggle.addEventListener('click',()=>{
+const current=document.documentElement.getAttribute('data-theme');
+const next=current==='light'?'dark':'light';
+document.documentElement.setAttribute('data-theme',next);
+localStorage.setItem('theme',next);
+themeToggle.textContent=next==='light'?'🌙':'☀';
+});
+
+// LANGUAGE TOGGLE
+const langToggle=document.getElementById('langToggle');
+function setLang(lang){
+document.documentElement.setAttribute('data-lang',lang);
+document.documentElement.setAttribute('dir',lang==='ar'?'rtl':'ltr');
+document.documentElement.setAttribute('lang',lang);
+langToggle.textContent=lang==='ar'?'FR':'AR';
+document.querySelectorAll('[data-ar][data-fr]').forEach(el=>{
+el.textContent=el.getAttribute('data-'+lang);
+});
+document.querySelectorAll('[data-placeholder-ar]').forEach(el=>{
+el.placeholder=el.getAttribute('data-placeholder-'+lang);
+});
+const opts=document.querySelectorAll('#serviceInput option');
+opts.forEach(opt=>{if(opt.getAttribute('data-'+lang))opt.textContent=opt.getAttribute('data-'+lang)});
 }
+const savedLang=localStorage.getItem('lang')||'ar';
+setLang(savedLang);
+langToggle.addEventListener('click',()=>{
+const current=document.documentElement.getAttribute('data-lang');
+const next=current==='ar'?'fr':'ar';
+localStorage.setItem('lang',next);
+setLang(next);
 });
 
-// Reveal on scroll
-const revealElements = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('active');
-}
-});
-}, { threshold: 0.1 });
+// SCROLL REVEAL
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-revealElements.forEach(el => revealObserver.observe(el));
+// NUMBER COUNTER
+const co=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target,t=parseInt(el.getAttribute('data-count')),p=el.getAttribute('data-prefix')||'',s=el.getAttribute('data-suffix')||'';let c=0;const st=t/125;const up=()=>{c+=st;if(c<t){el.textContent=p+Math.floor(c).toLocaleString()+s;requestAnimationFrame(up)}else{el.textContent=p+t.toLocaleString()+s}};up();co.unobserve(el)}})},{threshold:0.5});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
 
-// Before/After sliders
-document.querySelectorAll('[data-ba-slider]').forEach(slider => {
-const before = slider.querySelector('.ba-before');
-const handle = slider.querySelector('.ba-handle');
-let isDown = false;
-
-const updateSlider = (x) => {
-const rect = slider.getBoundingClientRect();
-let percent = ((x - rect.left) / rect.width) * 100;
-percent = Math.max(0, Math.min(100, percent));
-before.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
-handle.style.left = `${percent}%`;
-};
-
-slider.addEventListener('mousedown', (e) => {
-isDown = true;
-updateSlider(e.clientX);
+// BEFORE/AFTER SLIDERS
+document.querySelectorAll('[data-slider]').forEach(sl=>{
+const af=sl.querySelector('.after'),dv=sl.querySelector('.divider'),hn=sl.querySelector('.handle');let dr=false;
+function up(x){const r=sl.getBoundingClientRect();let p=(x-r.left)/r.width;p=Math.max(0.05,Math.min(0.95,p));af.style.clipPath=`inset(0 ${(1-p)*100}% 0 0)`;dv.style.left=p*100+'%';hn.style.left=p*100+'%'}
+sl.addEventListener('mousedown',e=>{dr=true;up(e.clientX)});sl.addEventListener('touchstart',e=>{dr=true;up(e.touches[0].clientX)});
+document.addEventListener('mousemove',e=>{if(dr)up(e.clientX)});document.addEventListener('touchmove',e=>{if(dr)up(e.touches[0].clientX)});
+document.addEventListener('mouseup',()=>dr=false);document.addEventListener('touchend',()=>dr=false);
 });
 
-document.addEventListener('mousemove', (e) => {
-if (isDown) updateSlider(e.clientX);
-});
-
-document.addEventListener('mouseup', () => isDown = false);
-
-slider.addEventListener('touchstart', (e) => {
-isDown = true;
-updateSlider(e.touches[0].clientX);
-});
-
-slider.addEventListener('touchmove', (e) => {
-if (isDown) {
+// WHATSAPP FORM
+document.getElementById('bookingForm').addEventListener('submit',function(e){
 e.preventDefault();
-updateSlider(e.touches[0].clientX);
-}
-});
-
-slider.addEventListener('touchend', () => isDown = false);
-});
-
-// Number counter animation
-const counterElements = document.querySelectorAll('.stat-number[data-count]');
-const counterObserver = new IntersectionObserver((entries) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-const el = entry.target;
-const target = parseInt(el.getAttribute('data-count'));
-const prefix = el.getAttribute('data-prefix') || '';
-const suffix = el.getAttribute('data-suffix') || '';
-const duration = 2000;
-const step = target / (duration / 16);
-let current = 0;
-
-const updateCounter = () => {
-current += step;
-if (current < target) {
-el.textContent = prefix + Math.floor(current).toLocaleString() + suffix;
-requestAnimationFrame(updateCounter);
-} else {
-el.textContent = prefix + target.toLocaleString() + suffix;
-}
-};
-
-updateCounter();
-counterObserver.unobserve(el);
-}
-});
-}, { threshold: 0.5 });
-
-counterElements.forEach(el => counterObserver.observe(el));
-
-// FAQ accordion
-document.querySelectorAll('.faq-question').forEach(btn => {
-btn.addEventListener('click', () => {
-const item = btn.closest('.faq-item');
-const answer = item.querySelector('.faq-answer');
-const isActive = item.classList.contains('active');
-
-document.querySelectorAll('.faq-item').forEach(i => {
-i.classList.remove('active');
-i.querySelector('.faq-answer').style.maxHeight = null;
-});
-
-if (!isActive) {
-item.classList.add('active');
-answer.style.maxHeight = answer.scrollHeight + 'px';
-}
-});
-});
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-anchor.addEventListener('click', function (e) {
-e.preventDefault();
-const target = document.querySelector(this.getAttribute('href'));
-if (target) {
-target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-});
+const lang=document.documentElement.getAttribute('data-lang');
+const n=document.getElementById('nameInput').value,p=document.getElementById('phoneInput').value,s=document.getElementById('serviceInput').value,nt=document.getElementById('notesInput').value;
+const msg=lang==='ar'?`مرحباً، أريد حجز موعد في عيادة رازس.\n\nالاسم: ${n}\nالهاتف: ${p}\nالخدمة: ${s}\nملاحظات: ${nt||'لا توجد'}`:`Bonjour, je veux prendre rendez-vous à la clinique Razes.\n\nNom: ${n}\nTél: ${p}\nService: ${s}\nNotes: ${nt||'Aucune'}`;
+window.open(`https://wa.me/213770433364?text=${encodeURIComponent(msg)}`,'_blank');
 });
 </script>
 </body>
