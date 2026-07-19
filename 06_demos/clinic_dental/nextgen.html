@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAZES DENTAL — Premium Dental Clinic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   RAZES DENTAL — NEXT-LEVEL PREMIUM DESIGN
+   Ethereal Glass + Double-Bezel + Fluid Motion
+   ═══════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* Ethereal Glass Palette */
+  --bg-primary: #f8f7f4;
+  --bg-secondary: #ffffff;
+  --bg-card: rgba(255,255,255,0.7);
+  --bg-glass: rgba(255,255,255,0.4);
+  --text-primary: #0a0a0a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #8a8a8a;
+  --accent: #0d9488;
+  --accent-light: #14b8a6;
+  --accent-glow: rgba(13,148,136,0.15);
+  --border: rgba(0,0,0,0.06);
+  --border-strong: rgba(0,0,0,0.1);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+  --shadow-xl: 0 24px 60px rgba(0,0,0,0.1);
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 40px;
+  --radius-full: 9999px;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-theme="dark"] {
+  --bg-primary: #050505;
+  --bg-secondary: #0a0a0a;
+  --bg-card: rgba(20,20,20,0.7);
+  --bg-glass: rgba(20,20,20,0.4);
+  --text-primary: #f0f0f0;
+  --text-secondary: #b0b0b0;
+  --text-muted: #606060;
+  --accent: #14b8a6;
+  --accent-light: #2dd4bf;
+  --accent-glow: rgba(20,184,166,0.2);
+  --border: rgba(255,255,255,0.06);
+  --border-strong: rgba(255,255,255,0.1);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);
+  --shadow-xl: 0 24px 60px rgba(0,0,0,0.5);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  transition: background 0.5s var(--ease-out), color 0.5s var(--ease-out);
+}
+
+/* ═══ NOISE OVERLAY ═══ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ═══ MESH GRADIENT BACKGROUND ═══ */
+.mesh-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+.mesh-bg .orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.4;
+  animation: float 20s ease-in-out infinite;
+}
+.mesh-bg .orb:nth-child(1) {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(13,148,136,0.3), transparent);
+  top: -200px; right: -200px;
+  animation-delay: 0s;
+}
+.mesh-bg .orb:nth-child(2) {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(99,102,241,0.2), transparent);
+  bottom: -150px; left: -150px;
+  animation-delay: -7s;
+}
+.mesh-bg .orb:nth-child(3) {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(168,85,247,0.15), transparent);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -14s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.05); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+/* ═══ SCROLL REVEAL ═══ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(8px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out), filter 0.8s var(--ease-out);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ═══ FLOATING NAV ═══ */
+.nav {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+  transition: all 0.5s var(--ease-out);
+}
+.nav-logo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent);
+  padding: 0 12px;
+  white-space: nowrap;
+}
+.nav-links {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+}
+.nav-links a {
+  display: block;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  transition: all 0.3s var(--ease-out);
+}
+.nav-links a:hover {
+  color: var(--text-primary);
+  background: var(--accent-glow);
+}
+.nav-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.nav-btn {
+  width: 36px; height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out);
+  font-size: 16px;
+}
+.nav-btn:hover {
+  background: var(--accent);
+  color: white;
+  transform: scale(1.05);
+}
+.nav-cta {
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out);
+}
+.nav-cta:hover {
+  background: var(--accent-light);
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+/* ═══ HAMBURGER ═══ */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 101;
+}
+.hamburger span {
+  width: 20px; height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.3s var(--ease-out);
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* ═══ HERO ═══ */
+.hero {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  padding: 120px 5vw 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.hero-text { z-index: 2; }
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: var(--accent-glow);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 24px;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+.hero h1 .accent { color: var(--accent); }
+.hero p {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 480px;
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.4s var(--ease-out);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(255,255,255,0.2));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px var(--accent-glow);
+}
+.btn-primary:hover::after { opacity: 1; }
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.4s var(--ease-out);
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+}
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Hero Visual — Double-Bezel */
+.hero-visual {
+  position: relative;
+  perspective: 1000px;
+}
+.hero-card {
+  position: relative;
+  padding: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  transition: transform 0.6s var(--ease-out);
+  transform-style: preserve-3d;
+}
+.hero-card:hover {
+  transform: rotateY(5deg) rotateX(2deg);
+}
+.hero-card-inner {
+  position: relative;
+  border-radius: calc(var(--radius-xl) - 12px);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, var(--accent), #065f56);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-card-inner .placeholder {
+  font-size: 120px;
+  opacity: 0.3;
+}
+.hero-card-badge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-md);
+}
+[data-theme="dark"] .hero-card-badge { background: rgba(20,20,20,0.9); }
+.hero-card-badge .icon {
+  width: 44px; height: 44px;
+  background: var(--accent);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.hero-card-badge .info { flex: 1; }
+.hero-card-badge .info .title { font-size: 14px; font-weight: 600; }
+.hero-card-badge .info .subtitle { font-size: 12px; color: var(--text-muted); }
+
+/* ═══ SECTION SHARED ═══ */
+section {
+  padding: 120px 5vw;
+  position: relative;
+}
+.section-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 80px;
+}
+.section-eyebrow {
+  display: inline-block;
+  padding: 6px 16px;
+  background: var(--accent-glow);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 20px;
+}
+.section-header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+.section-header p {
+  font-size: 17px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ═══ BENTO GRID — SERVICES ═══ */
+.bento-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+.bento-card {
+  position: relative;
+  padding: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  transition: all 0.5s var(--ease-out);
+  overflow: hidden;
+}
+.bento-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--accent-glow), transparent);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.bento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent);
+}
+.bento-card:hover::before { opacity: 1; }
+.bento-card .icon {
+  width: 56px; height: 56px;
+  background: var(--accent-glow);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+.bento-card h3 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+.bento-card p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+}
+
+/* Bento sizes */
+.bento-card.span-8 { grid-column: span 8; }
+.bento-card.span-6 { grid-column: span 6; }
+.bento-card.span-4 { grid-column: span 4; }
+.bento-card.span-12 { grid-column: span 12; }
+
+/* ═══ STATS ═══ */
+.stats-row {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.stat-card {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s var(--ease-out);
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.stat-number {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ═══ BEFORE/AFTER SLIDER ═══ */
+.slider-section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.slider-container {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  aspect-ratio: 16/10;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-xl);
+  cursor: col-resize;
+  user-select: none;
+}
+.slider-before, .slider-after {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 600;
+}
+.slider-before {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: rgba(255,255,255,0.5);
+  clip-path: inset(0 50% 0 0);
+}
+.slider-after {
+  background: linear-gradient(135deg, var(--accent), #065f56);
+  color: rgba(255,255,255,0.8);
+}
+.slider-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: white;
+  transform: translateX(-50%);
+  z-index: 10;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+.slider-handle::after {
+  content: '⟨ ⟩';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #333;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  letter-spacing: 4px;
+}
+.slider-label {
+  position: absolute;
+  bottom: 20px;
+  padding: 8px 16px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.slider-label.before { right: 20px; }
+.slider-label.after { left: 20px; }
+
+/* ═══ DOCTORS ═══ */
+.doctors-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.doctor-card {
+  padding: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  transition: all 0.5s var(--ease-out);
+  backdrop-filter: blur(10px);
+}
+.doctor-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--accent);
+}
+.doctor-card-inner {
+  border-radius: calc(var(--radius-xl) - 12px);
+  overflow: hidden;
+}
+.doctor-photo {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--accent-glow), var(--bg-secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  border-radius: var(--radius-lg);
+}
+.doctor-info {
+  padding: 24px 12px 12px;
+}
+.doctor-info h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.doctor-info .specialty {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.doctor-info .bio {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ═══ TESTIMONIALS ═══ */
+.testimonials-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.testimonial-card {
+  padding: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s var(--ease-out);
+}
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.testimonial-stars {
+  color: #f59e0b;
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+.testimonial-text {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.testimonial-avatar {
+  width: 44px; height: 44px;
+  background: var(--accent-glow);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.testimonial-name { font-size: 14px; font-weight: 600; }
+.testimonial-role { font-size: 12px; color: var(--text-muted); }
+
+/* ═══ PRICING ═══ */
+.pricing-grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.pricing-card {
+  padding: 40px 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  transition: all 0.5s var(--ease-out);
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+.pricing-card.featured {
+  border-color: var(--accent);
+  box-shadow: 0 0 60px var(--accent-glow);
+  transform: scale(1.05);
+}
+.pricing-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+}
+.pricing-card.featured:hover {
+  transform: scale(1.05) translateY(-6px);
+}
+.pricing-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 20px;
+  background: var(--accent);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.pricing-card h3 {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.pricing-card .price {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 16px 0;
+}
+.pricing-card .price span { font-size: 16px; color: var(--text-muted); }
+.pricing-card .features {
+  list-style: none;
+  margin: 24px 0;
+  text-align: right;
+}
+.pricing-card .features li {
+  padding: 10px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pricing-card .features li::before {
+  content: '✓';
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ═══ MAP ═══ */
+.map-section {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.map-container {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-xl);
+  aspect-ratio: 21/9;
+}
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ═══ CTA SECTION ═══ */
+.cta-section {
+  text-align: center;
+  padding: 160px 5vw;
+}
+.cta-box {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 60px;
+  background: linear-gradient(135deg, var(--accent), #065f56);
+  border-radius: var(--radius-xl);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.cta-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.cta-box h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+.cta-box p {
+  font-size: 17px;
+  opacity: 0.9;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+.cta-box .btn-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  background: white;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.4s var(--ease-out);
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+}
+.cta-box .btn-white:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+/* ═══ FOOTER ═══ */
+.footer {
+  padding: 60px 5vw 40px;
+  border-top: 1px solid var(--border);
+}
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-brand {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--accent); }
+.footer-copy {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+/* ═══ WHATSAPP FAB ═══ */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 90;
+  width: 60px;
+  height: 60px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: white;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-spring);
+  text-decoration: none;
+}
+.whatsapp-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+}
+
+/* ═══ LOADING SCREEN ═══ */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s var(--ease-out), visibility 0.6s;
+}
+.loader.hidden { opacity: 0; visibility: hidden; }
+.loader-logo {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+.loader-bar {
+  width: 200px;
+  height: 3px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.loader-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.3s;
+}
+.loader-percent {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { max-width: 500px; }
+  .bento-card.span-8,
+  .bento-card.span-6,
+  .bento-card.span-4 { grid-column: span 6; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+  .pricing-card.featured { transform: none; }
+  .pricing-card.featured:hover { transform: translateY(-6px); }
+}
+
+@media (max-width: 768px) {
+  .nav-links, .nav-actions { display: none; }
+  .hamburger { display: flex; }
+  
+  .nav.mobile-open {
+    position: fixed;
+    inset: 0;
+    top: 0;
+    border-radius: 0;
+    background: var(--bg-glass);
+    backdrop-filter: blur(30px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  .nav.mobile-open .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .nav.mobile-open .nav-links a {
+    font-size: 20px;
+    padding: 12px 24px;
+  }
+  .nav.mobile-open .nav-actions {
+    display: flex;
+    margin-top: 20px;
+  }
+  
+  .hero { padding: 100px 5vw 60px; min-height: auto; }
+  .bento-card.span-8,
+  .bento-card.span-6,
+  .bento-card.span-4,
+  .bento-card.span-12 { grid-column: span 12; }
+  
+  .doctors-grid,
+  .testimonials-grid { grid-template-columns: 1fr; }
+  
+  .slider-container { aspect-ratio: 4/3; }
+  .cta-box { padding: 48px 24px; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 32px; }
+  .hero-actions { flex-direction: column; width: 100%; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+  .stats-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div class="loader" id="loader">
+  <div class="loader-logo">RAZES DENTAL</div>
+  <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
+  <div class="loader-percent" id="loaderPercent">0%</div>
+</div>
+
+<!-- Mesh Background -->
+<div class="mesh-bg">
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+</div>
+
+<!-- Floating Nav -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">RAZES DENTAL</div>
+  <ul class="nav-links">
+    <li><a href="#services" data-ar="الخدمات" data-fr="Services">الخدمات</a></li>
+    <li><a href="#doctors" data-ar="الطاقم" data-fr="Équipe">الطاقم</a></li>
+    <li><a href="#results" data-ar="النتائج" data-fr="Résultats">النتائج</a></li>
+    <li><a href="#pricing" data-ar="الأسعار" data-fr="Tarifs">الأسعار</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="toggleTheme()" title="Toggle theme">◑</button>
+    <button class="nav-btn" onclick="toggleLang()" title="Toggle language" id="langBtn">FR</button>
+    <a href="https://wa.me/213770433364" class="nav-cta" data-ar="احجز موعد" data-fr="Prendre RDV">احجز موعد</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-text reveal">
+      <div class="hero-eyebrow" data-ar="عيادة أسنان احترافية" data-fr="Clinique dentaire premium">عيادة أسنان احترافية</div>
+      <h1 data-ar='ابتسامتك <span class="accent">تستحق</span> الأفضل' data-fr='Votre sourire <span class="accent">mérite</span> le meilleur'>ابتسامتك <span class="accent">تستحق</span> الأفضل</h1>
+      <p data-ar="نقدم لكم أحدث تقنيات طب الأسنان بأيدٍ خبيرة. تصميم احترافي، نتائج فورية، وابتسامة تدوم طويلاً." data-fr="Nous offrons les dernières techniques dentaires avec expertise. Design professionnel, résultats instantanés et un sourire durable.">نقدم لكم أحدث تقنيات طب الأسنان بأيدٍ خبيرة. تصميم احترافي، نتائج فورية، وابتسامة تدوم طويلاً.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/213770433364" class="btn-primary" data-ar="احجز استشارة مجانية" data-fr="Consultation gratuite">
+          <span data-ar="احجز استشارة مجانية" data-fr="Consultation gratuite">احجز استشارة مجانية</span>
+          <span>←</span>
+        </a>
+        <a href="#services" class="btn-secondary" data-ar="اكتشف خدماتنا" data-fr="Découvrir nos services">
+          <span data-ar="اكتشف خدماتنا" data-fr="Découvrir nos services">اكتشف خدماتنا</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual reveal reveal-delay-2">
+      <div class="hero-card" id="heroCard">
+        <div class="hero-card-inner">
+          <div class="placeholder">🦷</div>
+          <div class="hero-card-badge">
+            <div class="icon">⭐</div>
+            <div class="info">
+              <div class="title" data-ar="98% رضا المرضى" data-fr="98% satisfaction">98% رضا المرضى</div>
+              <div class="subtitle" data-ar="أكثر من 2000 مريض" data-fr="Plus de 2000 patients">أكثر من 2000 مريض</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section>
+  <div class="stats-row reveal">
+    <div class="stat-card">
+      <div class="stat-number" data-count="2000">0</div>
+      <div class="stat-label" data-ar="مريض سعيد" data-fr="Patients satisfaits">مريض سعيد</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" data-count="15">0</div>
+      <div class="stat-label" data-ar="سنة خبرة" data-fr="Années d'expérience">سنة خبرة</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" data-count="50">0</div>
+      <div class="stat-label" data-ar="تقنية حديثة" data-fr="Techniques modernes">تقنية حديثة</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" data-count="98">0</div>
+      <div class="stat-label" data-ar="نسبة الرضا %" data-fr="Taux de satisfaction %">نسبة الرضا %</div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Bento Grid -->
+<section id="services">
+  <div class="section-header reveal">
+    <div class="section-eyebrow" data-ar="خدماتنا" data-fr="Nos Services">خدماتنا</div>
+    <h2 data-ar="رعاية شاملة <br>لابتسامتك المثالية" data-fr="Des soins complets <br>pour votre sourire idéal">رعاية شاملة <br>لابتسامتك المثالية</h2>
+    <p data-ar="نقدم مجموعة واسعة من خدمات طب الأسنان بأعلى معايير الجودة" data-fr="Nous offrons une gamme complète de services dentaires de haute qualité">نقدم مجموعة واسعة من خدمات طب الأسنان بأعلى معايير الجودة</p>
+  </div>
+  
+  <div class="bento-grid">
+    <div class="bento-card span-8 reveal">
+      <div class="icon">🔬</div>
+      <h3 data-ar="زراعة الأسنان" data-fr="Implants Dentaires">زراعة الأسنان</h3>
+      <p data-ar="أحدث تقنيات الزراعة بتقنية البورتوزيلان. نتائج طبيعية تدوم مدى الحياة مع ضمان 10 سنوات." data-fr="Les dernières techniques de greffe en porcelaine. Des résultats naturels durables avec une garantie de 10 ans.">أحدث تقنيات الزراعة بتقنية البورتوزيلان. نتائج طبيعية تدوم مدى الحياة مع ضمان 10 سنوات.</p>
+    </div>
+    <div class="bento-card span-4 reveal reveal-delay-1">
+      <div class="icon">✨</div>
+      <h3 data-ar="تبييض الأسنان" data-fr="Blanchiment">تبييض الأسنان</h3>
+      <p data-ar="تبييض متقدم بتقنية الليزر. نتائج فورية في جلسة واحدة." data-fr="Blanchiment laser avancé. Résultats immédiats en une seule séance.">تبييض متقدم بتقنية الليزر. نتائج فورية في جلسة واحدة.</p>
+    </div>
+    <div class="bento-card span-4 reveal reveal-delay-2">
+      <div class="icon">🦷</div>
+      <h3 data-ar="تقويم الأسنان" data-fr="Orthodontie">تقويم الأسنان</h3>
+      <p data-ar="تقويم شفاف بتقنية الإنفيزلاين. ابتسامة مثالية بدون أسلاك." data-fr="Aligneurs invisibles Invisline. Un sourire parfait sans bagues.">تقويم شفاف بتقنية الإنفيزلاين. ابتسامة مثالية بدون أسلاك.</p>
+    </div>
+    <div class="bento-card span-4 reveal reveal-delay-3">
+      <div class="icon">💆</div>
+      <h3 data-ar="علاج اللثة" data-fr="Soins Gencives">علاج اللثة</h3>
+      <p data-ar="علاج متقدم للأمراض اللثوية بأحدث الأجهزة. صحة فمك أولاً." data-fr="Traitement avancé des maladies gingivales. La santé de votre bouche d'abord.">علاج متقدم للأمراض اللثوية بأحدث الأجهزة. صحة فمك أولاً.</p>
+    </div>
+    <div class="bento-card span-4 reveal reveal-delay-4">
+      <div class="icon">🎭</div>
+      <h3 data-ar="تصميم الابتسامة" data-fr="Design du Sourire">تصميم الابتسامة</h3>
+      <p data-ar="تصميم رقمي مخصص لابتسامتك المثالية. شوف النتيجة قبل ما تبدى." data-fr="Conception numérique personnalisée de votre sourire idéal. Voyez le résultat avant de commencer.">تصميم رقمي مخصص لابتسامتك المثالية. شوف النتيجة قبل ما تبدى.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Before/After -->
+<section id="results">
+  <div class="section-header reveal">
+    <div class="section-eyebrow" data-ar="نتائج حقيقية" data-fr="Résultats Réels">نتائج حقيقية</div>
+    <h2 data-ar="شاهد الفرق <br>بنفسك" data-fr="Voyez la différence <br>par vous-même">شاهد الفرق <br>بنفسك</h2>
+  </div>
+  <div class="slider-section reveal">
+    <div class="slider-container" id="slider">
+      <div class="slider-before" id="sliderBefore">
+        <span data-ar="قبل العلاج" data-fr="Avant traitement">قبل العلاج</span>
+        <div class="slider-label before" data-ar="قبل" data-fr="Avant">قبل</div>
+      </div>
+      <div class="slider-after">
+        <span data-ar="بعد العلاج" data-fr="Après traitement">بعد العلاج</span>
+        <div class="slider-label after" data-ar="بعد" data-fr="Après">بعد</div>
+      </div>
+      <div class="slider-handle" id="sliderHandle"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Doctors -->
+<section id="doctors">
+  <div class="section-header reveal">
+    <div class="section-eyebrow" data-ar="طاقمنا الطبي" data-fr="Notre Équipe">طاقمنا الطبي</div>
+    <h2 data-ar="أطباء <br>خبراء ومتخصصون" data-fr="Des médecins <br>experts et spécialisés">أطباء <br>خبراء ومتخصصون</h2>
+  </div>
+  <div class="doctors-grid">
+    <div class="doctor-card reveal">
+      <div class="doctor-card-inner">
+        <div class="doctor-photo">👨‍⚕️</div>
+        <div class="doctor-info">
+          <h3>Dr. Ahmed Benali</h3>
+          <div class="specialty" data-ar="استشاري زراعة الأسنان" data-fr="Consultant en implants">استشاري زراعة الأسنان</div>
+          <div class="bio" data-ar="خبرة 15 سنة في الزراعة العلوية والسفلى. أكثر من 500 عملية ناجحة." data-fr="15 ans d'expérience en greffe. Plus de 500 opérations réussies.">خبرة 15 سنة في الزراعة العلوية والسفلى. أكثر من 500 عملية ناجحة.</div>
+        </div>
+      </div>
+    </div>
+    <div class="doctor-card reveal reveal-delay-1">
+      <div class="doctor-card-inner">
+        <div class="doctor-photo">👩‍⚕️</div>
+        <div class="doctor-info">
+          <h3>Dr. Sara Khelifi</h3>
+          <div class="specialty" data-ar="متخصصة في تقويم الأسنان" data-fr="Spécialiste en orthodontie">متخصصة في تقويم الأسنان</div>
+          <div class="bio" data-ar="خريجة جامعة باريس. متخصصة في الإنفيزلاين والتقويم الشفاف." data-fr="Diplômée de Paris. Spécialiste en Invisalign et aligneurs transparents.">خريجة جامعة باريس. متخصصة في الإنفيزلاين والتقويم الشفاف.</div>
+        </div>
+      </div>
+    </div>
+    <div class="doctor-card reveal reveal-delay-2">
+      <div class="doctor-card-inner">
+        <div class="doctor-photo">👨‍⚕️</div>
+        <div class="doctor-info">
+          <h3>Dr. Karim Mansouri</h3>
+          <div class="specialty" data-ar="استشاري تجميل الابتسامة" data-fr="Consultant en esthétique dentaire">استشاري تجميل الابتسامة</div>
+          <div class="bio" data-ar="خبير في فينير البورتوزيلان وتصميم الابتسامة الرقمية." data-fr="Expert en facettes porcelaine et design numérique du sourire.">خبير في فينير البورتوزيلان وتصميم الابتسامة الرقمية.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section>
+  <div class="section-header reveal">
+    <div class="section-eyebrow" data-ar="آراء المرضى" data-fr="Avis des Patients">آراء المرضى</div>
+    <h2 data-ar="ماذا يقول <br>مرضانا عنا" data-fr="Ce que disent <br>nos patients">ماذا يقول <br>مرضانا عنا</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <div class="testimonial-text" data-ar="&laquo; أفضل عيادة أسنان في الجزائر. العلاج كان بدون ألم والنتائج كانت مذهلة. أنصح الجميع.&raquo;" data-fr="&laquo; La meilleure clinique dentaire en Algérie. Le traitement était indolore et les résultats impressionnants. Je recommande.&raquo;">&laquo; أفضل عيادة أسنان في الجزائر. العلاج كان بدون ألم والنتائج كانت مذهلة. أنصح الجميع.&raquo;</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">👤</div>
+        <div>
+          <div class="testimonial-name">Yasmine B.</div>
+          <div class="testimonial-role" data-ar="زراعة أسنان" data-fr="Greffe dentaire">زراعة أسنان</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="testimonial-stars">★★★★★</div>
+      <div class="testimonial-text" data-ar="&laquo; التقويم الشفاف غير حياتي. ابتسامتي الآن مثالية والطاقم كان محترف جداً.&raquo;" data-fr="&laquo; Les aligneurs transparents ont changé ma vie. Mon sourire est maintenant parfait et l'équipe était très professionnelle.&raquo;">&laquo; التقويم الشفاف غير حياتي. ابتسامتي الآن مثالية والطاقم كان محترف جداً.&raquo;</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">👤</div>
+        <div>
+          <div class="testimonial-name">Mohamed K.</div>
+          <div class="testimonial-role" data-ar="تقويم شفاف" data-fr="Aligneurs transparents">تقويم شفاف</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testimonial-stars">★★★★★</div>
+      <div class="testimonial-text" data-ar="&laquo; التبييض كان سريع ونتائج طبيعية. العيادة نظيفة جداً والطاقم ودود. شكراً لكم.&raquo;" data-fr="&laquo; Le blanchiment était rapide et les résultats naturels. La clinique est très propre et l'équipe est sympathique. Merci.&raquo;">&laquo; التبييض كان سريع ونتائج طبيعية. العيادة نظيفة جداً والطاقم ودود. شكراً لكم.&raquo;</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">👤</div>
+        <div>
+          <div class="testimonial-name">Fatima Z.</div>
+          <div class="testimonial-role" data-ar="تبييض أسنان" data-fr="Blanchiment">تبييض أسنان</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing">
+  <div class="section-header reveal">
+    <div class="section-eyebrow" data-ar="أسعارنا" data-fr="Nos Tarifs">أسعارنا</div>
+    <h2 data-ar="استثمر في <br>ابتسامتك" data-fr="Investissez dans <br>votre sourire">استثمر في <br>ابتسامتك</h2>
+    <p data-ar="أسعار تنافسية مع إمكانية التقسيط" data-fr="Des prix compétitifs avec possibilité de paiement en">أسعار تنافسية مع إمكانية التقسيط</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="pricing-card reveal">
+      <h3 data-ar="الztad" data-fr="Essentiel">الztad</h3>
+      <div class="price">15,000 <span data-ar="دج" data-fr="DA">دج</span></div>
+      <ul class="features">
+        <li data-ar="فحص شامل" data-fr="Examen complet">فحص شامل</li>
+        <li data-ar="تنظيف الأسنان" data-fr="Détartrage">تنظيف الأسنان</li>
+        <li data-ar="تبييض أساسي" data-fr="Blanchiment de base">تبييض أساسي</li>
+        <li data-ar="خطة علاج" data-fr="Plan de traitement">خطة علاج</li>
+      </ul>
+      <a href="https://wa.me/213770433364" class="btn-primary" style="width:100%;justify-content:center;" data-ar="احجز الآن" data-fr="Réserver">احجز الآن</a>
+    </div>
+    <div class="pricing-card featured reveal reveal-delay-1">
+      <div class="pricing-badge" data-ar="الأكثر طلباً" data-fr="Le plus populaire">الأكثر طلباً</div>
+      <h3 data-ar="الاحترافي" data-fr="Professionnel">الاحترافي</h3>
+      <div class="price">35,000 <span data-ar="دج" data-fr="DA">دج</span></div>
+      <ul class="features">
+        <li data-ar="كل مزايا الأساسية" data-fr="Toutes les fonctionnalités Essentiel">كل مزايا الأساسية</li>
+        <li data-ar="تبييض متقدم بالليزر" data-fr="Blanchiment laser avancé">تبييض متقدم بالليزر</li>
+        <li data-ar="تصميم ابتسامة رقمي" data-fr="Design numérique du sourire">تصميم ابتسامة رقمي</li>
+        <li data-ar="متابعة لمدة 6 أشهر" data-fr="Suivi pendant 6 mois">متابعة لمدة 6 أشهر</li>
+        <li data-ar="خامة فينير مجانية" data-fr="Facette gratuite">خامة فينير مجانية</li>
+      </ul>
+      <a href="https://wa.me/213770433364" class="btn-primary" style="width:100%;justify-content:center;" data-ar="احجز الآن" data-fr="Réserver">احجز الآن</a>
+    </div>
+    <div class="pricing-card reveal reveal-delay-2">
+      <h3 data-ar="الشامل" data-fr="Complet">الشامل</h3>
+      <div class="price">80,000 <span data-ar="دج" data-fr="DA">دج</span></div>
+      <ul class="features">
+        <li data-ar="كل مزايا الاحترافي" data-fr="Toutes les fonctionnalités Pro">كل مزايا الاحترافي</li>
+        <li data-ar="زراعة أسنان (unit)" data-fr="Greffe dentaire (unité)">زراعة أسنان (unit)</li>
+        <li data-ar="تقويم شفاف" data-fr="Aligneurs transparents">تقويم شفاف</li>
+        <li data-ar="ضمان 10 سنوات" data-fr="Garantie 10 ans">ضمان 10 سنوات</li>
+        <li data-ar="متابعة مدى الحياة" data-fr="Suivi à vie">متابعة مدى الحياة</li>
+      </ul>
+      <a href="https://wa.me/213770433364" class="btn-primary" style="width:100%;justify-content:center;" data-ar="احجز الآن" data-fr="Réserver">احجز الآن</a>
+    </div>
+  </div>
+</section>
+
+<!-- Map -->
+<section>
+  <div class="section-header reveal">
+    <div class="section-eyebrow" data-ar="موقعنا" data-fr="Notre Localisation">موقعنا</div>
+    <h2 data-ar="ziaratna" data-fr="Rendez-vous">ziaratna</h2>
+  </div>
+  <div class="map-section reveal">
+    <div class="map-container">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3199.5!2d3.0!3d36.75!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDUxJzAwLjAiTiAzwrAwJzAwLjAiRQ!5e0!3m2!1sar!2sdz!4v1" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-box reveal">
+    <h2 data-ar="ابدأ رحلتك نحو <br>الابتسامة المثالية" data-fr="Commencez votre voyage vers <br>le sourire parfait">ابدأ رحلتك نحو <br>الابتسامة المثالية</h2>
+    <p data-ar="احجز استشارتك المجانية اليوم واكتشف كيف يمكننا تحسين ابتسامتك" data-fr="Réservez votre consultation gratuite aujourd'hui et découvrez comment nous pouvons améliorer votre sourire">احجز استشارتك المجانية اليوم واكتشف كيف يمكننا تحسين ابتسامتك</p>
+    <a href="https://wa.me/213770433364" class="btn-white" data-ar="احجز الآن على واتساب" data-fr="Réserver sur WhatsApp">احجز الآن على واتساب ←</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-brand">RAZES DENTAL</div>
+    <ul class="footer-links">
+      <li><a href="#services" data-ar="خدماتنا" data-fr="Services">خدماتنا</a></li>
+      <li><a href="#doctors" data-ar="الطاقم" data-fr="Équipe">الطاقم</a></li>
+      <li><a href="#pricing" data-ar="الأسعار" data-fr="Tarifs">الأسعار</a></li>
+      <li><a href="https://wa.me/213770433364" data-ar="اتصل بنا" data-fr="Contact">اتصل بنا</a></li>
+    </ul>
+    <div class="footer-copy">
+      © 2026 RAZES DENTAL. <span data-ar="جميع الحقوق محفوظة" data-fr="Tous droits réservés">جميع الحقوق محفوظة</span>.
+      Designed by <strong>Zakaria</strong>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp FAB -->
+<a href="https://wa.me/213770433364?text=مرحبا، أريد حجز موعد" class="whatsapp-fab" title="WhatsApp">💬</a>
+
+<script>
+// ═══ LOADER ═══
+let progress = 0;
+const fill = document.getElementById('loaderFill');
+const percent = document.getElementById('loaderPercent');
+const loader = document.getElementById('loader');
+const interval = setInterval(() => {
+  progress += Math.random() * 15 + 5;
+  if (progress >= 100) {
+    progress = 100;
+    clearInterval(interval);
+    setTimeout(() => loader.classList.add('hidden'), 300);
+  }
+  fill.style.width = progress + '%';
+  percent.textContent = Math.floor(progress) + '%';
+}, 150);
+
+// ═══ SCROLL REVEAL ═══
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ═══ COUNTER ANIMATION ═══
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const target = parseInt(e.target.dataset.count);
+      let current = 0;
+      const step = target / 60;
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        e.target.textContent = Math.floor(current).toLocaleString() + (target > 100 ? '+' : '+');
+      }, 20);
+      counterObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+// ═══ THEME TOGGLE ═══
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+}
+
+// ═══ LANGUAGE TOGGLE ═══
+let currentLang = 'ar';
+function toggleLang() {
+  currentLang = currentLang === 'ar' ? 'fr' : 'ar';
+  document.getElementById('langBtn').textContent = currentLang === 'ar' ? 'FR' : 'AR';
+  document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.lang = currentLang;
+  
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    const key = 'data-' + currentLang;
+    if (el.getAttribute(key)) {
+      el.innerHTML = el.getAttribute(key);
+    }
+  });
+}
+
+// ═══ MOBILE MENU ═══
+function toggleMobile() {
+  document.getElementById('hamburger').classList.toggle('active');
+  document.getElementById('nav').classList.toggle('mobile-open');
+}
+
+// ═══ BEFORE/AFTER SLIDER ═══
+const slider = document.getElementById('slider');
+const sliderBefore = document.getElementById('sliderBefore');
+const sliderHandle = document.getElementById('sliderHandle');
+let isDragging = false;
+
+function updateSlider(x) {
+  const rect = slider.getBoundingClientRect();
+  let percent = ((x - rect.left) / rect.width) * 100;
+  percent = Math.max(0, Math.min(100, percent));
+  sliderBefore.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+  sliderHandle.style.left = percent + '%';
+}
+
+slider.addEventListener('mousedown', () => isDragging = true);
+slider.addEventListener('touchstart', () => isDragging = true);
+document.addEventListener('mouseup', () => isDragging = false);
+document.addEventListener('touchend', () => isDragging = false);
+document.addEventListener('mousemove', (e) => { if (isDragging) updateSlider(e.clientX); });
+document.addEventListener('touchmove', (e) => { if (isDragging) updateSlider(e.touches[0].clientX); });
+slider.addEventListener('click', (e) => updateSlider(e.clientX));
+
+// ═══ 3D TILT ═══
+const heroCard = document.getElementById('heroCard');
+heroCard.addEventListener('mousemove', (e) => {
+  const rect = heroCard.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width - 0.5;
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+  heroCard.style.transform = `rotateY(${x * 15}deg) rotateX(${y * -15}deg)`;
+});
+heroCard.addEventListener('mouseleave', () => {
+  heroCard.style.transform = 'rotateY(0) rotateX(0)';
+});
+
+// ═══ SMOOTH NAV HIDE/SHOW ═══
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  const current = window.scrollY;
+  if (current > lastScroll && current > 100) {
+    nav.style.transform = 'translateX(-50%) translateY(-100px)';
+  } else {
+    nav.style.transform = 'translateX(-50%) translateY(0)';
+  }
+  lastScroll = current;
+});
+</script>
+</body>
+</html>
