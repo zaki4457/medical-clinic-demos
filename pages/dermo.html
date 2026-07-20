@@ -3,38 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="عيادة نوفا لطب الجلدية والتجميل في الجزائر العاصمة - علاجات متقدمة بنتائج طبيعية">
-<title>عيادة نوفا لطب الجلدية والتجميل | الجزائر العاصمة</title>
+<meta name="description" content="NOVA DERM - عيادة طب جلدية وتجميل في الجزائر العاصمة. علاج حب الشباب،.botoks، ليزر البشرة، ميكرونيدل، عناية بالبشرة">
+<title>NOVA DERM — عيادة طب جلدية وتجميل في بن عكنون</title>
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="NOVA DERM — عيادة طب جلدية وتجميل">
+<meta property="og:description" content="عيادة طب جلدية وتجميل في بن عكنون، الجزائر. علاج حب الشباب، بوتوكس، ليزر، ميكرونيدل، عناية بالبشرة">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_DZ">
+<meta name="theme-color" content="#a855f7">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
---primary:#8B5E3C;
---primary-light:#A67C5B;
---primary-dark:#6B4423;
---accent:#D4A373;
---accent-light:#E9C46A;
---accent-warm:#C9956B;
---rose:#C9ADA7;
---rose-light:#F2E9E4;
---rose-dark:#9A7F78;
---n0:#FFFCF7;
---n50:#FAF8F5;
---n100:#F5F0EB;
---n200:#E8E0D8;
---n300:#D4C8BC;
---n400:#A89888;
---n500:#7A6E62;
---n600:#5C524A;
---n700:#3D3630;
---n800:#2A2520;
---n900:#1A1612;
---font-heading:'Cormorant Garamond',Georgia,serif;
---font-body:'Inter',system-ui,sans-serif;
---ease-out-expo:cubic-bezier(0.16, 1, 0.3, 1);
---ease-out-quart:cubic-bezier(0.25, 1, 0.5, 1);
---ease-spring:cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --primary:#a855f7; --primary-light:#c084fc; --primary-dark:#9333ea;
+  --accent:#f59e0b; --accent-light:#fbbf24;
+  --n0:#f8f7f4; --n50:#f3f2ef; --n100:#e8e7e4; --n200:#d4d3d0;
+  --n300:#a8a7a4; --n400:#737370; --n500:#525250; --n600:#3d3d3b;
+  --n700:#262625; --n800:#171716; --n900:#0a0a09;
+  --font-heading:'Space Grotesk','Noto Kufi Arabic',system-ui,sans-serif;
+  --font-body:'Plus Jakarta Sans','Noto Kufi Arabic',system-ui,sans-serif;
+  --ease-out-expo:cubic-bezier(0.16,1,0.3,1);
+  --ease-spring:cubic-bezier(0.175,0.885,0.32,1.275);
+}
+[data-theme="dark"] {
+  --n0:#050505; --n50:#0a0a0a; --n100:#111111; --n200:#1a1a1a;
+  --n300:#2a2a2a; --n400:#555; --n500:#888; --n600:#aaa; --n700:#ccc;
+  --n800:#e5e5e5; --n900:#f5f5f5; --primary:#c084fc;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;font-size:16px}
@@ -42,1015 +37,1273 @@ body{font-family:var(--font-body);color:var(--n800);background:var(--n0);line-he
 img{max-width:100%;display:block}
 ::selection{background:var(--primary);color:#fff}
 
-/* Smooth Reveal Animations */
-.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo)}
+/* Noise Overlay */
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.5}
+
+/* Loading Screen */
+.loading-screen{position:fixed;inset:0;background:var(--n900);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.6s ease,visibility 0.6s ease}
+.loading-screen.hidden{opacity:0;visibility:hidden}
+.loading-logo{font-family:var(--font-heading);font-size:2.5rem;font-weight:700;color:#fff;margin-bottom:1rem;letter-spacing:-0.02em}
+.loading-bar{width:200px;height:3px;background:var(--n700);border-radius:2px;overflow:hidden}
+.loading-bar-inner{height:100%;background:var(--primary);width:0%;transition:width 0.25s cubic-bezier(0.33,1,0.68,1)}
+.loading-pct{color:var(--n500);font-size:0.875rem;margin-top:1rem;font-family:var(--font-heading)}
+
+/* Scroll Reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 1s var(--ease-out-expo),transform 1s var(--ease-out-expo);will-change:opacity,transform}
 .reveal.active{opacity:1;transform:translateY(0)}
-.reveal-delay-1{transition-delay:0.1s}
-.reveal-delay-2{transition-delay:0.2s}
-.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-1{transition-delay:0.1s}.reveal-delay-2{transition-delay:0.2s}.reveal-delay-3{transition-delay:0.3s}.reveal-delay-4{transition-delay:0.4s}
 
 /* Header */
-header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,252,247,0.85);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(232,224,216,0.5);transition:all 0.4s var(--ease-out-expo)}
-header.scrolled{background:rgba(255,252,247,0.95);box-shadow:0 4px 30px rgba(26,22,18,0.08)}
+header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(248,247,244,0.75);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid rgba(0,0,0,0.06);transition:all 0.4s var(--ease-out-expo)}
+[data-theme="dark"] header{background:rgba(5,5,5,0.8);border-bottom-color:rgba(255,255,255,0.06)}
+header.scrolled{box-shadow:0 4px 30px rgba(0,0,0,0.08)}
 nav{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
-.logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:var(--n900);font-family:var(--font-heading);font-weight:600;font-size:1.25rem;transition:transform 0.3s var(--ease-spring)}
+.logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:var(--n900);font-family:var(--font-heading);font-weight:700;font-size:1.25rem;letter-spacing:-0.02em;transition:transform 0.3s var(--ease-spring)}
 .logo:hover{transform:scale(1.02)}
-.logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--rose) 0%,var(--primary) 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 15px rgba(139,94,60,0.25);transition:all 0.3s var(--ease-spring)}
-.logo:hover .logo-icon{transform:rotate(-10deg) scale(1.1);box-shadow:0 6px 20px rgba(139,94,60,0.35)}
-.nav-links{display:flex;gap:2.5rem;list-style:none}
-.nav-links a{text-decoration:none;color:var(--n600);font-weight:500;font-size:0.9375rem;transition:all 0.3s var(--ease-out-expo);min-height:44px;display:flex;align-items:center;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:0;right:0;width:0;height:2px;background:var(--primary);transition:width 0.4s var(--ease-out-expo)}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1rem;box-shadow:0 4px 12px rgba(168,85,247,0.3);transition:all 0.3s var(--ease-spring)}
+.logo:hover .logo-icon{transform:rotate(-8deg) scale(1.05)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--n600);font-weight:500;font-size:0.9375rem;transition:color 0.3s ease;min-height:44px;display:flex;align-items:center}
 .nav-links a:hover{color:var(--primary)}
-.nav-links a:hover::after{width:100%}
-.nav-cta{background:linear-gradient(135deg,var(--rose) 0%,var(--primary) 100%);color:#fff;border:none;padding:0.75rem 1.5rem;border-radius:100px;font-weight:600;cursor:pointer;transition:all 0.4s var(--ease-spring);min-height:44px;font-family:var(--font-body);font-size:0.9375rem;box-shadow:0 4px 15px rgba(139,94,60,0.25);position:relative;overflow:hidden}
-.nav-cta::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s var(--ease-out-expo)}
-.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(139,94,60,0.35)}
+.nav-right{display:flex;align-items:center;gap:0.75rem}
+.lang-toggle,.theme-toggle{width:40px;height:40px;border-radius:10px;border:1px solid var(--n200);background:var(--n50);color:var(--n700);cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:0.75rem;font-family:var(--font-heading);transition:all 0.3s ease}
+.lang-toggle:hover,.theme-toggle:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:scale(1.05)}
+.nav-cta{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;padding:0.75rem 1.5rem;border-radius:100px;font-weight:600;cursor:pointer;transition:all 0.4s var(--ease-spring);min-height:44px;font-family:var(--font-body);font-size:0.9375rem;box-shadow:0 4px 15px rgba(168,85,247,0.3);position:relative;overflow:hidden}
+.nav-cta::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.5s ease}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(168,85,247,0.4)}
 .nav-cta:hover::before{left:100%}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:0.5rem}
-.hamburger span{width:24px;height:2px;background:var(--n800);transition:all 0.3s var(--ease-out-expo);transform-origin:center}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:0.5rem;min-width:44px;min-height:44px}
+.hamburger span{width:24px;height:2px;background:var(--n800);transition:all 0.3s ease}
 
-/* Hero - Premium Vertical Oval */
-.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 2rem 4rem;background:linear-gradient(180deg,var(--rose-light) 0%,var(--n0) 100%);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:var(--n0)}
+/* Mobile Menu */
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1001;opacity:0;transition:opacity 0.3s}
+.mobile-menu.active{display:block;opacity:1}
+.mobile-menu-panel{position:absolute;top:0;right:0;width:80%;max-width:320px;height:100%;background:var(--n0);padding:2rem;transform:translateX(100%);transition:transform 0.4s var(--ease-out-expo)}
+.mobile-menu.active .mobile-menu-panel{transform:translateX(0)}
+.mobile-menu-close{background:none;border:none;font-size:1.5rem;cursor:pointer;padding:0.5rem;min-width:44px;min-height:44px;color:var(--n800)}
+.mobile-menu-links{list-style:none;margin-top:2rem}
+.mobile-menu-links a{display:block;padding:1rem;color:var(--n800);text-decoration:none;font-weight:500;border-radius:8px;transition:background 0.3s}
+.mobile-menu-links a:hover{background:var(--n100)}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 2rem 4rem;position:relative;overflow:hidden;background:var(--n0)}
+[data-theme="dark"] .hero{background:radial-gradient(ellipse at 50% 0%,#1a0a2e 0%,#050505 50%)}
+.hero::before{content:'';position:absolute;top:0;right:0;width:60%;height:100%;background:radial-gradient(ellipse at 70% 50%,rgba(168,85,247,0.08) 0%,transparent 70%);pointer-events:none}
 .hero-container{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:2}
-.hero-content{max-width:560px}
-.hero-eyebrow{font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent-warm);font-weight:600;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem;opacity:0;animation:fadeInRight 0.8s var(--ease-out-expo) 0.2s forwards}
-.hero-eyebrow::before{content:'';width:40px;height:2px;background:var(--accent)}
-.hero h1{font-family:var(--font-heading);font-size:clamp(2.5rem,5vw,4rem);font-weight:600;line-height:1.1;color:var(--n900);margin-bottom:1.5rem;opacity:0;animation:fadeInUp 0.8s var(--ease-out-expo) 0.4s forwards}
-.hero h1 em{font-style:italic;color:var(--primary)}
-.hero-desc{font-size:1.0625rem;color:var(--n500);line-height:1.8;margin-bottom:2.5rem;max-width:480px;opacity:0;animation:fadeInUp 0.8s var(--ease-out-expo) 0.6s forwards}
+.hero-content{max-width:600px}
+.hero-eyebrow{font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--primary);font-weight:600;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem;opacity:0;animation:fadeInRight 0.8s var(--ease-out-expo) 0.2s forwards}
+.hero-eyebrow::before{content:'';width:40px;height:2px;background:var(--primary)}
+.hero h1{font-family:var(--font-heading);font-size:clamp(2.5rem,5vw,4rem);font-weight:700;line-height:1.1;color:var(--n900);margin-bottom:1.5rem;letter-spacing:-0.03em;opacity:0;animation:fadeInUp 0.8s var(--ease-out-expo) 0.4s forwards}
+.hero h1 em{font-style:normal;color:var(--primary);position:relative}
+.hero-desc{font-size:1.0625rem;color:var(--n500);line-height:1.8;margin-bottom:2.5rem;max-width:500px;opacity:0;animation:fadeInUp 0.8s var(--ease-out-expo) 0.6s forwards}
 .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem;opacity:0;animation:fadeInUp 0.8s var(--ease-out-expo) 0.8s forwards}
 .btn{padding:1rem 2rem;border-radius:100px;font-weight:600;text-decoration:none;transition:all 0.4s var(--ease-spring);display:inline-flex;align-items:center;gap:0.5rem;min-height:48px;cursor:pointer;border:none;font-size:1rem;font-family:var(--font-body);position:relative;overflow:hidden}
-.btn::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,0.2);border-radius:50%;transform:translate(-50%,-50%);transition:width 0.6s ease,height 0.6s ease}
-.btn:active::after{width:300px;height:300px}
-.btn-primary{background:linear-gradient(135deg,var(--rose) 0%,var(--primary) 100%);color:#fff;box-shadow:0 4px 15px rgba(139,94,60,0.25)}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(139,94,60,0.35)}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 4px 15px rgba(168,85,247,0.3)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(168,85,247,0.4)}
 .btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
-.btn-outline:hover{background:var(--primary);color:#fff;transform:translateY(-3px);box-shadow:0 8px 25px rgba(139,94,60,0.2)}
+.btn-outline:hover{background:var(--primary);color:#fff;transform:translateY(-3px)}
 .hero-trust{display:flex;gap:3rem;padding-top:2rem;border-top:1px solid var(--n200);opacity:0;animation:fadeInUp 0.8s var(--ease-out-expo) 1s forwards}
-.trust-item{display:flex;flex-direction:column;transition:transform 0.3s var(--ease-spring)}
-.trust-item:hover{transform:translateY(-5px)}
-.trust-number{font-family:var(--font-heading);font-size:2rem;font-weight:600;color:var(--primary);line-height:1}
+.trust-item{transition:transform 0.3s var(--ease-spring)}
+.trust-item:hover{transform:translateY(-3px)}
+.trust-number{font-family:var(--font-heading);font-size:2rem;font-weight:700;color:var(--primary);line-height:1}
 .trust-label{font-size:0.8125rem;color:var(--n400);margin-top:0.25rem}
-.hero-visual{position:relative;opacity:0;animation:fadeInLeft 1s var(--ease-out-expo) 0.6s forwards}
-.hero-image{width:100%;aspect-ratio:3/4;border-radius:200px 200px 24px 24px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(139,94,60,0.2)}
+.hero-visual{position:relative;perspective:1000px;opacity:0;animation:fadeInLeft 1s var(--ease-out-expo) 0.6s forwards}
+.hero-image{width:100%;aspect-ratio:4/5;border-radius:24px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(0,0,0,0.15);transition:transform 0.25s cubic-bezier(0.33,1,0.68,1);will-change:transform}
 .hero-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.8s var(--ease-out-expo)}
-.hero-image:hover img{transform:scale(1.05)}
-.floating-card{position:absolute;top:2rem;right:-2rem;background:#fff;padding:1rem 1.5rem;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,0.12);display:flex;align-items:center;gap:0.75rem;z-index:5;opacity:0;animation:fadeInUp 0.8s var(--ease-out-expo) 1.2s forwards}
-.floating-card-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--rose-light) 0%,var(--rose) 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(201,173,167,0.3)}
-.floating-card-text{font-size:0.875rem;font-weight:600;color:var(--n800)}
-.floating-card-sub{font-size:0.75rem;color:var(--n400)}
-
-/* Floating Decorative Elements */
-.float-dot{position:absolute;border-radius:50%;z-index:1;pointer-events:none}
-.float-dot-1{width:100px;height:100px;background:radial-gradient(circle,var(--rose-light) 0%,transparent 70%);top:10%;right:-30px;animation:floatA 8s ease-in-out infinite;opacity:0.5}
-.float-dot-2{width:150px;height:150px;background:radial-gradient(circle,var(--accent-light) 0%,transparent 70%);bottom:15%;left:-50px;animation:floatB 10s ease-in-out infinite;opacity:0.3}
-.float-dot-3{width:80px;height:80px;background:radial-gradient(circle,var(--rose) 0%,transparent 70%);top:60%;right:10%;animation:floatA 9s ease-in-out infinite;opacity:0.4}
-@keyframes floatA{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(20px,-25px) rotate(180deg)}}
-@keyframes floatB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-15px,20px) scale(1.15)}}
+.hero-image:hover img{transform:scale(1.03)}
+.floating-badge{position:absolute;bottom:2rem;left:-2rem;background:var(--n0);padding:1rem 1.5rem;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,0.12);display:flex;align-items:center;gap:0.75rem;z-index:5;animation:fadeInUp 0.8s var(--ease-out-expo) 1.2s forwards,float 4s ease-in-out 2s infinite}
+.floating-badge-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--accent-light),var(--accent));border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(245,158,11,0.3);color:#fff;font-weight:700}
+.floating-badge-text{font-size:0.875rem;font-weight:600;color:var(--n800)}
+.floating-badge-sub{font-size:0.75rem;color:var(--n400)}
 
 /* Trust Bar */
-.trust-bar{background:linear-gradient(135deg,var(--rose) 0%,var(--primary) 100%);color:#fff;padding:1.25rem 2rem;position:relative;overflow:hidden}
+.trust-bar{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:1.25rem 2rem;position:relative;overflow:hidden}
 .trust-bar::before{content:'';position:absolute;top:0;left:-100%;width:200%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.05),transparent);animation:shimmer 3s infinite}
 @keyframes shimmer{0%{transform:translateX(-50%)}100%{transform:translateX(50%)}}
 .trust-bar-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:1rem}
 .trust-bar-item{display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;font-weight:500}
 .trust-bar-item svg{width:20px;height:20px;opacity:0.8}
 
-/* Services - Premium Service Rows */
-.services{padding:6rem 2rem;background:var(--n50);position:relative}
+/* Section Shared */
 .section-container{max-width:1400px;margin:0 auto}
-.section-eyebrow{font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent-warm);font-weight:600;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
-.section-eyebrow::before{content:'';width:30px;height:2px;background:var(--accent)}
-.section-title{font-family:var(--font-heading);font-size:clamp(2rem,4vw,2.75rem);font-weight:600;color:var(--n900);margin-bottom:1rem}
+.section-eyebrow{font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--primary);font-weight:600;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
+.section-eyebrow::before{content:'';width:30px;height:2px;background:var(--primary)}
+.section-title{font-family:var(--font-heading);font-size:clamp(2rem,4vw,2.75rem);font-weight:700;color:var(--n900);margin-bottom:1rem;letter-spacing:-0.02em}
 .section-desc{font-size:1.0625rem;color:var(--n500);max-width:560px;margin-bottom:3rem}
 
-/* Service Row */
-.service-row{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-bottom:3rem;padding:2.5rem;background:#fff;border-radius:20px;border:1px solid var(--n200);transition:all 0.5s var(--ease-spring)}
-.service-row:hover{transform:translateY(-5px);box-shadow:0 20px 60px rgba(139,94,60,0.1)}
-.service-row.reverse{direction:rtl}
-.service-row.reverse .service-content{direction:ltr}
-.service-row.reverse .service-visual{direction:ltr}
-.service-visual{background:var(--n100);border-radius:16px;aspect-ratio:16/10;overflow:hidden}
-.service-visual img{width:100%;height:100%;object-fit:cover;transition:transform 0.8s var(--ease-out-expo)}
-.service-visual:hover img{transform:scale(1.05)}
-.service-content h3{font-family:var(--font-heading);font-size:1.75rem;font-weight:600;color:var(--n900);margin-bottom:1rem}
-.service-content p{color:var(--n500);line-height:1.8;margin-bottom:1.5rem}
-.service-list{list-style:none;margin-bottom:1.5rem}
-.service-list li{padding:0.5rem 0;padding-right:1.5rem;position:relative;color:var(--n600)}
-.service-list li::before{content:"";position:absolute;right:0;top:0.75rem;width:8px;height:8px;background:var(--accent);border-radius:50%}
-.service-price{font-size:0.875rem;color:var(--n400);margin-bottom:1rem}
-.service-price strong{font-size:1.25rem;color:var(--primary);font-weight:700}
-
-/* Specialties Grid */
-.specialties{padding:6rem 2rem;background:var(--n0)}
-.specialties-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
-.specialty-card{background:var(--rose-light);border-radius:16px;padding:2rem;text-align:center;transition:all 0.5s var(--ease-spring);border:1px solid transparent}
-.specialty-card:hover{background:#fff;transform:translateY(-8px);box-shadow:0 20px 60px rgba(139,94,60,0.12);border-color:var(--rose)}
-.specialty-icon{width:64px;height:64px;background:linear-gradient(135deg,var(--rose) 0%,var(--primary) 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;color:#fff;transition:all 0.4s var(--ease-spring);box-shadow:0 6px 20px rgba(139,94,60,0.25)}
-.specialty-card:hover .specialty-icon{transform:scale(1.1) rotate(-5deg);box-shadow:0 10px 30px rgba(139,94,60,0.35)}
-.specialty-card h3{font-family:var(--font-heading);font-size:1.25rem;font-weight:600;color:var(--n900);margin-bottom:0.5rem}
-.specialty-card p{font-size:0.875rem;color:var(--n500);line-height:1.6}
+/* Services */
+.services{padding:6rem 2rem;background:var(--n50)}
+.featured-service{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:4rem}
+.featured-visual{border-radius:20px;aspect-ratio:16/10;overflow:hidden;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.1)}
+.featured-visual img{width:100%;height:100%;object-fit:cover;transition:transform 0.8s var(--ease-out-expo)}
+.featured-visual:hover img{transform:scale(1.03)}
+.featured-content h3{font-family:var(--font-heading);font-size:1.75rem;font-weight:700;color:var(--n900);margin-bottom:1rem}
+.featured-content p{color:var(--n500);line-height:1.8;margin-bottom:1.5rem}
+.featured-list{list-style:none;margin-bottom:1.5rem}
+.featured-list li{padding:0.5rem 0;padding-right:1.5rem;position:relative;color:var(--n600)}
+.featured-list li::before{content:'';position:absolute;right:0;top:0.75rem;width:8px;height:8px;background:var(--accent);border-radius:50%}
+.featured-price{font-size:0.875rem;color:var(--n400);margin-bottom:1rem}
+.featured-price strong{font-size:1.25rem;color:var(--primary);font-weight:700}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.service-card{background:var(--n0);border:1px solid var(--n200);border-radius:16px;padding:2rem;transition:all 0.5s var(--ease-spring);position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--primary),var(--accent));transform:scaleX(0);transform-origin:right;transition:transform 0.5s var(--ease-out-expo)}
+.service-card:hover::before{transform:scaleX(1);transform-origin:left}
+.service-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,0,0,0.08)}
+.service-card-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--n100),var(--n50));border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;color:var(--primary);transition:all 0.4s var(--ease-spring)}
+.service-card:hover .service-card-icon{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;transform:rotate(-8deg) scale(1.05)}
+.service-card h3{font-family:var(--font-heading);font-size:1.125rem;font-weight:600;color:var(--n900);margin-bottom:0.5rem}
+.service-card p{font-size:0.9375rem;color:var(--n500);line-height:1.7}
+.service-card-price{font-size:0.8125rem;color:var(--primary);font-weight:600;margin-top:1rem}
 
 /* Doctors */
-.doctors{padding:6rem 2rem;background:var(--n50)}
-.doctors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-.doctor-card{background:#fff;border:1px solid var(--n200);border-radius:20px;overflow:hidden;transition:all 0.5s var(--ease-spring)}
-.doctor-card:hover{transform:translateY(-10px);box-shadow:0 25px 70px rgba(139,94,60,0.15)}
+.doctors{padding:6rem 2rem;background:var(--n0)}
+.doctors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.doctor-card{background:var(--n50);border:1px solid var(--n200);border-radius:16px;overflow:hidden;transition:all 0.5s var(--ease-spring)}
+.doctor-card:hover{transform:translateY(-10px);box-shadow:0 25px 70px rgba(0,0,0,0.1)}
 .doctor-image{aspect-ratio:1;background:var(--n100);overflow:hidden;position:relative}
 .doctor-image img{transition:transform 0.6s var(--ease-out-expo);width:100%;height:100%;object-fit:cover}
-.doctor-card:hover .doctor-image img{transform:scale(1.1)}
-.doctor-image::after{content:'';position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to top,rgba(0,0,0,0.4),transparent);opacity:0;transition:opacity 0.4s ease}
-.doctor-card:hover .doctor-image::after{opacity:1}
+.doctor-card:hover .doctor-image img{transform:scale(1.05);will-change:transform}
 .doctor-info{padding:1.5rem}
 .doctor-name{font-family:var(--font-heading);font-size:1.25rem;font-weight:600;color:var(--n900);margin-bottom:0.25rem}
 .doctor-specialty{font-size:0.875rem;color:var(--primary);font-weight:500;margin-bottom:0.75rem}
 .doctor-bio{font-size:0.875rem;color:var(--n500);line-height:1.7}
 .doctor-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem}
-.doctor-tag{background:var(--rose-light);color:var(--n600);padding:0.25rem 0.75rem;border-radius:100px;font-size:0.75rem;transition:all 0.3s var(--ease-spring)}
+.doctor-tag{background:var(--n100);color:var(--n600);padding:0.25rem 0.75rem;border-radius:100px;font-size:0.75rem;transition:all 0.3s var(--ease-spring)}
 .doctor-card:hover .doctor-tag{background:var(--primary);color:#fff}
 
 /* Before/After */
-.results{padding:6rem 2rem;background:var(--n0)}
-.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-.result-card{background:#fff;border-radius:20px;overflow:hidden;border:1px solid var(--n200);transition:all 0.5s var(--ease-spring)}
-.result-card:hover{transform:translateY(-8px);box-shadow:0 25px 70px rgba(139,94,60,0.15)}
+.results{padding:6rem 2rem;background:var(--n50)}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.result-card{background:var(--n0);border-radius:16px;overflow:hidden;border:1px solid var(--n200);transition:all 0.5s var(--ease-spring)}
+.result-card:hover{transform:translateY(-8px);box-shadow:0 25px 70px rgba(0,0,0,0.1)}
 .ba-slider{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;cursor:ew-resize;user-select:none;-webkit-user-select:none}
 .ba-before,.ba-after{position:absolute;top:0;left:0;width:100%;height:100%}
 .ba-before{z-index:2;overflow:hidden}
 .ba-after{z-index:1}
 .ba-before img,.ba-after img{width:100%;height:100%;object-fit:cover;display:block}
 .ba-before{clip-path:inset(0 50% 0 0)}
-.ba-label{position:absolute;bottom:12px;padding:6px 14px;border-radius:20px;background:rgba(0,0,0,0.7);color:#fff;font-size:0.75rem;font-weight:600;letter-spacing:0.5px;z-index:5;backdrop-filter:blur(8px);transition:all 0.3s ease}
-.ba-before .ba-label{right:12px}
-.ba-after .ba-label{left:12px}
-.ba-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;width:52px;height:52px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 25px rgba(0,0,0,0.25);pointer-events:none;transition:all 0.3s var(--ease-spring)}
-.ba-slider:active .ba-handle{transform:translate(-50%,-50%) scale(1.2);box-shadow:0 8px 35px rgba(0,0,0,0.35)}
+.ba-label{position:absolute;bottom:12px;padding:6px 14px;border-radius:20px;background:rgba(0,0,0,0.7);color:#fff;font-size:0.75rem;font-weight:600;z-index:5;backdrop-filter:blur(8px)}
+.ba-before .ba-label{right:12px}.ba-after .ba-label{left:12px}
+.ba-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;width:52px;height:52px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 25px rgba(0,0,0,0.25);pointer-events:none;transition:transform 0.3s var(--ease-spring)}
+.ba-slider:active .ba-handle{transform:translate(-50%,-50%) scale(1.2)}
 .ba-handle::before,.ba-handle::after{content:'';position:absolute;width:2px;height:18px;background:var(--primary);border-radius:1px}
 .ba-handle::before{left:50%;transform:translateX(-7px)}
 .ba-handle::after{right:50%;transform:translateX(7px)}
-.ba-slider .ba-before{transition:clip-path 0.05s ease-out}
 @keyframes ba-pulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.1)}}
-.ba-slider[data-ba-slider]:not(:active) .ba-handle{animation:ba-pulse 2.5s ease-in-out infinite}
+.ba-slider:not(:active) .ba-handle{animation:ba-pulse 2.5s ease-in-out infinite}
 .result-info{padding:1.25rem}
 .result-title{font-weight:600;color:var(--n900);margin-bottom:0.25rem}
 .result-desc{font-size:0.875rem;color:var(--n500)}
 
 /* Stats */
-.stats{padding:5rem 2rem;background:linear-gradient(135deg,var(--rose) 0%,var(--primary) 100%);color:#fff;position:relative;overflow:hidden}
-.stats::before{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-.stats::after{content:'';position:absolute;bottom:-30%;left:-5%;width:300px;height:300px;background:radial-gradient(circle,rgba(212,163,115,0.15) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-.stats-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center;position:relative;z-index:1}
-.stat-item{padding:2rem;border-radius:16px;transition:all 0.4s var(--ease-spring);background:rgba(255,255,255,0.05)}
-.stat-item:hover{background:rgba(255,255,255,0.1);transform:translateY(-5px)}
-.stat-number{font-family:var(--font-heading);font-size:3rem;font-weight:600;margin-bottom:0.5rem;transition:transform 0.4s var(--ease-spring)}
-.stat-item:hover .stat-number{transform:scale(1.1)}
+.stats{padding:5rem 2rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;position:relative;overflow:hidden}
+.stats::before{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,0.08),transparent 70%);border-radius:50%}
+.stats-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;text-align:center;position:relative;z-index:1}
+.stat-item{padding:2rem;border-radius:16px;background:rgba(255,255,255,0.05);transition:all 0.4s var(--ease-spring)}
+.stat-item:hover{background:rgba(255,255,255,0.1);transform:translateY(-3px)}
+.stat-number{font-family:var(--font-heading);font-size:3rem;font-weight:700;margin-bottom:0.5rem}
+.stat-item:hover .stat-number{transform:scale(1.05)}
 .stat-label{font-size:0.875rem;opacity:0.8}
 
 /* Testimonials */
-.testimonials{padding:6rem 2rem;background:var(--n50)}
-.testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
-.testimonial-card{background:#fff;border-radius:20px;padding:2.5rem;position:relative;transition:all 0.5s var(--ease-spring);border:1px solid transparent;overflow:hidden}
-.testimonial-card::before{content:'"';position:absolute;top:-15px;right:25px;font-size:10rem;font-family:var(--font-heading);color:var(--primary);opacity:0.05;line-height:1;pointer-events:none}
-.testimonial-card:hover{transform:translateY(-8px);box-shadow:0 25px 70px rgba(139,94,60,0.1);border-color:var(--rose)}
+.testimonials{padding:6rem 2rem;background:var(--n0)}
+.testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.testimonial-card{background:var(--n50);border-radius:16px;padding:2rem;position:relative;transition:all 0.5s var(--ease-spring);border:1px solid transparent;overflow:hidden}
+.testimonial-card::before{content:'\201C';position:absolute;top:-15px;right:25px;font-size:10rem;font-family:var(--font-heading);color:var(--primary);opacity:0.05;line-height:1;pointer-events:none}
+.testimonial-card:hover{transform:translateY(-8px);box-shadow:0 25px 70px rgba(0,0,0,0.08);border-color:var(--primary)}
+.testimonial-stars{color:var(--accent);font-size:1rem;margin-bottom:1rem}
 .testimonial-quote{font-size:1.0625rem;color:var(--n700);line-height:1.8;margin-bottom:1.5rem;font-style:italic}
 .testimonial-author{display:flex;align-items:center;gap:1rem}
-.testimonial-avatar{width:52px;height:52px;background:linear-gradient(135deg,var(--rose) 0%,var(--primary) 100%);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;transition:all 0.4s var(--ease-spring);box-shadow:0 4px 15px rgba(139,94,60,0.25)}
-.testimonial-card:hover .testimonial-avatar{transform:scale(1.15);box-shadow:0 8px 25px rgba(139,94,60,0.35)}
+.testimonial-avatar{width:52px;height:52px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;transition:all 0.4s var(--ease-spring)}
+.testimonial-card:hover .testimonial-avatar{transform:scale(1.08)}
 .testimonial-name{font-weight:600;color:var(--n900)}
 .testimonial-role{font-size:0.8125rem;color:var(--n400)}
-.testimonial-stars{color:var(--accent-light);font-size:1rem;margin-bottom:1rem}
 
 /* Booking */
-.booking{padding:6rem 2rem;background:var(--n0)}
+.booking{padding:6rem 2rem;background:var(--n50)}
 .booking-container{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem}
-.booking-info h2{font-family:var(--font-heading);font-size:2rem;font-weight:600;color:var(--n900);margin-bottom:1rem}
-.booking-info p{color:var(--n500);line-height:1.8;margin-bottom:2rem}
-.booking-contact-item{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;padding:1rem;border-radius:12px;transition:all 0.4s var(--ease-spring);background:transparent}
-.booking-contact-item:hover{background:rgba(139,94,60,0.05);transform:translateX(-6px)}
-.booking-contact-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--rose-light) 0%,var(--n50) 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--primary);transition:all 0.4s var(--ease-spring)}
-.booking-contact-item:hover .booking-contact-icon{background:linear-gradient(135deg,var(--rose) 0%,var(--primary) 100%);color:#fff;transform:rotate(-8deg);box-shadow:0 6px 18px rgba(139,94,60,0.3)}
+.booking-info h2{font-family:var(--font-heading);font-size:2rem;font-weight:700;color:var(--n900);margin-bottom:1rem}
+.booking-info>p{color:var(--n500);line-height:1.8;margin-bottom:2rem}
+.booking-contact-item{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;padding:1rem;border-radius:12px;transition:all 0.4s var(--ease-spring)}
+.booking-contact-item:hover{background:rgba(168,85,247,0.05);transform:translateX(-4px)}
+.booking-contact-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--n100),var(--n50));border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--primary);transition:all 0.4s var(--ease-spring);flex-shrink:0}
+.booking-contact-item:hover .booking-contact-icon{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;transform:rotate(-8deg)}
 .booking-contact-text{font-size:0.9375rem;color:var(--n600)}
 .booking-contact-text strong{display:block;color:var(--n900)}
-.booking-form{background:#fff;border-radius:20px;padding:2.5rem;border:1px solid var(--n200);box-shadow:0 10px 40px rgba(26,22,18,0.05)}
+.booking-form{background:var(--n0);border-radius:20px;padding:2.5rem;border:1px solid var(--n200);box-shadow:0 10px 40px rgba(0,0,0,0.05)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
 .form-group{margin-bottom:1rem}
 .form-group label{display:block;font-size:0.875rem;font-weight:500;color:var(--n700);margin-bottom:0.5rem}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:0.875rem 1rem;border:2px solid var(--n200);border-radius:12px;font-family:var(--font-body);font-size:0.9375rem;transition:all 0.3s var(--ease-out-expo);background:var(--n50)}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(139,94,60,0.1);background:#fff}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:0.875rem 1rem;border:2px solid var(--n200);border-radius:12px;font-family:var(--font-body);font-size:0.9375rem;transition:all 0.3s ease;background:var(--n50)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(168,85,247,0.1);background:var(--n0)}
 .form-group textarea{resize:vertical;min-height:100px}
-.form-submit{width:100%;padding:1rem;background:linear-gradient(135deg,var(--rose) 0%,var(--primary) 100%);color:#fff;border:none;border-radius:12px;font-family:var(--font-body);font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.4s var(--ease-spring);position:relative;overflow:hidden;box-shadow:0 4px 15px rgba(139,94,60,0.25)}
-.form-submit:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(139,94,60,0.35)}
-.form-submit:active{transform:translateY(0)}
+.form-submit{width:100%;padding:1rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:12px;font-family:var(--font-body);font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.4s var(--ease-spring);box-shadow:0 4px 15px rgba(168,85,247,0.3)}
+.form-submit:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(168,85,247,0.4)}
 
 /* FAQ */
-.faq{padding:6rem 2rem;background:var(--n50)}
+.faq{padding:6rem 2rem;background:var(--n0)}
 .faq-list{max-width:800px;margin:0 auto}
-.faq-item{border-bottom:1px solid var(--n200);transition:all 0.3s ease;border-radius:12px;padding:0 0.5rem}
-.faq-item:hover{background:#fff}
-.faq-question{width:100%;background:none;border:none;padding:1.25rem 0;text-align:right;font-family:var(--font-body);font-size:1rem;font-weight:600;color:var(--n800);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px;transition:color 0.3s ease}
+.faq-item{border-bottom:1px solid var(--n200);border-radius:12px;padding:0 0.5rem;transition:background 0.3s}
+.faq-item:hover{background:var(--n50)}
+.faq-question{width:100%;background:none;border:none;padding:1.25rem 0;text-align:right;font-family:var(--font-body);font-size:1rem;font-weight:600;color:var(--n800);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px}
 .faq-item:hover .faq-question{color:var(--primary)}
-.faq-question::after{content:"+";font-size:1.5rem;color:var(--n400);transition:all 0.4s var(--ease-spring)}
+.faq-question::after{content:'+';font-size:1.5rem;color:var(--n400);transition:all 0.4s var(--ease-spring)}
 .faq-item:hover .faq-question::after{color:var(--primary);transform:rotate(45deg)}
-.faq-item.active .faq-question::after{content:"−";transform:rotate(0)}
+.faq-item.active .faq-question::after{content:'\2212';transform:rotate(0)}
 .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.5s var(--ease-out-expo)}
 .faq-answer-inner{padding:0 0 1.25rem;color:var(--n500);line-height:1.7}
 
 /* Map */
-.map{padding:6rem 2rem;background:var(--n0)}
-.map-container{max-width:1400px;margin:0 auto}
-.map-embed{width:100%;height:450px;border-radius:20px;border:none;background:var(--n100);box-shadow:0 10px 40px rgba(26,22,18,0.08)}
+.map{padding:6rem 2rem;background:var(--n50)}
+.map-embed{width:100%;height:450px;border-radius:20px;border:none;background:var(--n100);box-shadow:0 10px 40px rgba(0,0,0,0.08)}
 
 /* CTA */
-.cta{padding:5rem 2rem;background:linear-gradient(135deg,var(--rose) 0%,var(--primary) 100%);color:#fff;text-align:center;position:relative;overflow:hidden}
-.cta::before{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,0.05) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-.cta h2{font-family:var(--font-heading);font-size:clamp(1.75rem,4vw,2.5rem);font-weight:600;margin-bottom:1rem}
+.cta{padding:5rem 2rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;text-align:center;position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,0.05),transparent 70%);border-radius:50%}
+.cta h2{font-family:var(--font-heading);font-size:clamp(1.75rem,4vw,2.5rem);font-weight:700;margin-bottom:1rem}
 .cta p{font-size:1.0625rem;opacity:0.9;margin-bottom:2rem;max-width:600px;margin-left:auto;margin-right:auto}
 .cta .btn{background:#fff;color:var(--primary);box-shadow:0 4px 15px rgba(0,0,0,0.15)}
-.cta .btn:hover{background:var(--n100);transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,0,0,0.2)}
+.cta .btn:hover{background:var(--n50);transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,0,0,0.2)}
 
 /* Footer */
 footer{background:var(--n900);color:var(--n300);padding:5rem 2rem 2rem}
 .footer-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
 .footer-brand .logo{color:#fff;margin-bottom:1rem}
-.footer-brand .logo-icon{background:var(--accent)}
+.footer-brand .logo-icon{background:var(--primary)}
 .footer-brand p{color:var(--n400);line-height:1.7;font-size:0.9375rem}
 .footer-col h3{color:#fff;font-size:0.9375rem;font-weight:600;margin-bottom:1rem}
 .footer-col ul{list-style:none}
 .footer-col li{margin-bottom:0.5rem}
-.footer-col a{color:var(--n400);text-decoration:none;transition:all 0.3s var(--ease-out-expo);font-size:0.9375rem;min-height:44px;display:flex;align-items:center;position:relative}
-.footer-col a::after{content:'';position:absolute;bottom:0;right:0;width:0;height:1px;background:var(--accent);transition:width 0.3s var(--ease-out-expo)}
-.footer-col a:hover{color:var(--accent)}
-.footer-col a:hover::after{width:100%}
+.footer-col a{color:var(--n400);text-decoration:none;transition:color 0.3s;font-size:0.9375rem;min-height:44px;display:flex;align-items:center}
+.footer-col a:hover{color:var(--primary)}
 .footer-bottom{max-width:1400px;margin:0 auto;padding-top:2rem;border-top:1px solid var(--n700);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
 .footer-bottom p{font-size:0.875rem}
 
 /* WhatsApp Float */
-.whatsapp-float{position:fixed;bottom:2rem;left:2rem;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.75rem;box-shadow:0 6px 25px rgba(37,211,102,0.4);z-index:999;transition:all 0.4s var(--ease-spring);text-decoration:none}
+.whatsapp-float{position:fixed;bottom:2rem;left:2rem;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.75rem;box-shadow:0 6px 25px rgba(37,211,102,0.4);z-index:998;transition:all 0.4s var(--ease-spring);text-decoration:none}
 .whatsapp-float:hover{transform:scale(1.1) rotate(5deg);box-shadow:0 10px 35px rgba(37,211,102,0.5)}
 
-/* Mobile Menu */
-.mobile-menu{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;opacity:0;transition:opacity 0.3s ease}
-.mobile-menu.active{display:block;opacity:1}
-.mobile-menu-content{position:absolute;top:0;right:0;width:80%;max-width:320px;height:100%;background:#fff;padding:2rem;transform:translateX(100%);transition:transform 0.4s var(--ease-out-expo)}
-.mobile-menu.active .mobile-menu-content{transform:translateX(0)}
-.mobile-menu-close{background:none;border:none;font-size:1.5rem;cursor:pointer;padding:0.5rem;min-width:44px;min-height:44px}
-.mobile-menu-links{list-style:none;margin-top:2rem}
-.mobile-menu-links a{display:block;padding:1rem;color:var(--n800);text-decoration:none;font-weight:500;border-radius:8px;min-height:44px;transition:all 0.3s ease}
-.mobile-menu-links a:hover{background:var(--n100)}
-
+/* Responsive */
 @media(max-width:1024px){
-.hero-container{grid-template-columns:1fr;text-align:center}
-.hero-content{max-width:100%}
-.hero-desc{margin-left:auto;margin-right:auto}
-.hero-actions,.hero-trust{justify-content:center}
-.hero-visual{display:none}
-.service-row{grid-template-columns:1fr}
-.specialties-grid{grid-template-columns:repeat(2,1fr)}
-.doctors-grid,.results-grid{grid-template-columns:repeat(2,1fr)}
-.stats-inner{grid-template-columns:repeat(2,1fr)}
-.testimonials-grid{grid-template-columns:1fr}
-.booking-container{grid-template-columns:1fr}
-.nav-links,.nav-cta{display:none}
-.hamburger{display:flex}
-.footer-grid{grid-template-columns:1fr 1fr}
+  .hero-container{grid-template-columns:1fr;text-align:center}
+  .hero-content{max-width:100%}
+  .hero-desc{margin-left:auto;margin-right:auto}
+  .hero-actions,.hero-trust{justify-content:center}
+  .hero-visual{display:none}
+  .featured-service{grid-template-columns:1fr}
+  .services-grid,.doctors-grid,.results-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .testimonials-grid{grid-template-columns:1fr}
+  .booking-container{grid-template-columns:1fr}
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .footer-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
-.hero{min-height:auto;padding:6rem 1.5rem 3rem}
-.specialties-grid{grid-template-columns:1fr}
-.doctors-grid,.results-grid{grid-template-columns:1fr}
-.stats-inner{grid-template-columns:1fr}
-.form-row{grid-template-columns:1fr}
-.footer-grid{grid-template-columns:1fr}
-.footer-bottom{flex-direction:column;text-align:center}
+  .hero{min-height:auto;padding:6rem 1.5rem 3rem}
+  .services-grid,.doctors-grid,.results-grid{grid-template-columns:1fr}
+  .stats-inner{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
 }
 
 /* Animations */
 @keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeInLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
 @keyframes fadeInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-@keyframes scaleIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}.reveal,.reveal.active,.service-card,.service-card.active,.doctor-card,.testimonial-card{opacity:1!important;transform:none!important}.orb{animation:none!important}.trust-bar-inner{animation:none!important}}
 
-@media (prefers-reduced-motion:reduce){
-*,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
-.reveal{opacity:1;transform:none}
+/* ===== PHASE 4: PREMIUM ENHANCEMENTS ===== */
+
+/* Custom Cursor */
+.cursor-dot{width:8px;height:8px;background:var(--primary);border-radius:50%;position:fixed;pointer-events:none;z-index:10001;transition:transform 0.15s ease,opacity 0.15s ease;mix-blend-mode:difference}
+.cursor-ring{width:40px;height:40px;border:2px solid var(--primary);border-radius:50%;position:fixed;pointer-events:none;z-index:10001;transition:transform 0.3s ease,width 0.3s ease,height 0.3s ease,border-color 0.3s ease;opacity:0.5}
+.cursor-ring.hover{width:60px;height:60px;border-color:var(--accent);opacity:0.8}
+
+/* Mesh Gradient Hero */
+.hero::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at 20% 80%,rgba(168,85,247,0.12) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(245,158,11,0.08) 0%,transparent 50%),radial-gradient(ellipse at 50% 50%,rgba(168,85,247,0.05) 0%,transparent 70%);pointer-events:none;z-index:1;animation:meshMove 25s ease-in-out infinite alternate;will-change:background-position}
+@keyframes meshMove{0%{background-position:0% 0%,100% 100%,50% 50%}100%{background-position:100% 100%,0% 0%,50% 50%}}
+
+/* Glassmorphism Cards */
+.service-card{background:rgba(255,255,255,0.6);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(255,255,255,0.3);transition:all 0.5s var(--ease-spring),background 0.3s ease;contain:layout style}
+[data-theme="dark"] .service-card{background:rgba(17,17,17,0.6);border-color:rgba(255,255,255,0.08)}
+.service-card:hover{transform:translateY(-8px);background:rgba(255,255,255,0.8);box-shadow:0 20px 60px rgba(0,0,0,0.1),0 0 0 1px rgba(168,85,247,0.1)}
+[data-theme="dark"] .service-card:hover{background:rgba(17,17,17,0.8)}
+
+/* Glassmorphism Testimonials */
+.testimonial-card{background:rgba(255,255,255,0.4);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.2)}
+[data-theme="dark"] .testimonial-card{background:rgba(17,17,17,0.4);border-color:rgba(255,255,255,0.06)}
+
+/* Marquee Trust Bar */
+.trust-bar{overflow:hidden}
+.trust-bar-inner{display:flex;gap:4rem;animation:marquee 20s linear infinite;white-space:nowrap}
+.trust-bar-inner:hover{animation-play-state:paused}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* Parallax Hero Image */
+.hero-visual{transform-style:preserve-3d}
+.hero-image{transition:transform 0.25s cubic-bezier(0.33,1,0.68,1);will-change:transform}
+
+/* Enhanced Loading Screen */
+.loading-screen{perspective:1000px}
+.loading-logo{animation:loadLogo 1.5s ease-in-out infinite alternate}
+@keyframes loadLogo{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-10px) scale(1.02);opacity:0.8}}
+.loading-bar{position:relative;overflow:visible}
+.loading-bar::after{content:'';position:absolute;top:-2px;right:0;width:20px;height:7px;background:var(--primary);border-radius:4px;filter:blur(4px);animation:loadGlow 0.8s ease-in-out infinite alternate}
+@keyframes loadGlow{0%{opacity:0.5;transform:scaleX(1)}100%{opacity:1;transform:scaleX(1.5)}}
+
+/* Magnetic Button Effect */
+.btn{position:relative;overflow:visible}
+.btn .btn-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,0.3);transform:scale(0);animation:ripple 0.6s ease-out}
+@keyframes ripple{to{transform:scale(4);opacity:0}}
+
+/* Text Reveal Animation */
+.text-reveal{overflow:hidden;display:inline-block}
+.text-reveal span{display:inline-block;transform:translateY(100%);transition:transform 0.8s var(--ease-out-expo)}
+.text-reveal.active span{transform:translateY(0)}
+
+/* Floating Orb Decorations */
+.hero .orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(60px);opacity:0.4;z-index:0}
+.orb-1{width:300px;height:300px;background:var(--primary);top:-100px;right:-100px;animation:orbFloat 20s ease-in-out infinite;will-change:transform}
+.orb-2{width:200px;height:200px;background:var(--accent);bottom:-50px;left:-50px;animation:orbFloat 25s ease-in-out infinite reverse;will-change:transform}
+.orb-3{width:150px;height:150px;background:var(--primary-light);top:50%;left:30%;animation:orbFloat 30s ease-in-out infinite 5s;will-change:transform}
+@keyframes orbFloat{0%,100%{transform:translate3d(0,0,0)}33%{transform:translate3d(30px,-20px,0)}66%{transform:translate3d(-20px,30px,0)}}
+
+/* Enhanced Hero Animations */
+.hero-eyebrow{opacity:0;animation:slideReveal 1s var(--ease-out-expo) 0.3s forwards}
+.hero h1{opacity:0;animation:slideReveal 1s var(--ease-out-expo) 0.5s forwards}
+.hero-desc{opacity:0;animation:slideReveal 1s var(--ease-out-expo) 0.7s forwards}
+.hero-actions{opacity:0;animation:slideReveal 1s var(--ease-out-expo) 0.9s forwards}
+.hero-trust{opacity:0;animation:slideReveal 1s var(--ease-out-expo) 1.1s forwards}
+@keyframes slideReveal{0%{opacity:0;transform:translateY(30px)}100%{opacity:1;transform:translateY(0)}}
+
+/* Stagger Reveal for Grid Items */
+.services-grid .service-card{opacity:0;transform:translateY(40px) scale(0.95);transition:all 0.7s var(--ease-out-expo)}
+.services-grid .service-card.active{opacity:1;transform:translateY(0) scale(1)}
+.services-grid .service-card:nth-child(1){transition-delay:0s}
+.services-grid .service-card:nth-child(2){transition-delay:0.1s}
+.services-grid .service-card:nth-child(3){transition-delay:0.2s}
+.services-grid .service-card:nth-child(4){transition-delay:0.3s}
+.services-grid .service-card:nth-child(5){transition-delay:0.4s}
+.services-grid .service-card:nth-child(6){transition-delay:0.5s}
+
+/* Doctor Card 3D Hover */
+.doctor-card{transform-style:preserve-3d;perspective:1000px}
+.doctor-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,0.08)}
+
+/* Enhanced Stats Section */
+.stats{background:linear-gradient(135deg,var(--primary),var(--primary-dark) 40%,#7c3aed 100%)}
+.stats::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;opacity:0.5}
+
+/* Smooth Theme Transition */
+html{transition:background-color 0.4s ease,color 0.4s ease}
+header,.hero,.services,.doctors,.results,.stats,.testimonials,.booking,.faq,.map,.cta,footer{transition:background-color 0.4s ease,color 0.4s ease}
+
+/* WhatsApp Pulse Animation */
+.whatsapp-float{animation:whatsappPulse 2s ease-in-out infinite}
+@keyframes whatsappPulse{0%,100%{box-shadow:0 6px 25px rgba(37,211,102,0.4)}50%{box-shadow:0 6px 25px rgba(37,211,102,0.4),0 0 0 15px rgba(37,211,102,0.1)}}
+
+/* Enhanced FAQ */
+.faq-item{border-bottom:1px solid var(--n200);transition:all 0.4s ease}
+.faq-item:hover{border-color:var(--primary)}
+.faq-item.active{background:rgba(168,85,247,0.03);border-radius:12px;border-color:var(--primary)}
+[data-theme="dark"] .faq-item.active{background:rgba(20,184,166,0.05)}
+
+/* Smooth Button Ripple */
+.btn::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,0.2);border-radius:50%;transform:translate(-50%,-50%);transition:width 0.6s ease,height 0.6s ease}
+.btn:active::after{width:300px;height:300px}
+
+/* Focus visible for keyboard navigation */
+*:focus-visible{outline:2px solid var(--primary);outline-offset:2px;border-radius:4px}
+.skip-link:focus-visible{top:0}
+
+/* Back to Top Button */
+.back-to-top{position:fixed;bottom:6rem;right:2rem;width:48px;height:48px;background:var(--n0);border:1px solid var(--n200);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--n700);cursor:pointer;z-index:997;opacity:0;visibility:hidden;transition:all 0.4s var(--ease-spring);box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+[data-theme="dark"] .back-to-top{background:var(--n100);border-color:var(--n300)}
+.back-to-top.visible{opacity:1;visibility:visible}
+.back-to-top:hover{transform:translateY(-4px);box-shadow:0 8px 25px rgba(0,0,0,0.15);background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* Page Transition */
+.page-transition{position:fixed;inset:0;background:var(--primary);z-index:10002;transform:translateY(100%);transition:transform 0.6s var(--ease-out-expo)}
+.page-transition.active{transform:translateY(0)}
+
+/* Disable cursor effects on touch devices */
+@media(pointer:coarse){.cursor-dot,.cursor-ring{display:none!important}body{cursor:auto!important}a,button{cursor:pointer!important}}
+
+/* === MOBILE + DEVICE OPTIMIZATION === */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;min-height:auto;padding:8rem 0 4rem}
+  .hero-visual{max-width:500px;margin:2rem auto 0}
+  .services-grid,.doctors-grid,.testimonials-grid{grid-template-columns:repeat(2,1fr)}
+  .featured-grid{grid-template-columns:1fr}
+  .booking-grid{grid-template-columns:1fr}
 }
+@media(max-width:768px){
+  .orb{opacity:0.15!important}
+  .orb-1{width:150px;height:150px}
+  .orb-2{width:100px;height:100px}
+  .orb-3{display:none}
+  .hero{padding:6rem 0 3rem}
+  .hero h1{font-size:clamp(1.75rem,6vw,2.5rem)}
+  .hero-desc{font-size:0.9375rem}
+  .hero-image{box-shadow:0 15px 40px rgba(0,0,0,0.1)}
+  .floating-badge{display:none}
+  .services-grid,.doctors-grid,.testimonials-grid,.results-grid{grid-template-columns:1fr}
+  .service-card,.doctor-card,.testimonial-card,.result-card{transform:none!important}
+  .service-card:hover,.doctor-card:hover,.testimonial-card:hover,.result-card:hover{transform:translateY(-4px)!important}
+  .back-to-top{bottom:5rem;right:1rem;width:42px;height:42px}
+  .whatsapp-float{bottom:1.5rem;left:1.5rem;width:52px;height:52px;font-size:1.5rem}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .stat-item{padding:1.25rem}
+  .section-title{font-size:clamp(1.5rem,4vw,2rem)}
+  .nav-links{display:none!important}
+  .nav-cta{display:none!important}
+  .booking-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:repeat(2,1fr);gap:2rem}
+  .faq-answer{font-size:0.9375rem}
+  .ba-handle{width:44px;height:44px}
+  .btn{padding:0.875rem 1.5rem;font-size:0.9375rem}
+  .hero-actions{flex-direction:column}
+  .hero-actions .btn{width:100%;justify-content:center}
+}
+@media(max-width:480px){
+  .hero h1{font-size:1.625rem}
+  .hero{padding:5rem 0 2rem}
+  .services-grid,.doctors-grid,.testimonials-grid{gap:1rem}
+  .service-card,.doctor-card,.testimonial-card{padding:1.25rem}
+  .footer-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .booking-grid{grid-template-columns:1fr}
+  .hero-trust{flex-direction:column;gap:1rem}
+  .form-group input,.form-group select,.form-group textarea{font-size:16px}
+}
+@media(max-width:360px){
+  .hero h1{font-size:1.5rem}
+  .stats-grid{grid-template-columns:1fr}
+}
+@media(hover:none)and(pointer:coarse){
+  .service-card:hover,.doctor-card:hover,.testimonial-card:hover{transform:none!important;box-shadow:none!important}
+  .btn-primary:hover,.nav-cta:hover{transform:none!important}
+}
+@media print{
+  .loading-screen,.whatsapp-float,.back-to-top,.cursor-dot,.cursor-ring,.mobile-menu{display:none!important}
+  header{position:static}
+  *{animation:none!important;transition:none!important}
+}
+
+/* === FADE-IN & MOTION ENHANCEMENTS === */
+.testimonial-card.reveal{opacity:0;transform:translateY(30px) rotate(-1deg);transition:opacity 0.8s var(--ease-out-expo),transform 0.8s var(--ease-out-expo)}
+.testimonial-card.reveal.active{opacity:1;transform:translateY(0) rotate(0deg)}
+.testimonial-card.reveal:nth-child(2){transition-delay:0.15s}
+.testimonial-card.reveal:nth-child(3){transition-delay:0.3s}
+.testimonial-card.reveal:nth-child(4){transition-delay:0.45s}
+.testimonial-stars span{display:inline-block;opacity:0;transform:scale(0) rotate(-180deg);transition:opacity 0.4s ease,transform 0.5s var(--ease-spring);color:var(--accent);font-size:1.1rem}
+.testimonial-card.active .testimonial-stars span{opacity:1;transform:scale(1) rotate(0deg)}
+.testimonial-card.active .testimonial-stars span:nth-child(1){transition-delay:0.05s}
+.testimonial-card.active .testimonial-stars span:nth-child(2){transition-delay:0.15s}
+.testimonial-card.active .testimonial-stars span:nth-child(3){transition-delay:0.25s}
+.testimonial-card.active .testimonial-stars span:nth-child(4){transition-delay:0.35s}
+.testimonial-card.active .testimonial-stars span:nth-child(5){transition-delay:0.45s}
+.stat-item.reveal{opacity:0;transform:translateY(20px) scale(0.9);transition:opacity 0.7s var(--ease-out-expo),transform 0.7s var(--ease-spring)}
+.stat-item.reveal.active{opacity:1;transform:translateY(0) scale(1)}
+.stat-item:nth-child(2).reveal{transition-delay:0.1s}
+.stat-item:nth-child(3).reveal{transition-delay:0.2s}
+.stat-item:nth-child(4).reveal{transition-delay:0.3s}
+.stat-item.active .stat-number{text-shadow:0 0 30px rgba(13,148,136,0.3)}
+.service-card.active .service-card-icon{animation:iconBreathe 3s ease-in-out infinite}
+@keyframes iconBreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.doctor-card.reveal{opacity:0;transform:translateX(30px);transition:opacity 0.8s var(--ease-out-expo),transform 0.8s var(--ease-out-expo)}
+.doctor-card.reveal.active{opacity:1;transform:translateX(0)}
+.doctor-card.reveal:nth-child(2){transition-delay:0.15s}
+.doctor-card.reveal:nth-child(3){transition-delay:0.3s}
+.testimonial-card.active{animation:cardFloat 6s ease-in-out infinite}
+@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.testimonial-card:hover{animation:none!important;transform:translateY(-8px)!important}
+.result-card.reveal{opacity:0;transform:translateY(30px) scale(0.95);transition:opacity 0.8s var(--ease-out-expo),transform 0.8s var(--ease-spring)}
+.result-card.reveal.active{opacity:1;transform:translateY(0) scale(1)}
+.booking-contact-item{opacity:0;transform:translateX(-20px);transition:opacity 0.6s var(--ease-out-expo),transform 0.6s var(--ease-out-expo),background 0.4s var(--ease-spring)}
+.booking-contact-item.active{opacity:1;transform:translateX(0)}
+.booking-contact-item:nth-child(2){transition-delay:0.1s}
+.booking-contact-item:nth-child(3){transition-delay:0.2s}
+.booking-contact-item:nth-child(4){transition-delay:0.3s}
+.faq-item{opacity:0;transform:translateY(15px);transition:opacity 0.5s var(--ease-out-expo),transform 0.5s var(--ease-out-expo),background 0.3s}
+.faq-item.active{opacity:1;transform:translateY(0)}
+
+/* === CARD PLACEMENT TIDY === */
+.services-grid,.doctors-grid,.results-grid,.testimonials-grid{align-items:stretch}
+.service-card,.doctor-card,.testimonial-card,.result-card{display:flex;flex-direction:column}
+.service-card p,.doctor-bio,.testimonial-quote{flex:1}
+.doctor-info{display:flex;flex-direction:column;flex:1}
+.doctor-info p{flex:1}
+.testimonial-author{margin-top:auto;padding-top:1rem;border-top:1px solid var(--n200)}
+.service-card-price{margin-top:auto;padding-top:1rem;border-top:1px solid var(--n100)}
+.doctor-tags{margin-top:auto}
+.stats-inner .stat-item{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.testimonials-grid{grid-auto-rows:1fr}
+.doctors-grid{grid-auto-rows:1fr}
+.services-grid{grid-auto-rows:1fr}
+.results-grid{grid-auto-rows:1fr}
 </style>
+<noscript><style>.loading-screen{display:none!important}
+/* === MOBILE + DEVICE OPTIMIZATION === */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;min-height:auto;padding:8rem 0 4rem}
+  .hero-visual{max-width:500px;margin:2rem auto 0}
+  .services-grid,.doctors-grid,.testimonials-grid{grid-template-columns:repeat(2,1fr)}
+  .featured-grid{grid-template-columns:1fr}
+  .booking-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .orb{opacity:0.15!important}
+  .orb-1{width:150px;height:150px}
+  .orb-2{width:100px;height:100px}
+  .orb-3{display:none}
+  .hero{padding:6rem 0 3rem}
+  .hero h1{font-size:clamp(1.75rem,6vw,2.5rem)}
+  .hero-desc{font-size:0.9375rem}
+  .hero-image{box-shadow:0 15px 40px rgba(0,0,0,0.1)}
+  .floating-badge{display:none}
+  .services-grid,.doctors-grid,.testimonials-grid,.results-grid{grid-template-columns:1fr}
+  .service-card,.doctor-card,.testimonial-card,.result-card{transform:none!important}
+  .service-card:hover,.doctor-card:hover,.testimonial-card:hover,.result-card:hover{transform:translateY(-4px)!important}
+  .back-to-top{bottom:5rem;right:1rem;width:42px;height:42px}
+  .whatsapp-float{bottom:1.5rem;left:1.5rem;width:52px;height:52px;font-size:1.5rem}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .stat-item{padding:1.25rem}
+  .section-title{font-size:clamp(1.5rem,4vw,2rem)}
+  .nav-links{display:none!important}
+  .nav-cta{display:none!important}
+  .booking-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:repeat(2,1fr);gap:2rem}
+  .faq-answer{font-size:0.9375rem}
+  .ba-handle{width:44px;height:44px}
+  .btn{padding:0.875rem 1.5rem;font-size:0.9375rem}
+  .hero-actions{flex-direction:column}
+  .hero-actions .btn{width:100%;justify-content:center}
+}
+@media(max-width:480px){
+  .hero h1{font-size:1.625rem}
+  .hero{padding:5rem 0 2rem}
+  .services-grid,.doctors-grid,.testimonials-grid{gap:1rem}
+  .service-card,.doctor-card,.testimonial-card{padding:1.25rem}
+  .footer-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .booking-grid{grid-template-columns:1fr}
+  .hero-trust{flex-direction:column;gap:1rem}
+  .form-group input,.form-group select,.form-group textarea{font-size:16px}
+}
+@media(max-width:360px){
+  .hero h1{font-size:1.5rem}
+  .stats-grid{grid-template-columns:1fr}
+}
+@media(hover:none)and(pointer:coarse){
+  .service-card:hover,.doctor-card:hover,.testimonial-card:hover{transform:none!important;box-shadow:none!important}
+  .btn-primary:hover,.nav-cta:hover{transform:none!important}
+}
+@media print{
+  .loading-screen,.whatsapp-float,.back-to-top,.cursor-dot,.cursor-ring,.mobile-menu{display:none!important}
+  header{position:static}
+  *{animation:none!important;transition:none!important}
+}
+
+/* === FADE-IN & MOTION ENHANCEMENTS === */
+.testimonial-card.reveal{opacity:0;transform:translateY(30px) rotate(-1deg);transition:opacity 0.8s var(--ease-out-expo),transform 0.8s var(--ease-out-expo)}
+.testimonial-card.reveal.active{opacity:1;transform:translateY(0) rotate(0deg)}
+.testimonial-card.reveal:nth-child(2){transition-delay:0.15s}
+.testimonial-card.reveal:nth-child(3){transition-delay:0.3s}
+.testimonial-card.reveal:nth-child(4){transition-delay:0.45s}
+.testimonial-stars span{display:inline-block;opacity:0;transform:scale(0) rotate(-180deg);transition:opacity 0.4s ease,transform 0.5s var(--ease-spring);color:var(--accent);font-size:1.1rem}
+.testimonial-card.active .testimonial-stars span{opacity:1;transform:scale(1) rotate(0deg)}
+.testimonial-card.active .testimonial-stars span:nth-child(1){transition-delay:0.05s}
+.testimonial-card.active .testimonial-stars span:nth-child(2){transition-delay:0.15s}
+.testimonial-card.active .testimonial-stars span:nth-child(3){transition-delay:0.25s}
+.testimonial-card.active .testimonial-stars span:nth-child(4){transition-delay:0.35s}
+.testimonial-card.active .testimonial-stars span:nth-child(5){transition-delay:0.45s}
+.stat-item.reveal{opacity:0;transform:translateY(20px) scale(0.9);transition:opacity 0.7s var(--ease-out-expo),transform 0.7s var(--ease-spring)}
+.stat-item.reveal.active{opacity:1;transform:translateY(0) scale(1)}
+.stat-item:nth-child(2).reveal{transition-delay:0.1s}
+.stat-item:nth-child(3).reveal{transition-delay:0.2s}
+.stat-item:nth-child(4).reveal{transition-delay:0.3s}
+.stat-item.active .stat-number{text-shadow:0 0 30px rgba(13,148,136,0.3)}
+.service-card.active .service-card-icon{animation:iconBreathe 3s ease-in-out infinite}
+@keyframes iconBreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.doctor-card.reveal{opacity:0;transform:translateX(30px);transition:opacity 0.8s var(--ease-out-expo),transform 0.8s var(--ease-out-expo)}
+.doctor-card.reveal.active{opacity:1;transform:translateX(0)}
+.doctor-card.reveal:nth-child(2){transition-delay:0.15s}
+.doctor-card.reveal:nth-child(3){transition-delay:0.3s}
+.testimonial-card.active{animation:cardFloat 6s ease-in-out infinite}
+@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.testimonial-card:hover{animation:none!important;transform:translateY(-8px)!important}
+.result-card.reveal{opacity:0;transform:translateY(30px) scale(0.95);transition:opacity 0.8s var(--ease-out-expo),transform 0.8s var(--ease-spring)}
+.result-card.reveal.active{opacity:1;transform:translateY(0) scale(1)}
+.booking-contact-item{opacity:0;transform:translateX(-20px);transition:opacity 0.6s var(--ease-out-expo),transform 0.6s var(--ease-out-expo),background 0.4s var(--ease-spring)}
+.booking-contact-item.active{opacity:1;transform:translateX(0)}
+.booking-contact-item:nth-child(2){transition-delay:0.1s}
+.booking-contact-item:nth-child(3){transition-delay:0.2s}
+.booking-contact-item:nth-child(4){transition-delay:0.3s}
+.faq-item{opacity:0;transform:translateY(15px);transition:opacity 0.5s var(--ease-out-expo),transform 0.5s var(--ease-out-expo),background 0.3s}
+.faq-item.active{opacity:1;transform:translateY(0)}
+
+/* === CARD PLACEMENT TIDY === */
+.services-grid,.doctors-grid,.results-grid,.testimonials-grid{align-items:stretch}
+.service-card,.doctor-card,.testimonial-card,.result-card{display:flex;flex-direction:column}
+.service-card p,.doctor-bio,.testimonial-quote{flex:1}
+.doctor-info{display:flex;flex-direction:column;flex:1}
+.doctor-info p{flex:1}
+.testimonial-author{margin-top:auto;padding-top:1rem;border-top:1px solid var(--n200)}
+.service-card-price{margin-top:auto;padding-top:1rem;border-top:1px solid var(--n100)}
+.doctor-tags{margin-top:auto}
+.stats-inner .stat-item{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.testimonials-grid{grid-auto-rows:1fr}
+.doctors-grid{grid-auto-rows:1fr}
+.services-grid{grid-auto-rows:1fr}
+.results-grid{grid-auto-rows:1fr}
+</style></noscript>
 </head>
 <body>
+
+<a href="#services" class="skip-link" style="position:absolute;top:-100%;left:0;background:var(--primary);color:#fff;padding:0.75rem 1.5rem;z-index:100001;border-radius:0 0 8px 0;font-weight:600;text-decoration:none;transition:top 0.3s">تخطي للخدمات</a>
+
+<!-- Loading Screen -->
+<div class="loading-screen" id="loadingScreen" role="status" aria-label="جاري التحميل">
+  <div class="loading-logo">NOVA DERM</div>
+  <div class="loading-bar"><div class="loading-bar-inner" id="loadingBar"></div></div>
+  <div class="loading-pct" id="loadingPct">0%</div>
+</div>
 
 <!-- Header -->
 <header id="header">
 <nav>
-<a href="#" class="logo">
-<div class="logo-icon">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-</div>
-<span>نوفا</span>
-</a>
-<ul class="nav-links">
-<li><a href="#services">خدماتنا</a></li>
-<li><a href="#doctors">أطباؤنا</a></li>
-<li><a href="#results">نتائج</a></li>
-<li><a href="#testimonials">آراء المرضى</a></li>
-<li><a href="#booking">حجز موعد</a></li>
-</ul>
-<button class="nav-cta">احجز موعدك الآن</button>
-<button class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('active')">
-<span></span><span></span><span></span>
-</button>
+  <a href="#" class="logo">
+    <div class="logo-icon">N</div>
+    <span data-ar="NOVA DERM" data-fr="NOVA DERM">NOVA DERM</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services" data-ar="خدماتنا" data-fr="Nos Soins">خدماتنا</a></li>
+    <li><a href="#doctors" data-ar="أطباؤنا" data-fr="Équipe">أطباؤنا</a></li>
+    <li><a href="#results" data-ar="نتائج" data-fr="Résultats">نتائج</a></li>
+    <li><a href="#testimonials" data-ar="آراء المرضى" data-fr="Avis">آراء المرضى</a></li>
+    <li><a href="#booking" data-ar="حجز موعد" data-fr="Réservation">حجز موعد</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="tel:+213770433364" class="nav-call" aria-label="اتصل بنا" style="display:flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;background:var(--primary);color:#fff;border-radius:10px;text-decoration:none;font-weight:600;font-size:0.875rem;transition:all 0.3s"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> اتصل</a>
+    <button class="lang-toggle" onclick="toggleLang()" title="Toggle language" aria-label="تبديل اللغة">AR</button>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode" aria-label="تبديل الوضع">
+      <span id="themeIcon">&#9790;</span>
+    </button>
+    <a href="#booking" class="nav-cta" data-ar="احجز الآن" data-fr="Réserver">احجز الآن</a>
+    <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('active')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 </header>
 
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
-<div class="mobile-menu-content">
-<button class="mobile-menu-close" onclick="this.closest('.mobile-menu').classList.remove('active')">✕</button>
-<ul class="mobile-menu-links">
-<li><a href="#services" onclick="this.closest('.mobile-menu').classList.remove('active')">خدماتنا</a></li>
-<li><a href="#doctors" onclick="this.closest('.mobile-menu').classList.remove('active')">أطباؤنا</a></li>
-<li><a href="#results" onclick="this.closest('.mobile-menu').classList.remove('active')">نتائج</a></li>
-<li><a href="#testimonials" onclick="this.closest('.mobile-menu').classList.remove('active')">آراء المرضى</a></li>
-<li><a href="#booking" onclick="this.closest('.mobile-menu').classList.remove('active')">حجز موعد</a></li>
-</ul>
+<div class="mobile-menu-panel">
+  <button class="mobile-menu-close" onclick="this.closest('.mobile-menu').classList.remove('active')">&#10005;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="#services" onclick="this.closest('.mobile-menu').classList.remove('active')" data-ar="خدماتنا" data-fr="Nos Soins">خدماتنا</a></li>
+    <li><a href="#doctors" onclick="this.closest('.mobile-menu').classList.remove('active')" data-ar="أطباؤنا" data-fr="Équipe">أطباؤنا</a></li>
+    <li><a href="#results" onclick="this.closest('.mobile-menu').classList.remove('active')" data-ar="نتائج" data-fr="Résultats">نتائج</a></li>
+    <li><a href="#testimonials" onclick="this.closest('.mobile-menu').classList.remove('active')" data-ar="آراء المرضى" data-fr="Avis">آراء المرضى</a></li>
+    <li><a href="#booking" onclick="this.closest('.mobile-menu').classList.remove('active')" data-ar="حجز موعد" data-fr="Réservation">حجز موعد</a></li>
+  </ul>
 </div>
 </div>
 
 <!-- Hero -->
-<section class="hero">
-<div class="float-dot float-dot-1"></div>
-<div class="float-dot float-dot-2"></div>
-<div class="float-dot float-dot-3"></div>
+<section class="hero" id="hero">
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
 <div class="hero-container">
-<div class="hero-content">
-<div class="hero-eyebrow">طب جلدية وتجميل</div>
-<h1>جمالك <em>طبيعي</em> مع نوفا</h1>
-<p class="hero-desc">خبرة 12 سنة في طب الجلدية والتجميل. نستخدم أحدث تقنيات الليزر والعلاجات التجميلية لتحقيق نتائج طبيعية تدوم طويلاً</p>
-<div class="hero-actions">
-<a href="#booking" class="btn btn-primary">احجز استشارة مجانية</a>
-<a href="#services" class="btn btn-outline">اكتشف خدماتنا</a>
-</div>
-<div class="hero-trust">
-<div class="trust-item">
-<div class="trust-number">+8,000</div>
-<div class="trust-label">مريضة سعيدة</div>
-</div>
-<div class="trust-item">
-<div class="trust-number">12</div>
-<div class="trust-label">سنة خبرة</div>
-</div>
-<div class="trust-item">
-<div class="trust-number">99%</div>
-<div class="trust-label">نسبة الرضا</div>
-</div>
-</div>
-</div>
-<div class="hero-visual">
-<div class="hero-image">
-<img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=1067&fit=crop" alt="عيادة تجميل حديثة">
-</div>
-<div class="floating-card">
-<div class="floating-card-icon">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-</div>
-<div>
-<div class="floating-card-text">تقييم 4.9/5</div>
-<div class="floating-card-sub">+300 تقييم على Google</div>
-</div>
-</div>
-</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow" data-ar="عيادة جلدية تجميلية" data-fr="Clinique dermatologique">عيادة جلدية تجميلية</div>
+    <h1 data-ar="بشرتك تستحق <em>الأفضل</em> مع NOVA" data-fr="Votre peau mérite <em>le meilleur</em> avec NOVA">بشرتك تستحق <em>الأفضل</em> مع NOVA</h1>
+    <p class="hero-desc" data-ar="خبرة 12 سنة في علاجات البشرة والتجميل. نقدم أحدث علاجات الليزر والحقن التجميلية بأيدي أطباء متخصصين لنتائج طبيعية تعكس جمالك الحقيقي" data-fr="12 ans d'expérience en soins cutanés et esthétiques. Les dernières techniques laser et injections esthétiques par des médecins spécialisés pour des résultats naturels.">خبرة 12 سنة في علاجات البشرة والتجميل. نقدم أحدث علاجات الليزر والحقن التجميلية بأيدي أطباء متخصصين لنتائج طبيعية تعكس جمالك الحقيقي</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn btn-primary" data-ar="احجز استشارة مجانية" data-fr="Consultation gratuite">احجز استشارة مجانية</a>
+      <a href="#services" class="btn btn-outline" data-ar="اكتشف خدماتنا" data-fr="Découvrir nos services">اكتشف خدماتنا</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">
+        <div class="trust-number" data-count="8000" data-prefix="+">0</div>
+        <div class="trust-label" data-ar="مريض سعيد" data-fr="Patients satisfaits">مريض سعيد</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-number" data-count="12">0</div>
+        <div class="trust-label" data-ar="سنة خبرة" data-fr="Ans d'expérience">سنة خبرة</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-number" data-count="97" data-suffix="%">0</div>
+        <div class="trust-label" data-ar="نسبة الرضا" data-fr="Taux satisfaction">نسبة الرضا</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-image" id="hero3d">
+      <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&h=1000&fit=crop" alt="Dermatology clinic">
+    </div>
+    <div class="floating-badge">
+      <div class="floating-badge-icon">&#9733;</div>
+      <div>
+        <div class="floating-badge-text">4.8/5</div>
+        <div class="floating-badge-sub" data-ar="+500 تقييم على Google" data-fr="+500 avis Google">+500 تقييم على Google</div>
+      </div>
+    </div>
+  </div>
 </div>
 </section>
 
 <!-- Trust Bar -->
 <div class="trust-bar">
 <div class="trust-bar-inner">
-<div class="trust-bar-item">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-<span>أجهزة ليزر معتمدة</span>
-</div>
-<div class="trust-bar-item">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-<span>نتائج فورية</span>
-</div>
-<div class="trust-bar-item">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-<span>تقسيط مريح</span>
-</div>
-<div class="trust-bar-item">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-<span>استشارة هاتفية مجانية</span>
-</div>
+  <div class="trust-bar-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <span data-ar="معتمد من وزارة الصحة" data-fr="Agréé Ministère">معتمد من وزارة الصحة</span>
+  </div>
+  <div class="trust-bar-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <span data-ar="مواعيد مرنة" data-fr="Horaires flexibles">مواعيد مرنة</span>
+  </div>
+  <div class="trust-bar-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+    <span data-ar="دفع بالتقسيط — BaridiMob" data-fr="Paiement flexible — BaridiMob">دفع بالتقسيط — BaridiMob</span>
+  </div>
+  <div class="trust-bar-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <span data-ar="استشارة هاتفية مجانية" data-fr="Consultation téléphonique gratuite">استشارة هاتفية مجانية</span>
+  </div>
 </div>
 </div>
 
 <!-- Services -->
 <section class="services" id="services">
 <div class="section-container">
-<div class="reveal">
-<div class="section-eyebrow">خدماتنا</div>
-<h2 class="section-title">علاجات جلدية متقدمة</h2>
-<p class="section-desc">نقدم أحدث علاجات الجلدية والتجميل بأجهزة ليزر عالمية</p>
-</div>
-
-<!-- Service Row 1 -->
-<div class="service-row reveal">
-<div class="service-visual">
-<img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=500&fit=crop" alt="تبييض بالليزر">
-</div>
-<div class="service-content">
-<h3>تبييض البشرة بالليزر</h3>
-<p>تقنية متقدمة لتبييض وتوحيد لون البشرة. نتائج فورية تدوم طويلاً مع العناية المناسبة</p>
-<ul class="service-list">
-<li>نتائج فورية بعد الجلسة الأولى</li>
-<li>آمن على جميع أنواع البشرة</li>
-<li>بدون ألم أو فترة نقاهة</li>
-<li>يعالج تصبغات البشرة</li>
-</ul>
-<div class="service-price">يبدأ من <strong>12,000 دج</strong></div>
-<a href="#booking" class="btn btn-primary">احجز الآن</a>
-</div>
-</div>
-
-<!-- Service Row 2 -->
-<div class="service-row reverse reveal">
-<div class="service-visual">
-<img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800&h=500&fit=crop" alt="بوتوكس وفيلر">
-</div>
-<div class="service-content">
-<h3>بوتوكس وفيلر</h3>
-<p>حقن بوتوكس وفيلر ل消除 التجاعيد واستعادة الشباب. نتائج طبيعية تدوم 6-12 شهر</p>
-<ul class="service-list">
-<li>نتائج طبيعية 100%</li>
-<li>بدون جراحة</li>
-<li>تعود لعملك في نفس اليوم</li>
-<li>أطباء متخصصون وذوو خبرة</li>
-</ul>
-<div class="service-price">يبدأ من <strong>15,000 دج</strong></div>
-<a href="#booking" class="btn btn-primary">احجز الآن</a>
-</div>
-</div>
-</div>
-</section>
-
-<!-- Specialties -->
-<section class="specialties" id="specialties">
-<div class="section-container">
-<div class="reveal" style="text-align:center">
-<div class="section-eyebrow" style="justify-content:center">تخصصاتنا</div>
-<h2 class="section-title">حلول متكاملة لبشرتك</h2>
-<p class="section-desc" style="margin-left:auto;margin-right:auto">نقدم مجموعة شاملة من علاجات الجلدية والتجميل</p>
-</div>
-<div class="specialties-grid">
-<div class="specialty-card reveal">
-<div class="specialty-icon">
-<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
-</div>
-<h3>تبييض البشرة</h3>
-<p>تبييض وتوحيد لون البشرة بالليزر</p>
-</div>
-
-<div class="specialty-card reveal reveal-delay-1">
-<div class="specialty-icon">
-<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-</div>
-<h3>علاج التجاعيد</h3>
-<p>بوتوكس وفيلر ل消除 الخطوط والتجاعيد</p>
-</div>
-
-<div class="specialty-card reveal reveal-delay-2">
-<div class="specialty-icon">
-<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-</div>
-<h3>علاج حب الشباب</h3>
-<p>علاج فعال ودائم لحب الشباب وآثاره</p>
-</div>
-
-<div class="specialty-card reveal reveal-delay-3">
-<div class="specialty-icon">
-<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-</div>
-<h3>شد الوجه</h3>
-<p>شد الوجه بدون جراحة بأحدث التقنيات</p>
-</div>
-</div>
+  <div class="reveal">
+    <div class="section-eyebrow" data-ar="خدماتنا" data-fr="Nos Services">خدماتنا</div>
+    <h2 class="section-title" data-ar="عناية شاملة <em>ببشرتك</em>" data-fr="Des soins <em>complets</em> pour votre peau">عناية شاملة <em>ببشرتك</em></h2>
+    <p class="section-desc" data-ar="نقدم مجموعة متكاملة من علاجات البشرة والتجميل بأحدث التقنيات العالمية" data-fr="Une gamme complète de traitements cutanés et esthétiques avec les dernières techniques mondiales">نقدم مجموعة متكاملة من علاجات البشرة والتجميل بأحدث التقنيات العالمية</p>
+  </div>
+  <div class="featured-service reveal">
+    <div class="featured-visual">
+      <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&h=500&fit=crop" alt="Acne treatment">
+    </div>
+    <div class="featured-content">
+      <h3 data-ar="علاج حب الشباب بالليزر" data-fr="Traitement acné au laser">علاج حب الشباب بالليزر</h3>
+      <p data-ar="بروتوكولات علاجية متقدمة لحب الشباب والندبات. نتائج دائمة في 6-8 جلسات" data-fr="Protocoles de traitement avancés pour l'acné et les cicatrices. Résultats durables en 6-8 séances.">بروتوكولات علاجية متقدمة لحب الشباب والندبات. نتائج دائمة في 6-8 جلسات</p>
+      <ul class="featured-list">
+        <li data-ar="نتائج فورية من أول جلسة" data-fr="Résultats immédiats dès la 1ère séance">نتائج فورية من أول جلسة</li>
+        <li data-ar="آمن على جميع أنواع البشرة" data-fr="Sûr pour tous les types de peau">آمن على جميع أنواع البشرة</li>
+        <li data-ar="6-8 جلسات للنتيجة المثالية" data-fr="6-8 séances pour un résultat optimal">6-8 جلسات للنتيجة المثالية</li>
+        <li data-ar="بدون ألم أو فترة نقاهة" data-fr="Sans douleur ni temps de récupération">بدون ألم أو فترة نقاهة</li>
+      </ul>
+      <div class="featured-price" data-ar="يبدأ من <strong>15,000 دج</strong>" data-fr="À partir de <strong>15,000 DA</strong>">يبدأ من <strong>15,000 دج</strong></div>
+      <a href="#booking" class="btn btn-primary" data-ar="احجز الآن" data-fr="Réserver">احجز الآن</a>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      </div>
+      <h3 data-ar="Botoks والحقن" data-fr="Botox et Injections">Botoks والحقن</h3>
+      <p data-ar="حقن تجميلية بتقنية متقدمة للتجاعيد والشفاه والوجه. نتائج طبيعية فورية" data-fr="Injections esthétiques avancées pour rides, lèvres et visage. Résultats naturels et immédiats.">حقن تجميلية بتقنية متقدمة للتجاعيد والشفاه والوجه. نتائج طبيعية فورية</p>
+      <div class="service-card-price" data-ar="يبدأ من 20,000 دج" data-fr="À partir de 20,000 DA">يبدأ من 20,000 دج</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      </div>
+      <h3 data-ar="ليزر البشرة" data-fr="Laser Cutané">ليزر البشرة</h3>
+      <p data-ar="علاج البقع الداكنة والتصبغات بتقنية الليزر المتطور. نتائج واضحة في 4-6 جلسات" data-fr="Traitement des taches brunes et pigmentation par laser de pointe. Résultats visibles en 4-6 séances.">علاج البقع الداكنة والتصبغات بتقنية الليزر المتطور. نتائج واضحة في 4-6 جلسات</p>
+      <div class="service-card-price" data-ar="يبدأ من 10,000 دج" data-fr="À partir de 10,000 DA">يبدأ من 10,000 دج</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3 data-ar="ميكرونيدل" data-fr="Microneedling">ميكرونيدل</h3>
+      <p data-ar="تحفيز إنتاج الكولاجين لتجديد البشرة وتحسين ملمسها وتقشيرها" data-fr="Stimulation de la production de collagène pour renouveler la peau et améliorer sa texture.">تحفيز إنتاج الكولاجين لتجديد البشرة وتحسين ملمسها وتقشيرها</p>
+      <div class="service-card-price" data-ar="يبدأ من 12,000 دج" data-fr="À partir de 12,000 DA">يبدأ من 12,000 دج</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <h3 data-ar="عناية بالبشرة" data-fr="Soins de la Peau">عناية بالبشرة</h3>
+      <p data-ar="بروتوكولات عناية مخصصة حسب نوع البشرة. تنظيف عميق وترطيب متقدم" data-fr="Protocoles de soins personnalisés selon le type de peau. Nettoyage profond et hydratation avancée.">بروتوكولات عناية مخصصة حسب نوع البشرة. تنظيف عميق وترطيب متقدم</p>
+      <div class="service-card-price" data-ar="يبدأ من 8,000 دج" data-fr="À partir de 8,000 DA">يبدأ من 8,000 دج</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <h3 data-ar="تفتيح البشرة" data-fr="Éclaircissement">تفتيح البشرة</h3>
+      <p data-ar="علاج التصبغات وتفتيح البشرة ببروتوكولات آمنة ومثبتة علمياً" data-fr="Traitement des pigmentation et éclaircissement avec des protocoles sûrs et scientifiquement prouvés.">علاج التصبغات وتفتيح البشرة ببروتوكولات آمنة ومثبتة علمياً</p>
+      <div class="service-card-price" data-ar="يبدأ من 15,000 دج" data-fr="À partir de 15,000 DA">يبدأ من 15,000 دج</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      </div>
+      <h3 data-ar="شد الوجه" data-fr="Raffermissement">شد الوجه</h3>
+      <p data-ar="تقنيات متقدمة لشد الوجه وتجديد البشرة بدون جراحة" data-fr="Techniques avancées de raffermissement facial et de renouvellement cutané sans chirurgie.">تقنيات متقدمة لشد الوجه وتجديد البشرة بدون جراحة</p>
+      <div class="service-card-price" data-ar="يبدأ من 25,000 دج" data-fr="À partir de 25,000 DA">يبدأ من 25,000 دج</div>
+    </div>
+  </div>
 </div>
 </section>
 
 <!-- Doctors -->
 <section class="doctors" id="doctors">
 <div class="section-container">
-<div class="reveal">
-<div class="section-eyebrow">فريقنا الطبي</div>
-<h2 class="section-title">أطباء بخبرة عالمية</h2>
-<p class="section-desc">فريق من أفضل أطباء الجلدية في الجزائر مع خبرة دولية</p>
-</div>
-<div class="doctors-grid">
-<div class="doctor-card reveal">
-<div class="doctor-image">
-<img src="https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=400&h=400&fit=crop&crop=face" alt="د. سارة بن عمر">
-</div>
-<div class="doctor-info">
-<div class="doctor-name">د. سارة بن عمر</div>
-<div class="doctor-specialty">أخصائية جلدية وتجميل</div>
-<p class="doctor-bio">خبرة 12 سنة في علاجات الليزر والتجميل مع زمالة من جامعة ليون</p>
-<div class="doctor-tags">
-<span class="doctor-tag">ليزر</span>
-<span class="doctor-tag">تجميل</span>
-<span class="doctor-tag">بوتوكس</span>
-</div>
-</div>
-</div>
-
-<div class="doctor-card reveal reveal-delay-1">
-<div class="doctor-image">
-<img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face" alt="د. ليلى مرابط">
-</div>
-<div class="doctor-info">
-<div class="doctor-name">د. ليلى مرابط</div>
-<div class="doctor-specialty">استشارية تجاعيد وفيلر</div>
-<p class="doctor-bio">متخصصة في حقن البوتوكس والفيلر مع نتائج طبيعية مذهلة</p>
-<div class="doctor-tags">
-<span class="doctor-tag">فيلر</span>
-<span class="doctor-tag">بوتوكس</span>
-<span class="doctor-tag">anti-aging</span>
-</div>
-</div>
-</div>
-
-<div class="doctor-card reveal reveal-delay-2">
-<div class="doctor-image">
-<img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face" alt="د. كريم بوزيد">
-</div>
-<div class="doctor-info">
-<div class="doctor-name">د. كريم بوزيد</div>
-<div class="doctor-specialty">أخصائي علاج حب الشباب</div>
-<p class="doctor-bio">خبرة 10 سنوات في علاج حب الشباب المزمن وآثاره</p>
-<div class="doctor-tags">
-<span class="doctor-tag">حبشباب</span>
-<span class="doctor-tag">ندبات</span>
-<span class="doctor-tag">ليزر</span>
-</div>
-</div>
-</div>
-</div>
+  <div class="reveal">
+    <div class="section-eyebrow" data-ar="فريقنا الطبي" data-fr="Notre équipe">فريقنا الطبي</div>
+    <h2 class="section-title" data-ar="أطباء خبراء <em>في الجلدية</em>" data-fr="Des experts <em>en dermatologie</em>">أطباء خبراء <em>في الجلدية</em></h2>
+    <p class="section-desc" data-ar="فريق من أفضل أطباء الجلدية والتجميل في الجزائر مع خبرة دولية" data-fr="Une équipe de meilleurs dermatologues d'Algérie avec une expérience internationale">فريق من أفضل أطباء الجلدية والتجميل في الجزائر مع خبرة دولية</p>
+  </div>
+  <div class="doctors-grid">
+    <div class="doctor-card reveal">
+      <div class="doctor-image">
+        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face" alt="Dr. Nadia">
+      </div>
+      <div class="doctor-info">
+        <div class="doctor-name" data-ar="د. نادية بن عمر" data-fr="Dr. Nadia Ben Amour">د. نادية بن عمر</div>
+        <div class="doctor-specialty" data-ar="استشارية جلدية" data-fr="Consultante dermatologue">استشارية جلدية</div>
+        <p class="doctor-bio" data-ar="خبرة 12 سنة في علاج حب الشباب والتصبغات. متخصصة في الليزر والحقن التجميلية" data-fr="12 ans d'expérience en traitement de l'acné et pigmentation. Spécialiste laser et injections esthétiques.">خبرة 12 سنة في علاج حب الشباب والتصبغات. متخصصة في الليزر والحقن التجميلية</p>
+        <div class="doctor-tags">
+          <span class="doctor-tag" data-ar="حب الشباب" data-fr="Acné">حب الشباب</span>
+          <span class="doctor-tag" data-ar="ليزر" data-fr="Laser">ليزر</span>
+          <span class="doctor-tag" data-ar="تصبغات" data-fr="Pigmentation">تصبغات</span>
+        </div>
+      </div>
+    </div>
+    <div class="doctor-card reveal reveal-delay-1">
+      <div class="doctor-image">
+        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face" alt="Dr. Yacine">
+      </div>
+      <div class="doctor-info">
+        <div class="doctor-name" data-ar="د. ياسين مرابط" data-fr="Dr. Yacine Morabit">د. ياسين مرابط</div>
+        <div class="doctor-specialty" data-ar="استشاري تجميل" data-fr="Consultant esthétique">استشاري تجميل</div>
+        <p class="doctor-bio" data-ar="خبير في Botoks والحقن التجميلية. نتائج طبيعية تبرز جمالك الحقيقي" data-fr="Expert en botox et injections esthétiques. Des résultats naturels qui subliment votre beauté.">خبير في Botoks والحقن التجميلية. نتائج طبيعية تبرز جمالك الحقيقي</p>
+        <div class="doctor-tags">
+          <span class="doctor-tag" data-ar="بوتوكس" data-fr="Botox">بوتوكس</span>
+          <span class="doctor-tag" data-ar="حقن" data-fr="Injections">حقن</span>
+          <span class="doctor-tag" data-ar="تجميل" data-fr="Esthétique">تجميل</span>
+        </div>
+      </div>
+    </div>
+    <div class="doctor-card reveal reveal-delay-2">
+      <div class="doctor-image">
+        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=400&h=400&fit=crop&crop=face" alt="Dr. Amira">
+      </div>
+      <div class="doctor-info">
+        <div class="doctor-name" data-ar="د. أميرة سعيد" data-fr="Dr. Amira Saïd">د. أميرة سعيد</div>
+        <div class="doctor-specialty" data-ar="أخصائية ليزر" data-fr="Spécialiste laser">أخصائية ليزر</div>
+        <p class="doctor-bio" data-ar="متخصصة في علاجات الليزر المتقدمة. خبرة 8 سنوات في تفتيح وتجديد البشرة" data-fr="Experte en traitements laser avancés. 8 ans d'expérience en éclaircissement et renouvellement cutané.">متخصصة في علاجات الليزر المتقدمة. خبرة 8 سنوات في تفتيح وتجديد البشرة</p>
+        <div class="doctor-tags">
+          <span class="doctor-tag" data-ar="ليزر" data-fr="Laser">ليزر</span>
+          <span class="doctor-tag" data-ar="تفتيح" data-fr="Éclaircissement">تفتيح</span>
+          <span class="doctor-tag" data-ar="تجديد" data-fr="Renouvellement">تجديد</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </section>
 
 <!-- Results -->
 <section class="results" id="results">
 <div class="section-container">
-<div class="reveal">
-<div class="section-eyebrow">نتائج حقيقية</div>
-<h2 class="section-title">transformations مذهلة</h2>
-<p class="section-desc">شاهد النتائج المبهرة لمرضانا قبل وبعد العلاج</p>
-</div>
-<div class="results-grid">
-<div class="result-card reveal">
-<div class="ba-slider" data-ba-slider>
-<div class="ba-after">
-<img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=450&fit=crop" alt="بعد العلاج">
-<span class="ba-label">بعد</span>
-</div>
-<div class="ba-before">
-<img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=450&fit=crop&sat=-100" alt="قبل العلاج">
-<span class="ba-label">قبل</span>
-</div>
-<div class="ba-handle">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8L22 12L18 16"></path><path d="M6 8L2 12L6 16"></path></svg>
-</div>
-</div>
-<div class="result-info">
-<div class="result-title">تبييض البشرة بالليزر</div>
-<div class="result-desc">نتيجة بعد 3 جلسات</div>
-</div>
-</div>
-
-<div class="result-card reveal reveal-delay-1">
-<div class="ba-slider" data-ba-slider>
-<div class="ba-after">
-<img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=600&h=450&fit=crop" alt="بعد العلاج">
-<span class="ba-label">بعد</span>
-</div>
-<div class="ba-before">
-<img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=600&h=450&fit=crop&sat=-100" alt="قبل العلاج">
-<span class="ba-label">قبل</span>
-</div>
-<div class="ba-handle">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8L22 12L18 16"></path><path d="M6 8L2 12L6 16"></path></svg>
-</div>
-</div>
-<div class="result-info">
-<div class="result-title">بوتوكس للتجاعيد</div>
-<div class="result-desc">نتيجة بعد أسبوعين</div>
-</div>
-</div>
-
-<div class="result-card reveal reveal-delay-2">
-<div class="ba-slider" data-ba-slider>
-<div class="ba-after">
-<img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&h=450&fit=crop" alt="بعد العلاج">
-<span class="ba-label">بعد</span>
-</div>
-<div class="ba-before">
-<img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&h=450&fit=crop&sat=-100" alt="قبل العلاج">
-<span class="ba-label">قبل</span>
-</div>
-<div class="ba-handle">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8L22 12L18 16"></path><path d="M6 8L2 12L6 16"></path></svg>
-</div>
-</div>
-<div class="result-info">
-<div class="result-title">علاج حب الشباب</div>
-<div class="result-desc">نتيجة بعد شهر</div>
-</div>
-</div>
-</div>
+  <div class="reveal">
+    <div class="section-eyebrow" data-ar="نتائج حقيقية" data-fr="Vrais résultats">نتائج حقيقية</div>
+    <h2 class="section-title" data-ar="شاهد <em>الفرق</em> بنفسك" data-fr="Voyez la <em>différence</em> par vous-même">شاهد <em>الفرق</em> بنفسك</h2>
+    <p class="section-desc" data-ar="شاهد النتائج المبهرة لمرضانا قبل وبعد علاجات البشرة" data-fr="Découvrez les résultats étonnants de nos patients avant et après traitement">شاهد النتائج المبهرة لمرضانا قبل وبعد علاجات البشرة</p>
+  </div>
+  <div class="results-grid">
+    <div class="result-card reveal">
+      <div class="ba-slider" data-ba-slider>
+        <div class="ba-after"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&h=450&fit=crop" alt="After"><span class="ba-label" data-ar="بعد" data-fr="Après">بعد</span></div>
+        <div class="ba-before"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&h=450&fit=crop&sat=-100" alt="Before"><span class="ba-label" data-ar="قبل" data-fr="Avant">قبل</span></div>
+        <div class="ba-handle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8L22 12L18 16"/><path d="M6 8L2 12L6 16"/></svg></div>
+      </div>
+      <div class="result-info">
+        <div class="result-title" data-ar="علاج حب الشباب" data-fr="Traitement acné">علاج حب الشباب</div>
+        <div class="result-desc" data-ar="نتيجة بعد 6 جلسات ليزر" data-fr="Résultat après 6 séances laser">نتيجة بعد 6 جلسات ليزر</div>
+      </div>
+    </div>
+    <div class="result-card reveal reveal-delay-1">
+      <div class="ba-slider" data-ba-slider>
+        <div class="ba-after"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&h=450&fit=crop&sat=50" alt="After"><span class="ba-label" data-ar="بعد" data-fr="Après">بعد</span></div>
+        <div class="ba-before"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&h=450&fit=crop&sat=-100" alt="Before"><span class="ba-label" data-ar="قبل" data-fr="Avant">قبل</span></div>
+        <div class="ba-handle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8L22 12L18 16"/><path d="M6 8L2 12L6 16"/></svg></div>
+      </div>
+      <div class="result-info">
+        <div class="result-title" data-ar="تفتيح البشرة" data-fr="Éclaircissement">تفتيح البشرة</div>
+        <div class="result-desc" data-ar="نتيجة بعد 4 جلسات" data-fr="Résultat après 4 séances">نتيجة بعد 4 جلسات</div>
+      </div>
+    </div>
+    <div class="result-card reveal reveal-delay-2">
+      <div class="ba-slider" data-ba-slider>
+        <div class="ba-after"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&h=450&fit=crop&hue=30" alt="After"><span class="ba-label" data-ar="بعد" data-fr="Après">بعد</span></div>
+        <div class="ba-before"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&h=450&fit=crop&sat=-100" alt="Before"><span class="ba-label" data-ar="قبل" data-fr="Avant">قبل</span></div>
+        <div class="ba-handle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8L22 12L18 16"/><path d="M6 8L2 12L6 16"/></svg></div>
+      </div>
+      <div class="result-info">
+        <div class="result-title" data-ar="بوتوكس" data-fr="Botox">بوتوكس</div>
+        <div class="result-desc" data-ar="تجاعيد أنفية بعد جلسة واحدة" data-fr="Rides nasogéniennes en une séance">تجاعيد أنفية بعد جلسة واحدة</div>
+      </div>
+    </div>
+  </div>
 </div>
 </section>
 
 <!-- Stats -->
 <section class="stats">
 <div class="stats-inner">
-<div class="stat-item reveal">
-<div class="stat-number" data-count="8000">0</div>
-<div class="stat-label">مريضة سعيدة</div>
-</div>
-<div class="stat-item reveal reveal-delay-1">
-<div class="stat-number" data-count="12">0</div>
-<div class="stat-label">سنة خبرة</div>
-</div>
-<div class="stat-item reveal reveal-delay-2">
-<div class="stat-number" data-count="99" data-suffix="%">0</div>
-<div class="stat-label">نسبة الرضا</div>
-</div>
-<div class="stat-item reveal reveal-delay-3">
-<div class="stat-number" data-count="300" data-prefix="+">0</div>
-<div class="stat-label">تقييم ممتاز</div>
-</div>
+  <div class="stat-item reveal">
+    <div class="stat-number" data-count="8000" data-prefix="+">0</div>
+    <div class="stat-label" data-ar="مريض سعيد" data-fr="Patients satisfaits">مريض سعيد</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-1">
+    <div class="stat-number" data-count="12">0</div>
+    <div class="stat-label" data-ar="سنة خبرة" data-fr="Ans d'expérience">سنة خبرة</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-2">
+    <div class="stat-number" data-count="97" data-suffix="%">0</div>
+    <div class="stat-label" data-ar="نسبة الرضا" data-fr="Taux satisfaction">نسبة الرضا</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-3">
+    <div class="stat-number" data-count="500" data-prefix="+">0</div>
+    <div class="stat-label" data-ar="تقييم ممتاز" data-fr="Avis 5 étoiles">تقييم ممتاز</div>
+  </div>
 </div>
 </section>
 
 <!-- Testimonials -->
 <section class="testimonials" id="testimonials">
 <div class="section-container">
-<div class="reveal">
-<div class="section-eyebrow">آراء المرضى</div>
-<h2 class="section-title">قصص نجاح حقيقية</h2>
-<p class="section-desc">سماع من مرضانا الذين غيّروا حياتهم مع نوفا</p>
-</div>
-<div class="testimonials-grid">
-<div class="testimonial-card reveal">
-<div class="testimonial-stars">★★★★★</div>
-<p class="testimonial-quote">"كنت أعاني من تصبغات في الوجه لسنوات. بعد العلاج بالليزر في نوفا، أصبح وجهي نظيفاً ومضائياً. شكراً د. سارة!"</p>
-<div class="testimonial-author">
-<div class="testimonial-avatar">ي</div>
-<div>
-<div class="testimonial-name">ياسمين بوعلام</div>
-<div class="testimonial-role">مهندسة - الجزائر</div>
-</div>
-</div>
-</div>
-
-<div class="testimonial-card reveal reveal-delay-1">
-<div class="testimonial-stars">★★★★★</div>
-<p class="testimonial-quote">"أفضل عيادة تجميل في الجزائر! البوتوكس كان طبيعي جداً. لم يتغير وجهي بشكل مبالغ، فقط أصبحت أصغر بـ 10 سنوات."</p>
-<div class="testimonial-author">
-<div class="testimonial-avatar">ن</div>
-<div>
-<div class="testimonial-name">نادية سعيد</div>
-<div class="testimonial-role">طبيبة أسنان - قسنطينة</div>
-</div>
-</div>
-</div>
-
-<div class="testimonial-card reveal">
-<div class="testimonial-stars">★★★★★</div>
-<p class="testimonial-quote">"طفلي كان يعاني من حب الشباب بشكل شديد. بعد 4 جلسات، بشرته أصبحت نظيفة تماماً. أنصح الجميع بعيادة نوفا."</p>
-<div class="testimonial-author">
-<div class="testimonial-avatar">م</div>
-<div>
-<div class="testimonial-name">منال رحو</div>
-<div class="testimonial-role">أم لطفلين - وهران</div>
-</div>
-</div>
-</div>
-
-<div class="testimonial-card reveal reveal-delay-1">
-<div class="testimonial-stars">★★★★★</div>
-<p class="testimonial-quote">"العناية بالبشرة هنا مختلفة تماماً. د. ليلى تفهم احتياجات المريض وتقدم الحلول المناسبة. بشرتي أصبحت مشرقة."</p>
-<div class="testimonial-author">
-<div class="testimonial-avatar">ف</div>
-<div>
-<div class="testimonial-name">فاطمة الزهراء</div>
-<div class="testimonial-role">أستاذة جامعية - عنابة</div>
-</div>
-</div>
-</div>
-</div>
+  <div class="reveal">
+    <div class="section-eyebrow" data-ar="آراء المرضى" data-fr="Témoignages">آراء المرضى</div>
+    <h2 class="section-title" data-ar="ماذا يقول <em>مرضانا</em>" data-fr="Ce que disent <em>nos patients</em>">ماذا يقول <em>مرضانا</em></h2>
+    <p class="section-desc" data-ar="سماع من مرضانا الذين غيّروا حياتهم مع NOVA DERM" data-fr="Écoutez ceux qui ont changé leur vie avec NOVA DERM">سماع من مرضانا الذين غيّروا حياتهم مع NOVA DERM</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
+      <p class="testimonial-quote" data-ar="&quot;فضلت عيادة نوفا درم عن كل العيادات. النتائج كانت مذهلة والطاقم كان محترف جداً. حب الشباب اختفى تماماً.&quot;" data-fr="&quot;J'ai choisi Nova Derm par rapport à toutes les cliniques. Les résultats étaient impressionnants et l'équipe très professionnelle. L'acné a complètement disparu.&quot;">"فضلت عيادة نوفا درم عن كل العيادات. النتائج كانت مذهلة والطاقم كان محترف جداً. حب الشباب اختفى تماماً."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">S</div>
+        <div>
+          <div class="testimonial-name" data-ar="Samir B." data-fr="Samir B.">Samir B.</div>
+          <div class="testimonial-role" data-ar="علاج حب الشباب" data-fr="Traitement acné">علاج حب الشباب</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="testimonial-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
+      <p class="testimonial-quote" data-ar="&quot;البوتوكس كان طبيعي جداً. لم أكن أتوقع هذه النتيجة. أنصح الجميع بعيادة نوفا درم.&quot;" data-fr="&quot;Le botox était très naturel. Je ne m'attendais pas à un tel résultat. Je recommande Nova Derm à tous.&quot;">"البوتوكس كان طبيعي جداً. لم أكن أتوقع هذه النتيجة. أنصح الجميع بعيادة نوفا درم."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">N</div>
+        <div>
+          <div class="testimonial-name" data-ar="Nadia K." data-fr="Nadia K.">Nadia K.</div>
+          <div class="testimonial-role" data-ar="بوتوكس" data-fr="Botox">بوتوكس</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
+      <p class="testimonial-quote" data-ar="&quot;الليزر شفّ بقع بني في وجهي خلال 4 جلسات. العيادة نظيفة جداً والأسعار معقولة.&quot;" data-fr="&quot;Le laser a éliminé mes taches brunes en 4 séances. La clinique est très propre et les prix raisonnables.&quot;">"الليزر شفّ بقع بني في وجهي خلال 4 جلسات. العيادة نظيفة جداً والأسعار معقولة."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">Y</div>
+        <div>
+          <div class="testimonial-name" data-ar="Yasmine A." data-fr="Yasmine A.">Yasmine A.</div>
+          <div class="testimonial-role" data-ar="ليزر بشرة" data-fr="Laser peau">ليزر بشرة</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="testimonial-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
+      <p class="testimonial-quote" data-ar="&quot;عناية بالبشرة كانت رائعة. بشرتي صارت أ мягк وأكثر توهجاً. أشكر الطاقم المحترف.&quot;" data-fr="&quot;Le soin de la peau était merveilleux. Ma peau est plus douce et plus éclatante. Merci à l'équipe professionnelle.&quot;">"عناية بالبشرة كانت رائعة. بشرتي صارت أكثر نعومة وإشراقاً. أشكر الطاقم المحترف."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">R</div>
+        <div>
+          <div class="testimonial-name" data-ar="Rachid D." data-fr="Rachid D.">Rachid D.</div>
+          <div class="testimonial-role" data-ar="عناية بالبشرة" data-fr="Soins peau">عناية بالبشرة</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </section>
 
 <!-- Booking -->
 <section class="booking" id="booking">
 <div class="booking-container">
-<div class="booking-info reveal">
-<h2>احجز موعدك الآن</h2>
-<p>تواصل معنا اليوم للحصول على استشارة مجانية. فريقنا جاهز للإجابة على جميع أسئلتك ومساعدتك في اختيار العلاج المناسب</p>
-<div class="booking-contact-item">
-<div class="booking-contact-icon">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-</div>
-<div class="booking-contact-text">
-<strong>+213 555 789 012</strong>
-متاح من السبت إلى الخميس، 9 صباحاً - 8 مساءً
-</div>
-</div>
-<div class="booking-contact-item">
-<div class="booking-contact-icon">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-</div>
-<div class="booking-contact-text">
-<strong>شارع الاستقلال، الجزائر العاصمة</strong>
-بجوار مول السويدي
-</div>
-</div>
-<div class="booking-contact-item">
-<div class="booking-contact-icon">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-</div>
-<div class="booking-contact-text">
-<strong>ساعات العمل</strong>
-السبت - الخميس: 9:00 - 20:00
-</div>
-</div>
-</div>
-
-<form class="booking-form reveal">
-<div class="form-row">
-<div class="form-group">
-<label>الاسم الكامل</label>
-<input type="text" placeholder="أدخل اسمك">
-</div>
-<div class="form-group">
-<label>رقم الهاتف</label>
-<input type="tel" placeholder="0555 789 012">
-</div>
-</div>
-<div class="form-row">
-<div class="form-group">
-<label>البريد الإلكتروني</label>
-<input type="email" placeholder="example@email.com">
-</div>
-<div class="form-group">
-<label>الخدمة المطلوبة</label>
-<select>
-<option>اختر الخدمة</option>
-<option>تبييض البشرة</option>
-<option>بوتوكس وفيلر</option>
-<option>علاج حب الشباب</option>
-<option>شد الوجه</option>
-<option>عناية بالبشرة</option>
-<option>إزالة الشعر</option>
-</select>
-</div>
-</div>
-<div class="form-group">
-<label>رسالتك</label>
-<textarea placeholder="اكتب استفسارك أو طلبك هنا..."></textarea>
-</div>
-<button type="submit" class="form-submit">إرسال الحجز</button>
-</form>
+  <div class="booking-info reveal">
+    <h2 data-ar="احجز موعدك الآن" data-fr="Réservez votre rendez-vous">احجز موعدك الآن</h2>
+    <p data-ar="تواصل معنا اليوم للحصول على استشارة مجانية. فريقنا جاهز للإجابة على جميع أسئلتك" data-fr="Contactez-nous aujourd'hui pour une consultation gratuite. Notre équipe est prête à répondre à toutes vos questions">تواصل معنا اليوم للحصول على استشارة مجانية. فريقنا جاهز للإجابة على جميع أسئلتك</p>
+    <div class="booking-contact-item">
+      <div class="booking-contact-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div class="booking-contact-text">
+        <strong>+213 770 433 364</strong>
+        <span data-ar="السبت - الخميس: 9:00 - 20:00" data-fr="Sam - Jeu: 9h00 - 20h00">السبت - الخميس: 9:00 - 20:00</span>
+      </div>
+    </div>
+    <div class="booking-contact-item">
+      <div class="booking-contact-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div class="booking-contact-text">
+        <strong data-ar="بن عكنون، الجزائر العاصمة" data-fr="Ben Aknoun, Alger">بن عكنون، الجزائر العاصمة</strong>
+        <span data-ar="بجوار مستشفى بن عكنون" data-fr="À côté de l'hôpital Ben Aknoun">بجوار مستشفى بن عكنون</span>
+      </div>
+    </div>
+    <div class="booking-contact-item">
+      <div class="booking-contact-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="booking-contact-text">
+        <strong data-ar="ساعات العمل" data-fr="Heures d'ouverture">ساعات العمل</strong>
+        <span data-ar="السبت - الخميس: 9:00 - 20:00" data-fr="Sam - Jeu: 9h00 - 20h00">السبت - الخميس: 9:00 - 20:00</span>
+      </div>
+    </div>
+  </div>
+  <form class="booking-form reveal" onsubmit="event.preventDefault();const f=this;const n=f.querySelector('[name=name]').value.trim();const p=f.querySelector('[name=phone]').value.trim();if(!n||!p){alert(currentLang==='fr'?'Veuillez remplir au moins votre nom et téléphone':'يرجى ملء الاسم ورقم الهاتف على الأقل');return}alert(currentLang==='fr'?'Merci ! Nous vous contacterons bientôt.':'شكراً! سنتواصل معك قريباً');f.reset()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="book-name" data-ar="الاسم الكامل" data-fr="Nom complet">الاسم الكامل</label>
+        <input type="text" id="book-name" name="name" required data-placeholder-ar="أدخل اسمك" data-placeholder-fr="Votre nom" placeholder="أدخل اسمك">
+      </div>
+      <div class="form-group">
+        <label for="book-phone" data-ar="رقم الهاتف" data-fr="Téléphone">رقم الهاتف</label>
+        <input type="tel" id="book-phone" name="phone" required pattern="[0-9\s\+\-]{8,}" data-placeholder-ar="0555 123 456" data-placeholder-fr="0555 123 456" placeholder="0555 123 456">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="book-email" data-ar="البريد الإلكتروني" data-fr="Email">البريد الإلكتروني</label>
+        <input type="email" id="book-email" name="email" data-placeholder-ar="example@email.com" data-placeholder-fr="example@email.com" placeholder="example@email.com">
+      </div>
+      <div class="form-group">
+        <label for="book-service" data-ar="الخدمة المطلوبة" data-fr="Service souhaité">الخدمة المطلوبة</label>
+        <select id="book-service" name="service">
+          <option value="" data-ar="اختر الخدمة" data-fr="Choisir un service">اختر الخدمة</option>
+          <option value="acne" data-ar="علاج حب الشباب" data-fr="Traitement acné">علاج حب الشباب</option>
+          <option value="botox" data-ar="Botoks والحقن" data-fr="Botox et Injections">Botoks والحقن</option>
+          <option value="laser" data-ar="ليزر البشرة" data-fr="Laser Cutané">ليزر البشرة</option>
+          <option value="microneedle" data-ar="ميكرونيدل" data-fr="Microneedling">ميكرونيدل</option>
+          <option value="skincare" data-ar="عناية بالبشرة" data-fr="Soins de la Peau">عناية بالبشرة</option>
+          <option value="whitening" data-ar="تفتيح البشرة" data-fr="Éclaircissement">تفتيح البشرة</option>
+          <option value="lifting" data-ar="شد الوجه" data-fr="Raffermissement">شد الوجه</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="book-message" data-ar="رسالتك" data-fr="Votre message">رسالتك</label>
+      <textarea id="book-message" name="message" data-placeholder-ar="اكتب استفسارك هنا..." data-placeholder-fr="Votre message..." placeholder="اكتب استفسارك هنا..."></textarea>
+    </div>
+    <button type="submit" class="form-submit" data-ar="إرسال الحجز" data-fr="Envoyer la demande">إرسال الحجز</button>
+  </form>
 </div>
 </section>
 
 <!-- FAQ -->
 <section class="faq" id="faq">
 <div class="section-container">
-<div class="reveal" style="text-align:center">
-<div class="section-eyebrow" style="justify-content:center">الأسئلة الشائعة</div>
-<h2 class="section-title">لديك سؤال؟</h2>
-<p class="section-desc" style="margin-left:auto;margin-right:auto">إليك إجابات أكثر الأسئلة شيوعاً</p>
-</div>
-<div class="faq-list">
-<div class="faq-item reveal">
-<button class="faq-question">هل علاجات الليزر آمنة؟</button>
-<div class="faq-answer"><div class="faq-answer-inner">نعم، نستخدم أجهزة ليزر معتمدة عالمياً مع خبراء متخصصين. جميع علاجاتنا آمنة وموثقة</div></div>
-</div>
-<div class="faq-item reveal">
-<button class="faq-question">كم تستمر نتائج البوتوكس؟</button>
-<div class="faq-answer"><div class="faq-answer-inner">تستمر نتائج البوتوكس عادة من 4 إلى 6 أشهر. يمكن الحفاظ عليها بجلسات دورية</div></div>
-</div>
-<div class="faq-item reveal">
-<button class="faq-question">هل تقبلون الدفع بالتقسيط؟</button>
-<div class="faq-answer"><div class="faq-answer-inner">نعم، نوفر خيارات دفع مرنة تشمل الدفع عبر BaridiMob أو التقسيط على عدة أشهر بدون فوائد</div></div>
-</div>
-<div class="faq-item reveal">
-<button class="faq-question">ما هي ساعات العمل؟</button>
-<div class="faq-answer"><div class="faq-answer-inner">نعمل من السبت إلى الخميس، من الساعة 9 صباحاً حتى 8 مساءً. نوفر مواعيد مسائية للموظفات</div></div>
-</div>
-<div class="faq-item reveal">
-<button class="faq-question">هل أحتاج إلى موعد مسبق؟</button>
-<div class="faq-answer"><div class="faq-answer-inner">نعم، ننصح بحجز موعد مسبق. يمكنك الحجز عبر الهاتف أو عبر نموذج الحجز الإلكتروني. الاستشارة الأولى مجانية</div></div>
-</div>
-</div>
+  <div class="reveal" style="text-align:center">
+    <div class="section-eyebrow" style="justify-content:center" data-ar="الأسئلة الشائعة" data-fr="Questions fréquentes">الأسئلة الشائعة</div>
+    <h2 class="section-title" data-ar="لديك سؤال؟" data-fr="Une question ?">لديك سؤال؟</h2>
+    <p class="section-desc" style="margin-left:auto;margin-right:auto" data-ar="إليك إجابات أكثر الأسئلة شيوعاً" data-fr="Voici les réponses aux questions les plus fréquentes">إليك إجابات أكثر الأسئلة شيوعاً</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <button class="faq-question" data-ar="هل علاج حب الشباب مؤلم؟" data-fr="Le traitement de l'acné est-il douloureux ?">هل علاج حب الشباب مؤلم؟</button>
+      <div class="faq-answer"><div class="faq-answer-inner" data-ar="لا، علاج الليزر غير مؤلم ويستغرق 30-45 دقيقة فقط. نستخدم مواد تهدئة قبل الجلسة لراحة المريض" data-fr="Non, le traitement laser est indolore et ne dure que 30-45 minutes. Nous utilisons des produits apaisants avant la séance pour votre confort.">لا، علاج الليزر غير مؤلم ويستغرق 30-45 دقيقة فقط. نستخدم مواد تهدئة قبل الجلسة لراحة المريض</div></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-question" data-ar="كم تستغرق نتائج Botoks؟" data-fr="Combien de temps dure l'effet du botox ?">كم تستغرق نتائج Botoks؟</button>
+      <div class="faq-answer"><div class="faq-answer-inner" data-ar="تستمر نتائج Botoks من 3 إلى 6 أشهر حسب المنطقة المعالجة. ننصح بتجديد الجلسة كل 4-6 أشهر للحفاظ على النتائج" data-fr="Les résultats du botox durent de 3 à 6 mois selon la zone traitée. Nous recommandons de renouveler la séance tous les 4-6 mois pour maintenir les résultats.">تستمر نتائج Botoks من 3 إلى 6 أشهر حسب المنطقة المعالجة. ننصح بتجديد الجلسة كل 4-6 أشهر للحفاظ على النتائج</div></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-question" data-ar="هل تقبلون الدفع بالتقسيط؟" data-fr="Acceptez-vous le paiement en plusieurs fois ?">هل تقبلون الدفع بالتقسيط؟</button>
+      <div class="faq-answer"><div class="faq-answer-inner" data-ar="نعم، نوفر خيارات دفع مرنة تشمل الدفع عبر BaridiMob أو التقسيط على عدة أشهر بدون فوائد. تواصل معنا لمعرفة التفاصيل" data-fr="Oui, nous offrons des options flexibles incluant BaridiMob et le paiement en plusieurs fois sans frais. Contactez-nous pour plus de détails.">نعم، نوفر خيارات دفع مرنة تشمل الدفع عبر BaridiMob أو التقسيط على عدة أشهر بدون فوائد. تواصل معنا لمعرفة التفاصيل</div></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-question" data-ar="ما هي ساعات العمل؟" data-fr="Quelles sont vos heures d'ouverture ?">ما هي ساعات العمل؟</button>
+      <div class="faq-answer"><div class="faq-answer-inner" data-ar="نعمل من السبت إلى الخميس، من الساعة 9 صباحاً حتى 8 مساءً. نوفر مواعيد مسائية للموظفين ومواعيد خاصة للطوارئ" data-fr="Nous sommes ouverts du samedi au jeudi, de 9h à 20h. Des créneaux en soirée sont disponibles pour les salariés.">نعمل من السبت إلى الخميس، من الساعة 9 صباحاً حتى 8 مساءً. نوفر مواعيد مسائية للموظفين ومواعيد خاصة للطوارئ</div></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-question" data-ar="هل أحتاج إلى موعد مسبق؟" data-fr="Faut-il un rendez-vous ?">هل أحتاج إلى موعد مسبق؟</button>
+      <div class="faq-answer"><div class="faq-answer-inner" data-ar="نعم، ننصح بحجز موعد مسبق للحصول على أفضل خدمة. يمكنك الحجز عبر الهاتف أو عبر نموذج الحجز الإلكتروني. كما نوفر استشارة مجانية أولى" data-fr="Oui, nous recommandons de prendre rendez-vous. Réservez par téléphone ou via notre formulaire. Une première consultation gratuite est offerte.">نعم، ننصح بحجز موعد مسبق للحصول على أفضل خدمة. يمكنك الحجز عبر الهاتف أو عبر نموذج الحجز الإلكتروني. كما نوفر استشارة مجانية أولى</div></div>
+    </div>
+  </div>
 </div>
 </section>
 
 <!-- Map -->
 <section class="map">
-<div class="map-container">
-<div class="reveal" style="text-align:center;margin-bottom:2rem">
-<div class="section-eyebrow" style="justify-content:center">موقعنا</div>
-<h2 class="section-title">زورنا في الجزائر العاصمة</h2>
-</div>
-<iframe class="map-embed reveal" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3190.8875463450937!2d3.0588!3d36.7538!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDQ1JzEzLjYiTiAzwrAwMyczMi43IkU!5e0!3m2!1sfr!2sdz!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+<div class="section-container">
+  <div class="reveal" style="text-align:center;margin-bottom:2rem">
+    <div class="section-eyebrow" style="justify-content:center" data-ar="موقعنا" data-fr="Notre localisation">موقعنا</div>
+    <h2 class="section-title" data-ar="زورنا في بن عكنون" data-fr="Rendez-vous à Ben Aknoun">زورنا في بن عكنون</h2>
+  </div>
+  <iframe class="map-embed reveal" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3199.5!2d3.0!3d36.77!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDQ2JzEyLjAiTiAzwrAwMCcwMC4wIkU!5e0!3m2!1sfr!2sdz" allowfullscreen="" loading="lazy"></iframe>
 </div>
 </section>
 
 <!-- CTA -->
 <section class="cta">
-<h2>جاهز لجمالك الطبيعي؟</h2>
-<p>احجز استشارتك المجانية اليوم ودع فريقنا المتخصص يساعدك في تحقيق الإطلالة التي تحلم بها</p>
-<a href="#booking" class="btn">احجز الآن - مجاناً</a>
+<h2 data-ar="جاهز لبشرتك المثالية؟" data-fr="Prêt pour votre peau parfaite ?">جاهز لبشرتك المثالية؟</h2>
+<p data-ar="احجز استشارتك المجانية اليوم ودع فريقنا المتخصص يساعدك في تحقيق بشرتك المثالية" data-fr="Réservez votre consultation gratuite et laissez notre équipe vous aider à réaliser la peau de vos rêves">احجز استشارتك المجانية اليوم ودع فريقنا المتخصص يساعدك في تحقيق بشرتك المثالية</p>
+<a href="#booking" class="btn" data-ar="احجز الآن — مجاناً" data-fr="Réserver — Gratuit">احجز الآن — مجاناً</a>
 </section>
 
 <!-- Footer -->
 <footer>
 <div class="footer-grid">
-<div class="footer-brand">
-<a href="#" class="logo">
-<div class="logo-icon">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-</div>
-<span>نوفا</span>
-</a>
-<p>عيادة نوفا لطب الجلدية والتجميل - خبرة 12 سنة في خدمة جمال صحتكم. نلتزم بأعلى معايير الجودة العالمية</p>
-</div>
-<div class="footer-col">
-<h3>خدماتنا</h3>
-<ul>
-<li><a href="#services">تبييض البشرة</a></li>
-<li><a href="#services">بوتوكس وفيلر</a></li>
-<li><a href="#services">علاج حب الشباب</a></li>
-<li><a href="#services">شد الوجه</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h3>روابط مفيدة</h3>
-<ul>
-<li><a href="#doctors">فريقنا الطبي</a></li>
-<li><a href="#results">نتائج العلاج</a></li>
-<li><a href="#testimonials">آراء المرضى</a></li>
-<li><a href="#faq">الأسئلة الشائعة</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h3>تواصل معنا</h3>
-<ul>
-<li><a href="tel:+213555789012">+213 555 789 012</a></li>
-<li><a href="mailto:info@nova-clinic.dz">info@nova-clinic.dz</a></li>
-<li><a href="#">شارع الاستقلال، الجزائر</a></li>
-</ul>
-</div>
+  <div class="footer-brand">
+    <a href="#" class="logo">
+      <div class="logo-icon">N</div>
+      <span>NOVA DERM</span>
+    </a>
+    <p data-ar="عيادة NOVA DERM للجلدية والتجميل — خبرة 12 سنة في خدمة بشرتكم. نلتزم بأعلى معايير الجودة العالمية" data-fr="NOVA DERM — 12 ans d'expérience au service de votre peau. Les plus hauts standards de qualité.">عيادة NOVA DERM للجلدية والتجميل — خبرة 12 سنة في خدمة بشرتكم. نلتزم بأعلى معايير الجودة العالمية</p>
+  </div>
+  <div class="footer-col">
+    <h3 data-ar="خدماتنا" data-fr="Nos Services">خدماتنا</h3>
+    <ul>
+      <li><a href="#services" data-ar="علاج حب الشباب" data-fr="Traitement acné">علاج حب الشباب</a></li>
+      <li><a href="#services" data-ar="Botoks والحقن" data-fr="Botox et Injections">Botoks والحقن</a></li>
+      <li><a href="#services" data-ar="ليزر البشرة" data-fr="Laser Cutané">ليزر البشرة</a></li>
+      <li><a href="#services" data-ar="عناية بالبشرة" data-fr="Soins de la Peau">عناية بالبشرة</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h3 data-ar="روابط مفيدة" data-fr="Liens utiles">روابط مفيدة</h3>
+    <ul>
+      <li><a href="#doctors" data-ar="فريقنا الطبي" data-fr="Équipe médicale">فريقنا الطبي</a></li>
+      <li><a href="#results" data-fr="Résultats" data-ar="نتائج العلاج">نتائج العلاج</a></li>
+      <li><a href="#testimonials" data-ar="آراء المرضى" data-fr="Témoignages">آراء المرضى</a></li>
+      <li><a href="#faq" data-ar="الأسئلة الشائعة" data-fr="FAQ">الأسئلة الشائعة</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h3 data-ar="تواصل معنا" data-fr="Contact">تواصل معنا</h3>
+    <ul>
+      <li><a href="tel:+213770433364">+213 770 433 364</a></li>
+      <li><a href="mailto:zakariakhalfa98@gmail.com">zakariakhalfa98@gmail.com</a></li>
+      <li><a href="#" data-ar="بن عكنون، الجزائر" data-fr="Ben Aknoun, Alger">بن عكنون، الجزائر</a></li>
+    </ul>
+  </div>
 </div>
 <div class="footer-bottom">
-<p>© 2024 عيادة نوفا لطب الجلدية والتجميل. جميع الحقوق محفوظة</p>
-<p>تصميم وتطوير بعناية</p>
+  <p>&copy; 2026 NOVA DERM. <span data-ar="جميع الحقوق محفوظة" data-fr="Tous droits réservés">جميع الحقوق محفوظة</span></p>
+  <p data-ar="تصميم وتطوير بعناية" data-fr="Conçu avec soin">تصميم وتطوير بعناية</p>
 </div>
 </footer>
 
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
 <!-- WhatsApp Float -->
-<a href="https://wa.me/213555789012" class="whatsapp-float" target="_blank">
+<a href="https://wa.me/213770433364?text=Bonjour%2C%20je%20souhaite%20prendre%20rendez-vous" class="whatsapp-float" target="_blank" rel="noopener">
 <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
 </a>
 
 <script>
-// Header scroll effect
-window.addEventListener('scroll', () => {
-const header = document.getElementById('header');
-if (window.scrollY > 50) {
-header.classList.add('scrolled');
-} else {
-header.classList.remove('scrolled');
-}
-});
+// Loading screen
+let loadPct=0;const loadBar=document.getElementById('loadingBar');const loadPctEl=document.getElementById('loadingPct');
+const loadInterval=setInterval(()=>{loadPct+=Math.random()*15+5;if(loadPct>=100){loadPct=100;clearInterval(loadInterval);setTimeout(()=>{const ls=document.getElementById('loadingScreen');if(ls)ls.classList.add('hidden')},300)}if(loadBar)loadBar.style.width=loadPct+'%';if(loadPctEl)loadPctEl.textContent=Math.floor(loadPct)+'%'},80);
+setTimeout(()=>{clearInterval(loadInterval);const ls=document.getElementById('loadingScreen');if(ls)ls.classList.add('hidden')},5000);
 
-// Reveal on scroll
-const revealElements = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('active');
-}
-});
-}, { threshold: 0.1 });
+// Header scroll
+window.addEventListener('scroll',()=>{document.getElementById('header').classList.toggle('scrolled',window.scrollY>50)});
 
-revealElements.forEach(el => revealObserver.observe(el));
+// Reveal on scroll with stagger
+const revealObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('active');if(e.target.classList.contains('service-card')){const cards=e.target.parentElement.querySelectorAll('.service-card');cards.forEach((c,i)=>{setTimeout(()=>c.classList.add('active'),i*100)})}}})},{threshold:0.1});
+document.querySelectorAll('.reveal,.service-card').forEach(el=>revealObs.observe(el));const extraObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('active');extraObs.unobserve(e.target)}})},{threshold:0.2});document.querySelectorAll('.booking-contact-item,.faq-item').forEach(el=>extraObs.observe(el));
 
 // Before/After sliders
-document.querySelectorAll('[data-ba-slider]').forEach(slider => {
-const before = slider.querySelector('.ba-before');
-const handle = slider.querySelector('.ba-handle');
-let isDown = false;
-
-const updateSlider = (x) => {
-const rect = slider.getBoundingClientRect();
-let percent = ((x - rect.left) / rect.width) * 100;
-percent = Math.max(0, Math.min(100, percent));
-before.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
-handle.style.left = `${percent}%`;
-};
-
-slider.addEventListener('mousedown', (e) => {
-isDown = true;
-updateSlider(e.clientX);
+document.querySelectorAll('[data-ba-slider]').forEach(slider=>{
+const before=slider.querySelector('.ba-before'),handle=slider.querySelector('.ba-handle');
+let isDown=false;
+const update=x=>{const r=slider.getBoundingClientRect();let p=((x-r.left)/r.width)*100;p=Math.max(0,Math.min(100,p));before.style.clipPath='inset(0 '+(100-p)+'% 0 0)';handle.style.left=p+'%'};
+slider.addEventListener('mousedown',e=>{isDown=true;update(e.clientX)});
+document.addEventListener('mousemove',e=>{if(isDown)update(e.clientX)});
+document.addEventListener('mouseup',()=>isDown=false);
+slider.addEventListener('touchstart',e=>{isDown=true;update(e.touches[0].clientX)});
+slider.addEventListener('touchmove',e=>{if(isDown){e.preventDefault();update(e.touches[0].clientX)}},{passive:false});
+slider.addEventListener('touchend',()=>isDown=false);
 });
 
-document.addEventListener('mousemove', (e) => {
-if (isDown) updateSlider(e.clientX);
-});
-
-document.addEventListener('mouseup', () => isDown = false);
-
-slider.addEventListener('touchstart', (e) => {
-isDown = true;
-updateSlider(e.touches[0].clientX);
-});
-
-slider.addEventListener('touchmove', (e) => {
-if (isDown) {
-e.preventDefault();
-updateSlider(e.touches[0].clientX);
-}
-});
-
-slider.addEventListener('touchend', () => isDown = false);
-});
-
-// Number counter animation
-const counterElements = document.querySelectorAll('.stat-number[data-count]');
-const counterObserver = new IntersectionObserver((entries) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-const el = entry.target;
-const target = parseInt(el.getAttribute('data-count'));
-const prefix = el.getAttribute('data-prefix') || '';
-const suffix = el.getAttribute('data-suffix') || '';
-const duration = 2000;
-const step = target / (duration / 16);
-let current = 0;
-
-const updateCounter = () => {
-current += step;
-if (current < target) {
-el.textContent = prefix + Math.floor(current).toLocaleString() + suffix;
-requestAnimationFrame(updateCounter);
-} else {
-el.textContent = prefix + target.toLocaleString() + suffix;
-}
-};
-
-updateCounter();
-counterObserver.unobserve(el);
-}
-});
-}, { threshold: 0.5 });
-
-counterElements.forEach(el => counterObserver.observe(el));
+// Counter animation with easing
+const counterObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const el=e.target,target=parseInt(el.getAttribute('data-count')),pre=el.getAttribute('data-prefix')||'',suf=el.getAttribute('data-suffix')||'';let cur=0;const duration=2000;const startTime=performance.now();const easeOut=t=>t>=1?1:1-Math.pow(2,-10*t);const anim=now=>{const elapsed=now-startTime;const progress=Math.min(elapsed/duration,1);const eased=easeOut(progress);el.textContent=pre+Math.floor(eased*target).toLocaleString()+suf;if(progress<1)requestAnimationFrame(anim);else el.textContent=pre+target.toLocaleString()+suf};requestAnimationFrame(anim);counterObs.unobserve(el)}})},{threshold:0.5});
+document.querySelectorAll('.stat-number[data-count],.trust-number[data-count]').forEach(el=>counterObs.observe(el));
 
 // FAQ accordion
-document.querySelectorAll('.faq-question').forEach(btn => {
-btn.addEventListener('click', () => {
-const item = btn.closest('.faq-item');
-const answer = item.querySelector('.faq-answer');
-const isActive = item.classList.contains('active');
+document.querySelectorAll('.faq-question').forEach(btn=>{btn.addEventListener('click',()=>{const item=btn.closest('.faq-item'),ans=item.querySelector('.faq-answer'),active=item.classList.contains('active');document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('active');i.querySelector('.faq-answer').style.maxHeight=null});if(!active){item.classList.add('active');ans.style.maxHeight=ans.scrollHeight+'px'}})});
 
-document.querySelectorAll('.faq-item').forEach(i => {
-i.classList.remove('active');
-i.querySelector('.faq-answer').style.maxHeight = null;
-});
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
 
-if (!isActive) {
-item.classList.add('active');
-answer.style.maxHeight = answer.scrollHeight + 'px';
+// 3D Tilt hero
+const hero3d=document.getElementById('hero3d');
+if(hero3d){hero3d.addEventListener('mousemove',e=>{const r=hero3d.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-0.5,y=(e.clientY-r.top)/r.height-0.5;hero3d.style.transform='rotateY('+(x*10)+'deg) rotateX('+(y*-10)+'deg) scale(1.02)';hero3d.style.transition='transform 0.1s ease-out'});
+hero3d.addEventListener('mouseleave',()=>{hero3d.style.transform='rotateY(0) rotateX(0) scale(1)';hero3d.style.transition='transform 0.5s ease'})}
+
+// Dark mode with smooth transition
+function toggleTheme(){const t=document.documentElement.getAttribute('data-theme')==='dark'?'':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);document.getElementById('themeIcon').innerHTML=t==='dark'?'&#9788;':'&#9790;'}
+if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeIcon').innerHTML='&#9788;'}
+
+// Language toggle
+let currentLang='ar';
+function toggleLang(){currentLang=currentLang==='ar'?'fr':'ar';document.querySelectorAll('[data-ar]').forEach(el=>{const val=el.getAttribute('data-'+currentLang);if(val){if(el.tagName==='OPTION')el.textContent=val;else el.innerHTML=val}});document.querySelectorAll('[data-placeholder-ar]').forEach(el=>{el.placeholder=el.getAttribute('data-placeholder-'+currentLang)});document.documentElement.lang=currentLang;document.documentElement.dir=currentLang==='ar'?'rtl':'ltr';const lt=document.querySelector('.lang-toggle');if(lt)lt.textContent=currentLang==='ar'?'AR':'FR';localStorage.setItem('lang',currentLang)}
+if(localStorage.getItem('lang')){currentLang=localStorage.getItem('lang');if(currentLang==='fr')toggleLang()}
+
+// ===== PHASE 4: PREMIUM JS =====
+
+// Custom Cursor (skip on touch devices)
+if(window.matchMedia('(pointer:fine)').matches){
+const cursorDot=document.createElement('div');cursorDot.className='cursor-dot';document.body.appendChild(cursorDot);
+const cursorRing=document.createElement('div');cursorRing.className='cursor-ring';document.body.appendChild(cursorRing);
+let mouseX=0,mouseY=0,ringX=0,ringY=0;
+document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;cursorDot.style.left=mouseX-4+'px';cursorDot.style.top=mouseY-4+'px'});
+function animateCursor(){ringX+=(mouseX-ringX)*0.15;ringY+=(mouseY-ringY)*0.15;cursorRing.style.left=ringX-20+'px';cursorRing.style.top=ringY-20+'px';requestAnimationFrame(animateCursor)}
+animateCursor();
+document.querySelectorAll('a,button,.service-card,.doctor-card,.testimonial-card').forEach(el=>{el.addEventListener('mouseenter',()=>cursorRing.classList.add('hover'));el.addEventListener('mouseleave',()=>cursorRing.classList.remove('hover'))});
 }
-});
-});
 
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-anchor.addEventListener('click', function (e) {
-e.preventDefault();
-const target = document.querySelector(this.getAttribute('href'));
-if (target) {
-target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-});
-});
+// Parallax on scroll
+let _rAF=false;window.addEventListener('scroll',()=>{if(!_rAF){requestAnimationFrame(()=>{const sy=window.scrollY;const hi=document.querySelector('.hero-image');if(hi&&sy<800)hi.style.transform='translate3d(0,'+sy*0.06+'px,0)';_rAF=false});_rAF=true}});
+
+// Back to top visibility
+const backToTop=document.getElementById('backToTop');
+if(backToTop){window.addEventListener('scroll',()=>{if(window.scrollY>500)backToTop.classList.add('visible');else backToTop.classList.remove('visible')})}
+
+// Magnetic button effect
+document.querySelectorAll('.btn-primary,.nav-cta').forEach(btn=>{btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();const x=e.clientX-r.left-r.width/2;const y=e.clientY-r.top-r.height/2;btn.style.transform='translateY(-3px) translate('+(x*0.15)+'px,'+(y*0.15)+'px)'});btn.addEventListener('mouseleave',()=>{btn.style.transform='translateY(0) translate(0,0)'})});
+
+// Smooth section reveal on scroll
+const sectionObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:0.05});
+document.querySelectorAll('section').forEach(s=>{if(!s.classList.contains('hero')){s.style.opacity='0';s.style.transform='translateY(30px)';s.style.transition='all 0.8s var(--ease-out-expo)';sectionObs.observe(s)}});
+
+// Smooth hover tilt on service cards
+document.querySelectorAll('.service-card').forEach(card=>{card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-0.5;const y=(e.clientY-r.top)/r.height-0.5;card.style.transform='translateY(-8px) rotateY('+(x*5)+'deg) rotateX('+(y*-5)+'deg)'});card.addEventListener('mouseleave',()=>{card.style.transform='translateY(0) rotateY(0) rotateX(0)'})});
+
+// Staggered text reveal for headings
+document.querySelectorAll('.section-title').forEach(title=>{const text=title.textContent;if(!text)return;title.innerHTML='';const wrapper=document.createElement('span');wrapper.className='text-reveal';const span=document.createElement('span');span.textContent=text;wrapper.appendChild(span);title.appendChild(wrapper);const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('active')})},{threshold:0.5});obs.observe(wrapper)});
+
+// Dynamic gradient on stats section based on scroll
+window.addEventListener('scroll',()=>{const stats=document.querySelector('.stats');if(stats){const rect=stats.getBoundingClientRect();const progress=Math.max(0,Math.min(1,1-rect.top/window.innerHeight));stats.style.backgroundPosition=(progress*100)+'% 0%'}});
 </script>
 </body>
 </html>
-<parameter name="filePath">C:\Users\-zakaria pc-\Desktop\EMAIL_OUTREACH_SIMPLE\06_demos\clinic_dermo\index_v2.html
