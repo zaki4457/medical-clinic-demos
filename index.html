@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Med Bot by Zakaria - Professional Medical Websites</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .container { max-width: 1200px; text-align: center; }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle { font-size: 1.2rem; color: #94a3b8; margin-bottom: 3rem; }
+        .demos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .demo-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+        .demo-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .demo-icon { font-size: 4rem; margin-bottom: 1rem; }
+        .demo-title { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .demo-desc { color: #94a3b8; font-size: 0.9rem; }
+        .badge {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+        .footer { margin-top: 3rem; color: #64748b; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Med Bot by Zakaria</h1>
+        <p class="subtitle">Professional Medical Websites - Free for Your Clinic</p>
+        
+        <div class="demos">
+            <a href="dental.html" class="demo-card">
+                <div class="demo-icon">🦷</div>
+                <div class="demo-title">Dental Clinic</div>
+                <div class="demo-desc">Professional website for dental clinics with direct booking</div>
+                <span class="badge">FREE</span>
+            </a>
+            
+            <a href="medical.html" class="demo-card">
+                <div class="demo-icon">🏥</div>
+                <div class="demo-title">Medical Clinic</div>
+                <div class="demo-desc">Complete website with doctor info and services</div>
+                <span class="badge">FREE</span>
+            </a>
+            
+            <a href="dermo.html" class="demo-card">
+                <div class="demo-icon">✨</div>
+                <div class="demo-title">Dermatology Clinic</div>
+                <div class="demo-desc">Elegant website with photo gallery</div>
+                <span class="badge">FREE</span>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>Design & Development: Zakaria - Algeria Web Dev</p>
+            <p>Price: 25,000 DA only - Installments available</p>
+        </div>
+    </div>
+</body>
+</html>
