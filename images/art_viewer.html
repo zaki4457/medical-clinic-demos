@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Med Bot - Generative Art Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f7f4 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            color: #0f172a;
+        }
+        
+        .header {
+            background: white;
+            padding: 16px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: #0d9488;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        .logo-text {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .logo-text span {
+            color: #0d9488;
+        }
+        
+        .main-container {
+            display: flex;
+            height: calc(100vh - 73px);
+        }
+        
+        .sidebar {
+            width: 320px;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .section {
+            margin-bottom: 24px;
+        }
+        
+        .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+        
+        .control-group {
+            margin-bottom: 16px;
+        }
+        
+        .control-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #334155;
+            margin-bottom: 6px;
+        }
+        
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #e2e8f0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #0d9488;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .value-display {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+        
+        .seed-display {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .seed-number {
+            font-size: 24px;
+            font-weight: 600;
+            color: #0d9488;
+        }
+        
+        .seed-controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .seed-controls button {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: white;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .seed-controls button:hover {
+            background: #f8fafc;
+            border-color: #0d9488;
+        }
+        
+        .seed-input {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .seed-input input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+        
+        .seed-input button {
+            padding: 8px 16px;
+            background: #0d9488;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .action-buttons button {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .action-buttons button:hover {
+            background: #f8fafc;
+            border-color: #0d9488;
+        }
+        
+        .action-buttons button.primary {
+            background: #0d9488;
+            color: white;
+            border-color: #0d9488;
+        }
+        
+        .action-buttons button.primary:hover {
+            background: #0f766e;
+        }
+        
+        .canvas-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        
+        #canvas-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .preset-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .preset-buttons button {
+            padding: 6px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            background: white;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .preset-buttons button:hover {
+            background: #0d9488;
+            color: white;
+            border-color: #0d9488;
+        }
+        
+        .color-picker {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .color-picker input[type="color"] {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .color-picker span {
+            font-size: 12px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <div class="logo-text">Med <span>Bot</span> by Zakaria</div>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <!-- Seed Section -->
+            <div class="section">
+                <div class="section-title">Seed</div>
+                <div class="seed-display">
+                    <div class="seed-number" id="seed-display">12345</div>
+                    <div class="seed-controls">
+                        <button onclick="prevSeed()">← Prev</button>
+                        <button onclick="nextSeed()">Next →</button>
+                        <button onclick="randomSeed()">Random</button>
+                    </div>
+                    <div class="seed-input">
+                        <input type="number" id="seed-input" placeholder="Enter seed">
+                        <button onclick="jumpToSeed()">Go</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Parameters Section -->
+            <div class="section">
+                <div class="section-title">Parameters</div>
+                
+                <div class="control-group">
+                    <label>Particle Count</label>
+                    <input type="range" id="particleCount" min="50" max="500" step="10" value="200" oninput="updateParam('particleCount', this.value)">
+                    <div class="value-display" id="particleCount-value">200</div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Noise Scale</label>
+                    <input type="range" id="noiseScale" min="0.001" max="0.02" step="0.001" value="0.005" oninput="updateParam('noiseScale', this.value)">
+                    <div class="value-display" id="noiseScale-value">0.005</div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Speed</label>
+                    <input type="range" id="speed" min="0.5" max="5" step="0.5" value="2" oninput="updateParam('speed', this.value)">
+                    <div class="value-display" id="speed-value">2</div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Trail Length</label>
+                    <input type="range" id="trailLength" min="5" max="50" step="5" value="20" oninput="updateParam('trailLength', this.value)">
+                    <div class="value-display" id="trailLength-value">20</div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Force Strength</label>
+                    <input type="range" id="forceStrength" min="0.1" max="2" step="0.1" value="0.5" oninput="updateParam('forceStrength', this.value)">
+                    <div class="value-display" id="forceStrength-value">0.5</div>
+                </div>
+            </div>
+            
+            <!-- Colors Section -->
+            <div class="section">
+                <div class="section-title">Colors</div>
+                
+                <div class="control-group">
+                    <label>Background Color</label>
+                    <div class="color-picker">
+                        <input type="color" id="bgColor" value="#050505" oninput="updateColor('bgColor', this.value)">
+                        <span id="bgColor-hex">#050505</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Primary Color</label>
+                    <div class="color-picker">
+                        <input type="color" id="primaryColor" value="#0d9488" oninput="updateColor('primaryColor', this.value)">
+                        <span id="primaryColor-hex">#0d9488</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Secondary Color</label>
+                    <div class="color-picker">
+                        <input type="color" id="secondaryColor" value="#10b981" oninput="updateColor('secondaryColor', this.value)">
+                        <span id="secondaryColor-hex">#10b981</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Accent Color</label>
+                    <div class="color-picker">
+                        <input type="color" id="accentColor" value="#a855f7" oninput="updateColor('accentColor', this.value)">
+                        <span id="accentColor-hex">#a855f7</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Presets -->
+            <div class="section">
+                <div class="section-title">Presets</div>
+                <div class="preset-buttons">
+                    <button onclick="applyPreset('dental')">Dental</button>
+                    <button onclick="applyPreset('medical')">Medical</button>
+                    <button onclick="applyPreset('dermo')">Dermo</button>
+                    <button onclick="applyPreset('calm')">Calm</button>
+                    <button onclick="applyPreset('vibrant')">Vibrant</button>
+                </div>
+            </div>
+            
+            <!-- Actions Section -->
+            <div class="section">
+                <div class="section-title">Actions</div>
+                <div class="action-buttons">
+                    <button class="primary" onclick="regenerate()">Regenerate</button>
+                    <button onclick="resetParams()">Reset</button>
+                    <button onclick="downloadPNG()">Download PNG</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="canvas-container">
+            <div id="canvas-container"></div>
+        </div>
+    </div>
+
+    <script>
+        let params = {
+            seed: 12345,
+            particleCount: 200,
+            noiseScale: 0.005,
+            speed: 2,
+            trailLength: 20,
+            forceStrength: 0.5,
+            bgColor: '#050505',
+            primaryColor: '#0d9488',
+            secondaryColor: '#10b981',
+            accentColor: '#a855f7'
+        };
+        
+        let particles = [];
+        let canvas;
+        
+        function hexToRgb(hex) {
+            let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+        
+        class Particle {
+            constructor() {
+                this.pos = createVector(random(width), random(height));
+                this.vel = createVector(0, 0);
+                this.acc = createVector(0, 0);
+                this.maxSpeed = params.speed;
+                this.prevPos = this.pos.copy();
+                this.colorLerp = random();
+            }
+            
+            update() {
+                this.vel.add(this.acc);
+                this.vel.limit(this.maxSpeed);
+                this.pos.add(this.vel);
+                this.acc.mult(0);
+                
+                if (this.pos.x > width) this.pos.x = 0;
+                if (this.pos.x < 0) this.pos.x = width;
+                if (this.pos.y > height) this.pos.y = 0;
+                if (this.pos.y < 0) this.pos.y = height;
+            }
+            
+            applyForce(force) {
+                this.acc.add(force);
+            }
+            
+            follow() {
+                let x = floor(this.pos.x / params.noiseScale);
+                let y = floor(this.pos.y / params.noiseScale);
+                let n = noise(x * 0.1, y * 0.1, frameCount * 0.001);
+                let angle = n * TWO_PI * 4;
+                let force = p5.Vector.fromAngle(angle);
+                force.setMag(params.forceStrength);
+                this.applyForce(force);
+            }
+            
+            display() {
+                let primaryRgb = hexToRgb(params.primaryColor);
+                let secondaryRgb = hexToRgb(params.secondaryColor);
+                let accentRgb = hexToRgb(params.accentColor);
+                
+                let r, g, b;
+                if (this.colorLerp < 0.5) {
+                    r = lerp(primaryRgb.r, secondaryRgb.r, this.colorLerp * 2);
+                    g = lerp(primaryRgb.g, secondaryRgb.g, this.colorLerp * 2);
+                    b = lerp(primaryRgb.b, secondaryRgb.b, this.colorLerp * 2);
+                } else {
+                    r = lerp(secondaryRgb.r, accentRgb.r, (this.colorLerp - 0.5) * 2);
+                    g = lerp(secondaryRgb.g, accentRgb.g, (this.colorLerp - 0.5) * 2);
+                    b = lerp(secondaryRgb.b, accentRgb.b, (this.colorLerp - 0.5) * 2);
+                }
+                
+                let alpha = map(this.vel.mag(), 0, params.speed, 50, 255);
+                stroke(r, g, b, alpha);
+                strokeWeight(1);
+                line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+                
+                this.prevPos = this.pos.copy();
+            }
+        }
+        
+        function setup() {
+            canvas = createCanvas(800, 600);
+            canvas.parent('canvas-container');
+            noiseSeed(params.seed);
+            randomSeed(params.seed);
+            initParticles();
+        }
+        
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < params.particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        function draw() {
+            let bgRgb = hexToRgb(params.bgColor);
+            background(bgRgb.r, bgRgb.g, bgRgb.b, 20);
+            
+            for (let p of particles) {
+                p.follow();
+                p.update();
+                p.display();
+            }
+        }
+        
+        function updateParam(param, value) {
+            params[param] = parseFloat(value);
+            document.getElementById(param + '-value').textContent = value;
+            
+            if (param === 'particleCount') {
+                initParticles();
+            }
+            if (param === 'speed') {
+                for (let p of particles) {
+                    p.maxSpeed = params.speed;
+                }
+            }
+        }
+        
+        function updateColor(param, value) {
+            params[param] = value;
+            document.getElementById(param + '-hex').textContent = value;
+        }
+        
+        function prevSeed() {
+            params.seed--;
+            document.getElementById('seed-display').textContent = params.seed;
+            noiseSeed(params.seed);
+            randomSeed(params.seed);
+            initParticles();
+        }
+        
+        function nextSeed() {
+            params.seed++;
+            document.getElementById('seed-display').textContent = params.seed;
+            noiseSeed(params.seed);
+            randomSeed(params.seed);
+            initParticles();
+        }
+        
+        function randomSeed() {
+            params.seed = Math.floor(Math.random() * 100000);
+            document.getElementById('seed-display').textContent = params.seed;
+            noiseSeed(params.seed);
+            randomSeed(params.seed);
+            initParticles();
+        }
+        
+        function jumpToSeed() {
+            let input = document.getElementById('seed-input');
+            let value = parseInt(input.value);
+            if (!isNaN(value)) {
+                params.seed = value;
+                document.getElementById('seed-display').textContent = params.seed;
+                noiseSeed(params.seed);
+                randomSeed(params.seed);
+                initParticles();
+                input.value = '';
+            }
+        }
+        
+        function regenerate() {
+            noiseSeed(params.seed);
+            randomSeed(params.seed);
+            let bgRgb = hexToRgb(params.bgColor);
+            background(bgRgb.r, bgRgb.g, bgRgb.b);
+            initParticles();
+        }
+        
+        function resetParams() {
+            params = {
+                seed: 12345,
+                particleCount: 200,
+                noiseScale: 0.005,
+                speed: 2,
+                trailLength: 20,
+                forceStrength: 0.5,
+                bgColor: '#050505',
+                primaryColor: '#0d9488',
+                secondaryColor: '#10b981',
+                accentColor: '#a855f7'
+            };
+            
+            document.getElementById('seed-display').textContent = params.seed;
+            document.getElementById('particleCount').value = params.particleCount;
+            document.getElementById('particleCount-value').textContent = params.particleCount;
+            document.getElementById('noiseScale').value = params.noiseScale;
+            document.getElementById('noiseScale-value').textContent = params.noiseScale;
+            document.getElementById('speed').value = params.speed;
+            document.getElementById('speed-value').textContent = params.speed;
+            document.getElementById('trailLength').value = params.trailLength;
+            document.getElementById('trailLength-value').textContent = params.trailLength;
+            document.getElementById('forceStrength').value = params.forceStrength;
+            document.getElementById('forceStrength-value').textContent = params.forceStrength;
+            document.getElementById('bgColor').value = params.bgColor;
+            document.getElementById('bgColor-hex').textContent = params.bgColor;
+            document.getElementById('primaryColor').value = params.primaryColor;
+            document.getElementById('primaryColor-hex').textContent = params.primaryColor;
+            document.getElementById('secondaryColor').value = params.secondaryColor;
+            document.getElementById('secondaryColor-hex').textContent = params.secondaryColor;
+            document.getElementById('accentColor').value = params.accentColor;
+            document.getElementById('accentColor-hex').textContent = params.accentColor;
+            
+            regenerate();
+        }
+        
+        function applyPreset(preset) {
+            switch(preset) {
+                case 'dental':
+                    params.primaryColor = '#0d9488';
+                    params.secondaryColor = '#14b8a6';
+                    params.accentColor = '#06b6d4';
+                    break;
+                case 'medical':
+                    params.primaryColor = '#059669';
+                    params.secondaryColor = '#10b981';
+                    params.accentColor = '#34d399';
+                    break;
+                case 'dermo':
+                    params.primaryColor = '#9333ea';
+                    params.secondaryColor = '#a855f7';
+                    params.accentColor = '#c084fc';
+                    break;
+                case 'calm':
+                    params.primaryColor = '#3b82f6';
+                    params.secondaryColor = '#60a5fa';
+                    params.accentColor = '#93c5fd';
+                    params.speed = 1;
+                    params.forceStrength = 0.3;
+                    break;
+                case 'vibrant':
+                    params.primaryColor = '#ef4444';
+                    params.secondaryColor = '#f59e0b';
+                    params.accentColor = '#10b981';
+                    params.speed = 4;
+                    params.forceStrength = 1.5;
+                    break;
+            }
+            
+            document.getElementById('primaryColor').value = params.primaryColor;
+            document.getElementById('primaryColor-hex').textContent = params.primaryColor;
+            document.getElementById('secondaryColor').value = params.secondaryColor;
+            document.getElementById('secondaryColor-hex').textContent = params.secondaryColor;
+            document.getElementById('accentColor').value = params.accentColor;
+            document.getElementById('accentColor-hex').textContent = params.accentColor;
+            document.getElementById('speed').value = params.speed;
+            document.getElementById('speed-value').textContent = params.speed;
+            document.getElementById('forceStrength').value = params.forceStrength;
+            document.getElementById('forceStrength-value').textContent = params.forceStrength;
+            
+            regenerate();
+        }
+        
+        function downloadPNG() {
+            saveCanvas(canvas, 'med_bot_art_' + params.seed, 'png');
+        }
+    </script>
+</body>
+</html>
