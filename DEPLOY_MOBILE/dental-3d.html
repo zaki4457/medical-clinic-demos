@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smile Studio — Premium Dental Clinic</title>
+<meta name="description" content="Premium dental clinic with 3D smile visualization and AI-powered treatment planning">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon_192.png">
+<link rel="apple-touch-icon" href="favicon_192.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Dentist","name":"Smile Demo Clinic","description":"Premium dental clinic with AI-powered smile design","url":"https://zaki4457.github.io/medical-clinic-demos/dental-3d.html","telephone":"+213770433364","address":{"@type":"PostalAddress","streetAddress":"Bab Ezzouar","addressLocality":"Algiers","addressCountry":"DZ"},"priceRange":"$$","image":"https://images.unsplash.com/photo-1606811841689-d328b600c70d?w=800"}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --primary:#0D9488;--primary-light:#14B8A6;--primary-dark:#0F766E;
+  --accent:#F59E0B;--accent-light:#FBBF24;
+  --bg:#0a0a0a;--bg2:#111111;--bg3:#1a1a1a;
+  --text:#ffffff;--text-dim:#888888;--text-muted:#555555;
+  --glass:rgba(255,255,255,0.03);--glass-border:rgba(255,255,255,0.06);
+  --font:'Space Grotesk','Inter','Noto Kufi Arabic',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font);background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--primary);color:#fff}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* Custom Cursor */
+.cursor{width:20px;height:20px;border:2px solid var(--primary);border-radius:50%;position:fixed;pointer-events:none;z-index:10000;transition:transform 0.15s ease,opacity 0.15s ease;mix-blend-mode:difference}
+.cursor.active{transform:scale(2.5);opacity:0.5}
+@media(hover:none){.cursor{display:none}}
+
+/* Loading Screen */
+.loader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s ease,visibility 0.8s ease}
+.loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-text{font-size:1.5rem;font-weight:600;color:var(--text);margin-bottom:2rem;letter-spacing:0.2em;text-transform:uppercase}
+.loader-bar{width:200px;height:2px;background:var(--bg3);border-radius:1px;overflow:hidden}
+.loader-bar-inner{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));width:0%;transition:width 0.3s ease}
+.loader-pct{color:var(--text-dim);font-size:0.875rem;margin-top:1rem}
+
+/* Noise Overlay */
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:0.4}
+
+/* Header */
+header{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;transition:all 0.4s ease}
+header.scrolled{background:rgba(10,10,10,0.9);backdrop-filter:blur(20px);padding:1rem 3rem;border-bottom:1px solid var(--glass-border)}
+.logo{display:flex;align-items:center;gap:0.75rem;font-weight:700;font-size:1.25rem;letter-spacing:-0.02em}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;box-shadow:0 4px 15px rgba(13,148,136,0.3)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:0.875rem;font-weight:500;color:var(--text-dim);transition:color 0.3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--primary);transition:width 0.3s ease}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:0.75rem 1.75rem;border-radius:100px;font-weight:600;font-size:0.875rem;border:none;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(13,148,136,0.3)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(13,148,136,0.4)}
+.hamburger{display:none;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:8px}
+.hamburger span{width:24px;height:2px;background:var(--text);transition:all 0.3s ease}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 3rem 4rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+#hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0.6}
+.hero-gradient{position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,var(--bg),transparent);z-index:1}
+.hero-content{position:relative;z-index:2;max-width:700px}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--glass);border:1px solid var(--glass-border);border-radius:100px;padding:0.5rem 1.25rem;font-size:0.8rem;color:var(--primary-light);margin-bottom:2rem;backdrop-filter:blur(10px)}
+.hero-badge-dot{width:8px;height:8px;background:var(--primary);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.hero h1{font-size:clamp(3rem,7vw,5.5rem);font-weight:700;line-height:1.05;letter-spacing:-0.03em;margin-bottom:1.5rem}
+.hero h1 .gradient{background:linear-gradient(135deg,var(--primary-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1.125rem;color:var(--text-dim);line-height:1.8;margin-bottom:3rem;max-width:500px}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
+.btn{padding:1rem 2rem;border-radius:100px;font-weight:600;font-size:0.9375rem;transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);display:inline-flex;align-items:center;gap:0.5rem;cursor:pointer;border:none;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 4px 15px rgba(13,148,136,0.3)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(13,148,136,0.4)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--glass-border)}
+.btn-outline:hover{background:var(--glass);border-color:var(--primary)}
+.hero-stats{display:flex;gap:4rem;padding-top:2rem;border-top:1px solid var(--glass-border)}
+.stat-number{font-size:2.5rem;font-weight:700;color:var(--primary-light)}
+.stat-label{font-size:0.8125rem;color:var(--text-dim);margin-top:0.25rem}
+
+/* 3D Section */
+.three-section{padding:6rem 3rem;position:relative;overflow:hidden}
+.three-container{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.three-visual{position:relative;aspect-ratio:1;border-radius:24px;overflow:hidden;background:var(--bg2)}
+#tooth-canvas{width:100%;height:100%;cursor:grab}
+#tooth-canvas:active{cursor:grabbing}
+.three-overlay{position:absolute;bottom:2rem;left:2rem;right:2rem;display:flex;gap:1rem}
+.three-tag{background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:12px;padding:0.75rem 1rem;font-size:0.8rem;color:var(--text-dim);display:flex;align-items:center;gap:0.5rem}
+.three-tag svg{width:16px;height:16px;color:var(--primary)}
+.three-content h2{font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.5rem}
+.three-content p{color:var(--text-dim);line-height:1.8;margin-bottom:2rem}
+.three-features{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.three-feature{background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:1.25rem;transition:all 0.3s ease}
+.three-feature:hover{border-color:var(--primary);background:rgba(13,148,136,0.05)}
+.three-feature-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;font-size:1.2rem}
+.three-feature h4{font-size:0.9375rem;font-weight:600;margin-bottom:0.25rem}
+.three-feature p{font-size:0.8125rem;color:var(--text-dim);line-height:1.5}
+
+/* Marquee */
+.marquee-section{padding:2rem 0;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);overflow:hidden}
+.marquee{display:flex;gap:4rem;animation:marquee 30s linear infinite;white-space:nowrap}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-item{font-size:1.5rem;font-weight:600;color:var(--text-muted);display:flex;align-items:center;gap:1rem;flex-shrink:0}
+.marquee-item .dot{width:8px;height:8px;background:var(--primary);border-radius:50%}
+
+/* Services */
+.services{padding:8rem 3rem;background:var(--bg2)}
+.section-header{text-align:center;max-width:600px;margin:0 auto 4rem}
+.section-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--glass);border:1px solid var(--glass-border);border-radius:100px;padding:0.5rem 1.25rem;font-size:0.8rem;color:var(--primary-light);margin-bottom:1.5rem}
+.section-title{font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1rem}
+.section-desc{color:var(--text-dim);line-height:1.8}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1400px;margin:0 auto}
+.service-card{background:var(--bg);border:1px solid var(--glass-border);border-radius:20px;padding:2.5rem;transition:all 0.5s cubic-bezier(0.175,0.885,0.32,1.275);position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--accent));transform:scaleX(0);transform-origin:left;transition:transform 0.5s ease}
+.service-card:hover::before{transform:scaleX(1)}
+.service-card:hover{transform:translateY(-8px);border-color:var(--primary);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.service-icon{width:64px;height:64px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;font-size:1.75rem;transition:all 0.4s ease}
+.service-card:hover .service-icon{background:linear-gradient(135deg,var(--primary),var(--primary-dark));transform:rotate(-8deg) scale(1.05)}
+.service-card h3{font-size:1.25rem;font-weight:600;margin-bottom:0.75rem}
+.service-card p{color:var(--text-dim);font-size:0.9375rem;line-height:1.7;margin-bottom:1.5rem}
+.service-price{font-size:0.875rem;color:var(--primary-light);font-weight:600}
+
+/* Before/After Slider */
+.results{padding:8rem 3rem}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1400px;margin:0 auto}
+.result-card{border-radius:20px;overflow:hidden;background:var(--bg2);border:1px solid var(--glass-border);transition:all 0.5s ease}
+.result-card:hover{transform:translateY(-8px);box-shadow:0 25px 70px rgba(0,0,0,0.3)}
+.ba-slider{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;cursor:ew-resize;user-select:none}
+.ba-before,.ba-after{position:absolute;top:0;left:0;width:100%;height:100%}
+.ba-before{z-index:2;overflow:hidden}
+.ba-after{z-index:1}
+.ba-before img,.ba-after img{width:100%;height:100%;object-fit:cover}
+.ba-before{clip-path:inset(0 50% 0 0)}
+.ba-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;width:48px;height:48px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 25px rgba(0,0,0,0.3);pointer-events:none}
+.ba-handle::before,.ba-handle::after{content:'';position:absolute;width:2px;height:16px;background:var(--primary);border-radius:1px}
+.ba-handle::before{left:50%;transform:translateX(-6px)}
+.ba-handle::after{right:50%;transform:translateX(6px)}
+
+/* Testimonials */
+.testimonials{padding:8rem 3rem;background:var(--bg2)}
+.testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;max-width:1200px;margin:0 auto}
+.testimonial-card{background:var(--bg);border:1px solid var(--glass-border);border-radius:20px;padding:2.5rem;position:relative;transition:all 0.5s ease}
+.testimonial-card::before{content:'\201C';position:absolute;top:-10px;right:25px;font-size:8rem;font-weight:700;color:var(--primary);opacity:0.05;line-height:1;pointer-events:none}
+.testimonial-card:hover{transform:translateY(-5px);border-color:var(--primary)}
+.testimonial-stars{color:var(--accent);font-size:0.875rem;margin-bottom:1rem}
+.testimonial-quote{font-size:1rem;color:var(--text-dim);line-height:1.8;margin-bottom:1.5rem;font-style:italic}
+.testimonial-author{display:flex;align-items:center;gap:1rem}
+.testimonial-avatar{width:48px;height:48px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:1.1rem}
+.testimonial-name{font-weight:600;font-size:0.9375rem}
+.testimonial-role{font-size:0.8125rem;color:var(--text-dim)}
+
+/* Booking */
+.booking{padding:8rem 3rem}
+.booking-container{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.booking-info h2{font-size:clamp(2rem,4vw,2.5rem);font-weight:700;margin-bottom:1rem}
+.booking-info>p{color:var(--text-dim);line-height:1.8;margin-bottom:2rem}
+.booking-contact{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;padding:1rem;border-radius:12px;transition:all 0.3s ease}
+.booking-contact:hover{background:var(--glass)}
+.booking-contact-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.booking-contact-text{font-size:0.9375rem;color:var(--text-dim)}
+.booking-contact-text strong{display:block;color:var(--text)}
+.booking-form{background:var(--bg2);border-radius:20px;padding:2.5rem;border:1px solid var(--glass-border)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:0.875rem;font-weight:500;color:var(--text-dim);margin-bottom:0.5rem}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:0.875rem 1rem;background:var(--bg);border:1px solid var(--glass-border);border-radius:12px;color:var(--text);font-family:var(--font);font-size:0.9375rem;transition:all 0.3s ease}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(13,148,136,0.1)}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-submit{width:100%;padding:1rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:12px;font-family:var(--font);font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(13,148,136,0.3)}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(13,148,136,0.4)}
+
+/* CTA */
+.cta{padding:6rem 3rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;text-align:center;position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;top:-50%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,0.08),transparent 70%);border-radius:50%}
+.cta h2{font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:1rem}
+.cta p{font-size:1.0625rem;opacity:0.9;margin-bottom:2rem;max-width:600px;margin-left:auto;margin-right:auto}
+.cta .btn{background:#fff;color:var(--primary);box-shadow:0 4px 15px rgba(0,0,0,0.15)}
+.cta .btn:hover{background:var(--bg);color:var(--text);transform:translateY(-3px)}
+
+/* Footer */
+footer{padding:4rem 3rem 2rem;border-top:1px solid var(--glass-border)}
+.footer-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem}
+.footer-brand p{color:var(--text-dim);font-size:0.9375rem;line-height:1.7;margin-top:1rem}
+.footer-col h4{font-size:0.875rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text);margin-bottom:1rem}
+.footer-col a{display:block;color:var(--text-dim);font-size:0.9375rem;padding:0.375rem 0;transition:color 0.3s}
+.footer-col a:hover{color:var(--primary)}
+.footer-bottom{max-width:1400px;margin:2rem auto 0;padding-top:2rem;border-top:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;color:var(--text-dim);font-size:0.8125rem}
+
+/* WhatsApp Float */
+.whatsapp-float{position:fixed;bottom:2rem;left:2rem;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.5);z-index:999;font-size:1.8rem;transition:all 0.3s ease}
+.whatsapp-float:hover{transform:scale(1.1);box-shadow:0 8px 30px rgba(37,211,102,0.6)}
+
+/* Mobile Menu */
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:1001;opacity:0;transition:opacity 0.3s}
+.mobile-menu.active{display:block;opacity:1}
+.mobile-menu-panel{position:absolute;top:0;right:0;width:80%;max-width:320px;height:100%;background:var(--bg);padding:2rem;transform:translateX(100%);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)}
+.mobile-menu.active .mobile-menu-panel{transform:translateX(0)}
+.mobile-menu-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text);min-width:44px;min-height:44px}
+.mobile-menu-links{list-style:none;margin-top:2rem}
+.mobile-menu-links a{display:block;padding:1rem;color:var(--text);text-decoration:none;font-weight:500;border-radius:8px;transition:background 0.3s}
+.mobile-menu-links a:hover{background:var(--glass)}
+
+/* Scroll Reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* Mobile */
+@media(max-width:1024px){
+  .three-container{grid-template-columns:1fr}
+  .services-grid,.results-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  header{padding:1rem 1.5rem}
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .hero{padding:6rem 1.5rem 3rem}
+  .hero h1{font-size:clamp(2rem,8vw,3rem)}
+  .hero-stats{flex-direction:column;gap:1.5rem}
+  .services,.results,.testimonials,.booking,.cta,.faq,.map-section{padding:4rem 1.5rem}
+  .services-grid,.results-grid,.testimonials-grid{grid-template-columns:1fr}
+  .three-section{padding:4rem 1.5rem}
+  .three-features{grid-template-columns:1fr}
+  .booking-container{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+  .whatsapp-float{bottom:1.5rem;left:1.5rem;width:56px;height:56px}
+  .cursor{display:none}
+}
+@media(max-width:480px){
+  .hero h1{font-size:1.75rem}
+  .section-title{font-size:1.5rem}
+}
+@media(hover:none)and(pointer:coarse){
+  .service-card:hover,.result-card:hover,.testimonial-card:hover{transform:none}
+}
+
+/* Language Toggle */
+.lang-toggle{background:var(--glass);border:1px solid var(--glass-border);color:var(--text-dim);padding:0.5rem 1rem;border-radius:100px;font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.3s ease;font-family:var(--font)}
+.lang-toggle:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* FAQ */
+.faq{padding:8rem 3rem;background:var(--bg2)}
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{border:1px solid var(--glass-border);border-radius:16px;margin-bottom:1rem;overflow:hidden;transition:all 0.3s ease}
+.faq-item:hover{border-color:var(--primary)}
+.faq-item.active{border-color:var(--primary);background:rgba(13,148,136,0.03)}
+.faq-question{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.5rem;background:none;border:none;color:var(--text);font-family:var(--font);font-size:1rem;font-weight:600;cursor:pointer;text-align:left}
+.faq-icon{font-size:1.5rem;color:var(--primary);transition:transform 0.3s ease;flex-shrink:0;margin-left:1rem}
+.faq-item.active .faq-icon{transform:rotate(45deg)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1),padding 0.4s ease}
+.faq-item.active .faq-answer{max-height:300px;padding:0 1.5rem 1.25rem}
+.faq-answer p{color:var(--text-dim);line-height:1.8;font-size:0.9375rem}
+
+/* Map */
+.map-section{padding:8rem 3rem}
+.map-container{max-width:1000px;margin:0 auto;border-radius:20px;overflow:hidden;border:1px solid var(--glass-border)}
+.map-container iframe{width:100%;height:400px;border:0;display:block}
+
+/* Back to Top */
+.back-to-top{position:fixed;bottom:2rem;right:2rem;width:48px;height:48px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:50%;font-size:1.25rem;cursor:pointer;z-index:998;opacity:0;visibility:hidden;transform:translateY(20px);transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);box-shadow:0 4px 20px rgba(13,148,136,0.4);display:flex;align-items:center;justify-content:center}
+.back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
+.back-to-top:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(13,148,136,0.5)}
+
+/* Hero Floating Badge */
+.hero-floating{position:absolute;bottom:3rem;right:3rem;background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:1rem 1.5rem;backdrop-filter:blur(20px);display:flex;align-items:center;gap:0.75rem;z-index:3;animation:fadeInUp 1s ease 1.5s both}
+.hero-floating-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--accent),var(--accent-light));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;box-shadow:0 4px 15px rgba(245,158,11,0.3)}
+.hero-floating-text{font-size:0.8125rem;color:var(--text-dim)}
+.hero-floating-text strong{display:block;color:var(--text);font-size:0.9375rem}
+
+/* Hero Glow */
+.hero::after{content:'';position:absolute;top:20%;left:50%;width:600px;height:600px;background:radial-gradient(circle,rgba(13,148,136,0.08) 0%,transparent 70%);transform:translateX(-50%);pointer-events:none;z-index:0}
+
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:768px){
+  .faq,.map-section{padding:4rem 1.5rem}
+  .hero-floating{display:none}
+  .back-to-top{bottom:1.5rem;right:1.5rem;width:44px;height:44px}
+  .map-container iframe{height:250px}
+}
+
+/* Scroll Progress Bar */
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--accent),var(--primary-light));z-index:10001;width:0%;transition:width 0.1s linear;box-shadow:0 0 10px rgba(13,148,136,0.5)}
+
+/* Floating Orbs (background decoration) */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;animation:orbFloat 20s ease-in-out infinite alternate}
+.orb-1{width:400px;height:400px;background:rgba(13,148,136,0.06);top:10%;left:-5%;animation-delay:0s}
+.orb-2{width:300px;height:300px;background:rgba(245,158,11,0.04);bottom:10%;right:-5%;animation-delay:-7s}
+.orb-3{width:250px;height:250px;background:rgba(20,184,166,0.05);top:50%;left:40%;animation-delay:-14s}
+@keyframes orbFloat{0%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-40px) scale(1.1)}66%{transform:translate(-20px,30px) scale(0.9)}100%{transform:translate(10px,-20px) scale(1.05)}}
+
+/* 3D Card Tilt */
+.tilt-card{transform-style:preserve-3d;perspective:1000px}
+.tilt-card .tilt-inner{transition:transform 0.15s ease-out;transform-style:preserve-3d}
+
+/* Magnetic Button */
+.mag-btn{position:relative;transition:transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94)}
+.mag-btn::after{content:'';position:absolute;inset:-4px;border-radius:inherit;background:linear-gradient(135deg,var(--primary),var(--accent));opacity:0;z-index:-1;transition:opacity 0.3s ease;filter:blur(12px)}
+.mag-btn:hover::after{opacity:0.4}
+
+/* Text Blur Reveal */
+.blur-reveal .blur-word{display:inline-block;filter:blur(8px);opacity:0;transform:translateY(20px);transition:filter 0.6s ease,opacity 0.6s ease,transform 0.6s ease}
+.blur-reveal.active .blur-word{filter:blur(0);opacity:1;transform:translateY(0)}
+
+/* Section Divider */
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--primary),transparent);margin:0 3rem;opacity:0.3}
+
+/* Glow Border on Hover */
+.glow-border{position:relative;overflow:hidden}
+.glow-border::after{content:'';position:absolute;inset:-2px;border-radius:inherit;background:conic-gradient(from var(--glow-angle,0deg),transparent 60%,var(--primary) 80%,transparent 100%);z-index:-1;opacity:0;transition:opacity 0.5s ease}
+.glow-border.active::after{opacity:1}
+.glow-border:hover::after{opacity:1;animation:glowSpin 3s linear infinite}
+@keyframes glowSpin{to{--glow-angle:360deg}}
+@property --glow-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+
+/* Smooth Section Enter */
+.section-enter{opacity:0;transform:translateY(60px) scale(0.98);transition:opacity 1s cubic-bezier(0.16,1,0.3,1),transform 1s cubic-bezier(0.16,1,0.3,1)}
+.section-enter.active{opacity:1;transform:translateY(0) scale(1)}
+
+/* Hero Shimmer */
+.hero-shimmer{position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.03) 45%,rgba(255,255,255,0.05) 50%,rgba(255,255,255,0.03) 55%,transparent 60%);background-size:200% 100%;animation:shimmer 8s ease-in-out infinite;pointer-events:none;z-index:1}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* Warp Canvas */
+#warp-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0}
+
+/* Floating Grid Pattern */
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(13,148,136,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(13,148,136,0.03) 1px,transparent 1px);background-size:60px 60px;z-index:0;animation:gridMove 20s linear infinite;opacity:0.5}
+@keyframes gridMove{0%{transform:perspective(500px) rotateX(60deg) translateY(0)}100%{transform:perspective(500px) rotateX(60deg) translateY(60px)}}
+
+/* Ticker/Marquee Enhancement */
+.marquee-section{position:relative}
+.marquee-section::before,.marquee-section::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none}
+.marquee-section::before{left:0;background:linear-gradient(90deg,var(--bg2),transparent)}
+.marquee-section::after{right:0;background:linear-gradient(-90deg,var(--bg2),transparent)}
+
+/* Animated Gradient Border */
+@keyframes borderGlow{0%,100%{border-color:rgba(13,148,136,0.2)}50%{border-color:rgba(13,148,136,0.5)}}
+.three-visual{animation:borderGlow 4s ease-in-out infinite}
+
+/* Stagger children */
+.stagger-children>*{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.stagger-children.active>*:nth-child(1){transition-delay:0.05s}
+.stagger-children.active>*:nth-child(2){transition-delay:0.1s}
+.stagger-children.active>*:nth-child(3){transition-delay:0.15s}
+.stagger-children.active>*:nth-child(4){transition-delay:0.2s}
+.stagger-children.active>*:nth-child(5){transition-delay:0.25s}
+.stagger-children.active>*:nth-child(6){transition-delay:0.3s}
+.stagger-children.active>*{opacity:1;transform:translateY(0)}
+
+/* ===== 3D Clinic Walkthrough ===== */
+.walkthrough{position:relative;height:500vh;background:var(--bg)}
+.walkthrough-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+#walkthrough-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.walkthrough-overlay{position:absolute;inset:0;z-index:2;pointer-events:none;display:flex;flex-direction:column;justify-content:flex-end;padding:4rem}
+.walkthrough-room-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;opacity:0;transition:opacity 0.8s ease,transform 0.8s cubic-bezier(0.16,1,0.3,1);pointer-events:none}
+.walkthrough-room-label.active{opacity:1;transform:translate(-50%,-55%)}
+.walkthrough-room-label h2{font-size:clamp(2rem,5vw,4rem);font-weight:700;color:#fff;text-shadow:0 4px 30px rgba(0,0,0,0.5);margin-bottom:0.5rem;letter-spacing:-0.02em}
+.walkthrough-room-label p{font-size:1.125rem;color:rgba(255,255,255,0.7);text-shadow:0 2px 15px rgba(0,0,0,0.5);max-width:500px}
+.walkthrough-progress{position:absolute;right:3rem;top:50%;transform:translateY(-50%);z-index:3;display:flex;flex-direction:column;gap:1.5rem;pointer-events:none}
+.walkthrough-dot{width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);background:transparent;transition:all 0.5s ease;position:relative}
+.walkthrough-dot.active{border-color:var(--primary);background:var(--primary);box-shadow:0 0 20px rgba(13,148,136,0.6)}
+.walkthrough-dot::after{content:attr(data-label);position:absolute;right:24px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:0.75rem;color:rgba(255,255,255,0.5);font-weight:500;opacity:0;transition:opacity 0.3s ease;pointer-events:none}
+.walkthrough-dot.active::after{opacity:1;color:var(--primary-light)}
+.walkthrough-scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:3;text-align:center;animation:bounce 2s infinite;pointer-events:none}
+.walkthrough-scroll-hint span{display:block;font-size:0.75rem;color:rgba(255,255,255,0.4);margin-bottom:0.5rem;letter-spacing:0.15em;text-transform:uppercase}
+.walkthrough-scroll-hint svg{width:20px;height:20px;color:rgba(255,255,255,0.4);margin:0 auto}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.walkthrough-vignette{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,0.6) 100%)}
+@media(max-width:768px){
+  .walkthrough{height:400vh}
+  .walkthrough-progress{right:1rem;gap:1rem}
+  .walkthrough-dot{width:8px;height:8px}
+  .walkthrough-overlay{padding:2rem}
+  .walkthrough-room-label h2{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<!-- Loader -->
+<div class="loader" id="loader">
+  <div class="loader-text">Smile Studio</div>
+  <div class="loader-bar"><div class="loader-bar-inner" id="loader-bar"></div></div>
+  <div class="loader-pct" id="loader-pct">0%</div>
+</div>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+
+<!-- Header -->
+<header id="header">
+  <a href="#" class="logo">
+    <div class="logo-icon">🦷</div>
+    Smile Studio
+  </a>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#services" data-ar="الخدمات" data-fr="Services">الخدمات</a></li>
+      <li><a href="#results" data-ar="النتائج" data-fr="Résultats">النتائج</a></li>
+      <li><a href="#about" data-ar="من نحن" data-fr="À Propos">من نحن</a></li>
+      <li><a href="#testimonials" data-ar="التقييمات" data-fr="Avis">التقييمات</a></li>
+      <li><a href="#booking" data-ar="اتصل بنا" data-fr="Contact">اتصل بنا</a></li>
+    </ul>
+  </nav>
+  <button class="nav-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})" data-ar="احجز الآن" data-fr="Réserver">احجز الآن</button>
+  <button class="lang-toggle" id="langToggle" onclick="toggleLang()" aria-label="Toggle Language">FR</button>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-panel">
+    <button class="mobile-menu-close" id="mobile-menu-close">&times;</button>
+    <ul class="mobile-menu-links">
+      <li><a href="#services" data-ar="الخدمات" data-fr="Services">الخدمات</a></li>
+      <li><a href="#results" data-ar="النتائج" data-fr="Résultats">النتائج</a></li>
+      <li><a href="#about" data-ar="من نحن" data-fr="À Propos">من نحن</a></li>
+      <li><a href="#testimonials" data-ar="التقييمات" data-fr="Avis">التقييمات</a></li>
+      <li><a href="#booking" data-ar="اتصل بنا" data-fr="Contact">اتصل بنا</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <canvas id="warp-canvas"></canvas>
+    <div class="hero-grid"></div>
+    <div class="hero-shimmer"></div>
+    <div class="hero-gradient"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span data-ar="تصميم ابتسامة بالذكاء الاصطناعي" data-fr="Design de sourire par IA">تصميم ابتسامة بالذكاء الاصطناعي</span>
+    </div>
+    <h1 data-ar="ابتسامتك المثالية <span class='gradient'>تبدأ هنا</span>" data-fr="Votre Parfaite <span class='gradient'>Sourire</span> Commence Ici">ابتسامتك المثالية <span class="gradient">تبدأ هنا</span></h1>
+    <p class="hero-desc" data-ar="استقبل مستقبل طب الأسنان مع تصميم الابتسامة بالذكاء الاصطناعي، والتخطيط العلاجي ثلاثي الأبعاد، والإجراءات غير المؤلمة." data-fr="Découvrez l'avenir de l'odontologie avec notre conception de sourire par IA, la planification 3D et des procédures indolores.">استقبل مستقبل طب الأسنان مع تصميم الابتسامة بالذكاء الاصطناعي، والتخطيط العلاجي ثلاثي الأبعاد، والإجراءات غير المؤلمة.</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn btn-primary mag-btn" data-ar="احجز استشارة مجانية ←" data-fr="Consultation Gratuite →">احجز استشارة مجانية ←</a>
+      <a href="#results" class="btn btn-outline mag-btn" data-ar="شاهد النتائج" data-fr="Voir les Résultats">شاهد النتائج</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-number" data-count="5000">0</div>
+        <div class="stat-label" data-ar="مريض سعيد" data-fr="Patients Heureux">مريض سعيد</div>
+      </div>
+      <div>
+        <div class="stat-number" data-count="15">0</div>
+        <div class="stat-label" data-ar="سنة خبرة" data-fr="Ans d'Expérience">سنة خبرة</div>
+      </div>
+      <div>
+        <div class="stat-number" data-count="98">0</div>
+        <div class="stat-label" data-ar="% رضا" data-fr="% Satisfaction">% رضا</div>
+      </div>
+    </div>
+    <div class="hero-floating">
+      <div class="hero-floating-icon">🤖</div>
+      <div class="hero-floating-text">
+        <strong data-ar="تصميم بالذكاء الاصطناعي" data-fr="Conception IA">تصميم بالذكاء الاصطناعي</strong>
+        <span data-ar="معاينة فورية قبل العلاج" data-fr="Aperçu instantané avant traitement">معاينة فورية قبل العلاج</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-section">
+  <div class="marquee">
+    <div class="marquee-item"><span class="dot"></span>Dental Implants</div>
+    <div class="marquee-item"><span class="dot"></span>Smile Design</div>
+    <div class="marquee-item"><span class="dot"></span>Teeth Whitening</div>
+    <div class="marquee-item"><span class="dot"></span>Orthodontics</div>
+    <div class="marquee-item"><span class="dot"></span>Root Canal</div>
+    <div class="marquee-item"><span class="dot"></span>Veneers</div>
+    <div class="marquee-item"><span class="dot"></span>Crowns</div>
+    <div class="marquee-item"><span class="dot"></span>Dental Implants</div>
+    <div class="marquee-item"><span class="dot"></span>Smile Design</div>
+    <div class="marquee-item"><span class="dot"></span>Teeth Whitening</div>
+    <div class="marquee-item"><span class="dot"></span>Orthodontics</div>
+    <div class="marquee-item"><span class="dot"></span>Root Canal</div>
+    <div class="marquee-item"><span class="dot"></span>Veneers</div>
+    <div class="marquee-item"><span class="dot"></span>Crowns</div>
+  </div>
+</div>
+
+<!-- 3D Clinic Walkthrough -->
+<section class="walkthrough" id="walkthrough">
+  <div class="walkthrough-sticky">
+    <canvas id="walkthrough-canvas"></canvas>
+    <div class="walkthrough-vignette"></div>
+    <div class="walkthrough-overlay">
+      <div class="walkthrough-room-label active" id="wl-label-0">
+        <h2 data-ar="استقبالنا" data-fr="Notre Accueil">استقبالنا</h2>
+        <p data-ar="مرحباً بك في عالم ابتسامتك المثالية" data-fr="Bienvenue dans le monde de votre sourire parfait">مرحباً بك في عالم ابتسامتك المثالية</p>
+      </div>
+      <div class="walkthrough-room-label" id="wl-label-1">
+        <h2 data-ar="غرفة الانتظار" data-fr="Salle d'Attente">غرفة الانتظار</h2>
+        <p data-ar="راحة تامة أثناء انتظارك" data-fr="Confort total pendant votre attente">راحة تامة أثناء انتظارك</p>
+      </div>
+      <div class="walkthrough-room-label" id="wl-label-2">
+        <h2 data-ar="غرفة العلاج" data-fr="Salle de Traitement">غرفة العلاج</h2>
+        <p data-ar="أحدث التقنيات الطبية العالمية" data-fr="Les technologies médicales les plus avancées">أحدث التقنيات الطبية العالمية</p>
+      </div>
+      <div class="walkthrough-room-label" id="wl-label-3">
+        <h2 data-ar="معرض الابتسامات" data-fr="Galerie des Sourires">معرض الابتسامات</h2>
+        <p data-ar="تحولات حقيقية لمرضانا" data-fr="Transformations réelles de nos patients">تحولات حقيقية لمرضانا</p>
+      </div>
+      <div class="walkthrough-room-label" id="wl-label-4">
+        <h2 data-ar="مختبر الأسنان" data-fr="Laboratoire Dentaire">مختبر الأسنان</h2>
+        <p data-ar="دقة ميكرونية في كل تفصيلة" data-fr="Précision micrométrique dans chaque détail">دقة ميكرونية في كل تفصيلة</p>
+      </div>
+    </div>
+    <div class="walkthrough-progress">
+      <div class="walkthrough-dot active" data-label="Reception"></div>
+      <div class="walkthrough-dot" data-label="Lounge"></div>
+      <div class="walkthrough-dot" data-label="Treatment"></div>
+      <div class="walkthrough-dot" data-label="Gallery"></div>
+      <div class="walkthrough-dot" data-label="Lab"></div>
+    </div>
+    <div class="walkthrough-scroll-hint" id="wl-scroll-hint">
+      <span data-ar="اسحب للأسفل للاستكشاف" data-fr="Défilez pour explorer">اسحب للأسفل للاستكشاف</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 3D Section -->
+<section class="three-section" id="about">
+  <div class="three-container">
+    <div class="three-visual reveal">
+      <canvas id="tooth-canvas"></canvas>
+      <div class="three-overlay">
+        <div class="three-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Interactive 3D Model
+        </div>
+        <div class="three-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Drag to Rotate
+        </div>
+      </div>
+    </div>
+    <div class="three-content reveal">
+      <h2 data-ar="شاهد ابتسامتك الجديدة <span class='gradient'>قبل</span> أن نبدأ" data-fr="Voir Votre Nouvelle <span class='gradient'>Sourire</span> Avant de Commencer">شاهد ابتسامتك الجديدة <span class="gradient">قبل</span> أن نبدأ</h2>
+      <p data-ar="تقنية الم可视化 ثلاثية الأبعاد بالذكاء الاصطناعي تتيح لك معاينة التحول قبل أي إجراء. قم بالدوران والتكبير واستكشاف ابتسامتك المستقبلية في الوقت الفعلي." data-fr="Notre technologie de visualisation 3D alimentée par l'IA vous permet de prévisualiser votre transformation avant toute procédure. Tournez, zoomez et explorez votre futur sourire en temps réel.">تقنية الم可视化 ثلاثية الأبعاد بالذكاء الاصطناعي تتيح لك معاينة التحول قبل أي إجراء. قم بالدوران والتكبير واستكشاف ابتسامتك المستقبلية في الوقت الفعلي.</p>
+      <div class="three-features">
+        <div class="three-feature">
+          <div class="three-feature-icon">🤖</div>
+          <h4 data-ar="تصميم ابتسامة بالذكاء الاصطناعي" data-fr="Design de Sourire IA">تصميم ابتسامة بالذكاء الاصطناعي</h4>
+          <p data-ar="محاكاة ابتسامة مثالية" data-fr="Simulation de sourire parfait">محاكاة ابتسامة مثالية</p>
+        </div>
+        <div class="three-feature">
+          <div class="three-feature-icon">🎮</div>
+          <h4 data-ar="تفاعلية ثلاثية الأبعاد" data-fr="3D Interactif">تفاعلية ثلاثية الأبعاد</h4>
+          <p data-ar="اسحب للاستكشاف" data-fr="Glissez pour explorer">اسحب للاستكشاف</p>
+        </div>
+        <div class="three-feature">
+          <div class="three-feature-icon">⚡</div>
+          <h4 data-ar="معاينة فورية" data-fr="Aperçu Instantané">معاينة فورية</h4>
+          <p data-ar="نتائج فورية" data-fr="Résultats instantanés">نتائج فورية</p>
+        </div>
+        <div class="three-feature">
+          <div class="three-feature-icon">🎯</div>
+          <h4 data-ar="تخطيط دقيق" data-fr="Planification de Précision">تخطيط دقيق</h4>
+          <p data-ar="دقة ميكرونية" data-fr="Précision micrométrique">دقة ميكرونية</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="services" id="services" style="position:relative">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="section-header reveal">
+    <div class="section-badge" data-ar="خدماتنا" data-fr="Nos Services">خدماتنا</div>
+    <h2 class="section-title blur-reveal" data-ar="رعاية أسنان متميزة" data-fr="Soins Dentaires Premium">رعاية أسنان متميزة</h2>
+    <p class="section-desc" data-ar="من التنظيف الروتيني إلى تجميل الابتسامة الكاملة، نقدم خدمات أسنان شاملة بأحدث التقنيات." data-fr="Des nettoyages aux refontes complètes de sourire, nous offrons des services dentaires complets avec les dernières technologies.">من التنظيف الروتيني إلى تجميل الابتسامة الكاملة، نقدم خدمات أسنان شاملة بأحدث التقنيات.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal tilt-card glow-border">
+      <div class="service-icon">🦷</div>
+      <h3 data-ar="زراعة الأسنان" data-fr="Implants Dentaires">زراعة الأسنان</h3>
+      <p data-ar="استبدال دائم وطبيعي للأسنان المفقودة يعيد ابتسامتك وثقتك." data-fr="Remplacements dentaires permanents et naturels qui restaurent votre sourire et votre confiance.">استبدال دائم وطبيعي للأسنان المفقودة يعيد ابتسامتك وثقتك.</p>
+      <div class="service-price" data-ar="ابتداءً من 50,000 دج" data-fr="À partir de 50 000 DA">ابتداءً من 50,000 دج</div>
+    </div>
+    <div class="service-card reveal tilt-card glow-border">
+      <div class="service-icon">✨</div>
+      <h3 data-ar="تصميم الابتسامة" data-fr="Design de Sourire">تصميم الابتسامة</h3>
+      <p data-ar="تصميم ابتسامة رقمي بالذكاء الاصطناعي لإنشاء ابتسامتك المثالية قبل بدء العلاج." data-fr="Conception numérique de sourire par IA pour créer votre sourire parfait avant le traitement.">تصميم ابتسامة رقمي بالذكاء الاصطناعي لإنشاء ابتسامتك المثالية قبل بدء العلاج.</p>
+      <div class="service-price" data-ar="ابتداءً من 30,000 دج" data-fr="À partir de 30 000 DA">ابتداءً من 30,000 دج</div>
+    </div>
+    <div class="service-card reveal tilt-card glow-border">
+      <div class="service-icon">💎</div>
+      <h3 data-ar="قشور الأسنان" data-fr="Facettes">قشور الأسنان</h3>
+      <p data-ar="قشور بورسلان فائقة الرقة تحوّل أسنانك فوراً." data-fr="Coquilles en porcelaine ultra-fines qui transforment vos dents instantanément.">قشور بورسلان فائقة الرقة تحوّل أسنانك فوراً.</p>
+      <div class="service-price" data-ar="ابتداءً من 25,000 دج" data-fr="À partir de 25 000 DA">ابتداءً من 25,000 دج</div>
+    </div>
+    <div class="service-card reveal tilt-card glow-border">
+      <div class="service-icon">⚡</div>
+      <h3 data-ar="تبييض الأسنان" data-fr="Blanchiment">تبييض الأسنان</h3>
+      <p data-ar="تبييض ليزر احترافي لابتسامة أكثر إشراقاً وشباباً." data-fr="Blanchiment laser professionnel pour un sourire plus éclatant et jeune.">تبييض ليزر احترافي لابتسامة أكثر إشراقاً وشباباً.</p>
+      <div class="service-price" data-ar="ابتداءً من 15,000 دج" data-fr="À partir de 15 000 DA">ابتداءً من 15,000 دج</div>
+    </div>
+    <div class="service-card reveal tilt-card glow-border">
+      <div class="service-icon">🔧</div>
+      <h3 data-ar="تقويم الأسنان" data-fr="Orthodontie">تقويم الأسنان</h3>
+      <p data-ar="مصففات غير مرئية وتقويم حديث لمحاذاة مثالية للأسنان." data-fr="Aligneurs invisibles et braces modernes pour un alignement parfait des dents.">مصففات غير مرئية وتقويم حديث لمحاذاة مثالية للأسنان.</p>
+      <div class="service-price" data-ar="ابتداءً من 80,000 دج" data-fr="À partir de 80 000 DA">ابتداءً من 80,000 دج</div>
+    </div>
+    <div class="service-card reveal tilt-card glow-border">
+      <div class="service-icon">🏥</div>
+      <h3 data-ar="علاج الجذور" data-fr="Traitement de Canal">علاج الجذور</h3>
+      <p data-ar="علاج جذور غير مؤلم ومتقدم بدقة مجهرية." data-fr="Traitement de canal indolore et avancé avec une précision microscopique.">علاج جذور غير مؤلم ومتقدم بدقة مجهرية.</p>
+      <div class="service-price" data-ar="ابتداءً من 20,000 دج" data-fr="À partir de 20 000 DA">ابتداءً من 20,000 دج</div>
+    </div>
+  </div>
+</section>
+
+<!-- Before/After -->
+<section class="results" id="results" style="position:relative">
+  <div class="orb orb-3"></div>
+  <div class="section-header reveal">
+    <div class="section-badge" data-ar="النتائج" data-fr="Résultats">النتائج</div>
+    <h2 class="section-title blur-reveal" data-ar="التحولات" data-fr="Transformations">التحولات</h2>
+    <p class="section-desc" data-ar="شاهد النتائج المذهلة التي حققها مرضانا. اسحب للمقارنة بين ما قبل وما بعد." data-fr="Découvrez les résultats incroyables obtenus par nos patients. Glissez pour comparer avant et après.">شاهد النتائج المذهلة التي حققها مرضانا. اسحب للمقارنة بين ما قبل وما بعد.</p>
+  </div>
+  <div class="results-grid">
+    <div class="result-card reveal tilt-card">
+      <div class="ba-slider">
+        <div class="ba-before"><img src="images/dental/before1.jpg" alt="Before" loading="lazy"></div>
+        <div class="ba-after"><img src="images/dental/after1.jpg" alt="After" loading="lazy"></div>
+        <div class="ba-handle"></div>
+      </div>
+    </div>
+    <div class="result-card reveal tilt-card">
+      <div class="ba-slider">
+        <div class="ba-before"><img src="images/dental/before2.jpg" alt="Before" loading="lazy"></div>
+        <div class="ba-after"><img src="images/dental/after2.jpg" alt="After" loading="lazy"></div>
+        <div class="ba-handle"></div>
+      </div>
+    </div>
+    <div class="result-card reveal tilt-card">
+      <div class="ba-slider">
+        <div class="ba-before"><img src="images/dental/before3.jpg" alt="Before" loading="lazy"></div>
+        <div class="ba-after"><img src="images/dental/after3.jpg" alt="After" loading="lazy"></div>
+        <div class="ba-handle"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials" id="testimonials">
+  <div class="section-header reveal">
+    <div class="section-badge" data-ar="شهادات" data-fr="Témoignages">شهادات</div>
+    <h2 class="section-title blur-reveal" data-ar="ماذا يقول مرضانا" data-fr="Ce que Disent Nos Patients">ماذا يقول مرضانا</h2>
+    <p class="section-desc" data-ar="تقييمات حقيقية من مرضى حقيقيين حولوا ابتساماتهم معنا." data-fr="De vrais avis de vrais patients qui ont transformé leurs sourires avec nous.">تقييمات حقيقية من مرضى حقيقيين حولوا ابتساماتهم معنا.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal tilt-card">
+      <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+      <p class="testimonial-quote">"The AI smile design blew my mind! I could see my new smile before the procedure. The results are beyond my expectations."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">A</div>
+        <div>
+          <div class="testimonial-name">Ahmed B.</div>
+          <div class="testimonial-role">Smile Design Patient</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal tilt-card">
+      <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+      <p class="testimonial-quote">"Best dental experience ever! Painless, professional, and the 3D visualization helped me understand everything."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">S</div>
+        <div>
+          <div class="testimonial-name">Sarah M.</div>
+          <div class="testimonial-role">Implant Patient</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal tilt-card">
+      <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+      <p class="testimonial-quote">"I was terrified of dentists until I came here. The team made me feel so comfortable. My veneers look absolutely natural!"</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">K</div>
+        <div>
+          <div class="testimonial-name">Karim D.</div>
+          <div class="testimonial-role">Veneers Patient</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal tilt-card">
+      <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+      <p class="testimonial-quote">"Professional, modern, and truly caring. The teeth whitening results are incredible. I can't stop smiling!"</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">L</div>
+        <div>
+          <div class="testimonial-name">Lina F.</div>
+          <div class="testimonial-role">Whitening Patient</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Booking -->
+<section class="booking" id="booking">
+  <div class="booking-container">
+    <div class="booking-info reveal">
+      <h2 data-ar="مستعد لابتسامتك <span class='gradient'>المثالية</span>؟" data-fr="Prêt pour Votre <span class='gradient'>Sourire Parfait</span> ?">مستعد لابتسامتك <span class="gradient">المثالية</span>؟</h2>
+      <p data-ar="احجز استشارتك المجانية اليوم ودع تقنيتنا بالذكاء الاصطناعي تريكم ما هو ممكن." data-fr="Réservez votre consultation gratuite aujourd'hui et laissez notre technologie IA vous montrer ce qui est possible.">احجز استشارتك المجانية اليوم ودع تقنيتنا بالذكاء الاصطناعي تريكم ما هو ممكن.</p>
+      <div class="booking-contact">
+        <div class="booking-contact-icon">📞</div>
+        <div class="booking-contact-text"><strong>+213 770 433 364</strong><span data-ar="اتصل بنا الآن" data-fr="Appelez-nous">اتصل بنا الآن</span></div>
+      </div>
+      <div class="booking-contact">
+        <div class="booking-contact-icon">💬</div>
+        <div class="booking-contact-text"><strong data-ar="واتساب" data-fr="WhatsApp">واتساب</strong><span data-ar="تحدث معنا" data-fr="Chattez avec Nous">تحدث معنا</span></div>
+      </div>
+      <div class="booking-contact">
+        <div class="booking-contact-icon">📍</div>
+        <div class="booking-contact-text"><strong data-ar="باب الزوار، الجزائر" data-fr="Bab Ezzouar, Alger">باب الزوار، الجزائر</strong><span data-ar="زر عيادتنا" data-fr="Visitez Notre Clinique">زر عيادتنا</span></div>
+      </div>
+      <div class="booking-contact">
+        <div class="booking-contact-icon">⏰</div>
+        <div class="booking-contact-text"><strong data-ar="السبت - الخميس: 9 صباحاً - 6 مساءً" data-fr="Sam-Jeu: 9h - 18h">السبت - الخميس: 9 صباحاً - 6 مساءً</strong><span data-ar="ساعات العمل" data-fr="Heures d'Ouverture">ساعات العمل</span></div>
+      </div>
+    </div>
+    <div class="booking-form reveal">
+      <form id="booking-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label data-ar="الاسم" data-fr="Nom">الاسم</label>
+            <input type="text" placeholder="Your name" data-placeholder-ar="اسمك" data-placeholder-fr="Votre nom" required>
+          </div>
+          <div class="form-group">
+            <label data-ar="الهاتف" data-fr="Téléphone">الهاتف</label>
+            <input type="tel" placeholder="0770 00 00 00" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-ar="البريد الإلكتروني" data-fr="Email">البريد الإلكتروني</label>
+          <input type="email" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label data-ar="الخدمة" data-fr="Service">الخدمة</label>
+          <select>
+            <option data-ar="تصميم الابتسامة" data-fr="Design de Sourire">تصميم الابتسامة</option>
+            <option data-ar="زراعة الأسنان" data-fr="Implants Dentaires">زراعة الأسنان</option>
+            <option data-ar="قشور الأسنان" data-fr="Facettes">قشور الأسنان</option>
+            <option data-ar="تبييض الأسنان" data-fr="Blanchiment">تبييض الأسنان</option>
+            <option data-ar="تقويم الأسنان" data-fr="Orthodontie">تقويم الأسنان</option>
+            <option data-ar="علاج الجذور" data-fr="Traitement de Canal">علاج الجذور</option>
+            <option data-ar="فحص عام" data-fr="Contrôle Général">فحص عام</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-ar="الرسالة" data-fr="Message">الرسالة</label>
+          <textarea placeholder="Tell us about your dental concerns..." data-placeholder-ar="أخبرنا عن مشكلتك..." data-placeholder-fr="Parlez-nous de vos préoccupations..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" data-ar="احجز استشارة مجانية ←" data-fr="Réserver Consultation Gratuite →">احجز استشارة مجانية ←</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="section-header reveal">
+    <div class="section-badge">FAQ</div>
+    <h2 class="section-title" data-ar="الأسئلة الشائعة" data-fr="Questions Fréquentes">الأسئلة الشائعة</h2>
+    <p class="section-desc" data-ar="إجابات على أكثر الأسئلة شيوعاً حول خدماتنا وعلاجاتنا." data-fr="Réponses aux questions les plus fréquentes sur nos services et traitements.">إجابات على أكثر الأسئلة شيوعاً حول خدماتنا وعلاجاتنا.</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span data-ar="كم تكلفة زراعة الأسنان؟" data-fr="Combien coûte un implant dentaire ?">كم تكلفة زراعة الأسنان؟</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer"><p data-ar="تبدأ تكلفة زراعة الأسنان من 50,000 دج. نقدم خيارات تقسيط مرنة لتناسب ميزانيتك." data-fr="Le coût d'un implant dentaire commence à 50 000 DA. Nous offrons des options de paiement flexibles pour s'adapter à votre budget.">تبدأ تكلفة زراعة الأسنان من 50,000 دج. نقدم خيارات تقسيط مرنة لتناسب ميزانيتك.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span data-ar="هل تبييض الأسنان مؤلم؟" data-fr="Le blanchiment dentaire est-il douloureux ?">هل تبييض الأسنان مؤلم؟</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer"><p data-ar="لا، تبييض الأسنان بالليزر procedure غير مؤلمة تماماً. يمكنك العودة لنشاطاتك فوراً." data-fr="Non, le blanchiment au laser est une procédure totalement indolore. Vous pouvez reprendre vos activités immédiatement.">لا، تبييض الأسنان بالليزر procedure غير مؤلمة تماماً. يمكنك العودة لنشاطاتك فوراً.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span data-ar="كم يستغرق تصميم الابتسامة؟" data-fr="Combien de temps prend la conception de sourire ?">كم يستغرق تصميم الابتسامة؟</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer"><p data-ar="تصميم الابتسامة بالذكاء الاصطناعي جاهز في 24 ساعة. يمكنك رؤية نتائجك قبل بدء أي علاج." data-fr="La conception de sourire par IA est prête en 24 heures. Vous pouvez voir vos résultats avant de commencer tout traitement.">تصميم الابتسامة بالذكاء الاصطناعي جاهز في 24 ساعة. يمكنك رؤية نتائجك قبل بدء أي علاج.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span data-ar="ما هي ساعات العمل؟" data-fr="Quelles sont vos heures d'ouverture ?">ما هي ساعات العمل؟</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer"><p data-ar="نعمل من السبت إلى الخميس، من 9 صباحاً إلى 6 مساءً. نستقبل المواعيد في أي وقت خلال ساعات العمل." data-fr="Nous travaillons du samedi au jeudi, de 9h à 18h. Nous accueillons les rendez-vous à tout moment pendant les heures d'ouverture.">نعمل من السبت إلى الخميس، من 9 صباحاً إلى 6 مساءً. نستقبل المواعيد في أي وقت خلال ساعات العمل.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span data-ar="هل تقبلون الدفع بالتقسيط؟" data-fr="Acceptez-vous le paiement en plusieurs fois ?">هل تقبلون الدفع بالتقسيط؟</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer"><p data-ar="نعم! نقدم خيارات تقسيط مرنة على 3 أشهر بدون فوائد. اتصل بنا لمعرفة التفاصيل." data-fr="Oui ! Nous offrons des options de paiement flexibles sur 3 mois sans intérêts. Contactez-nous pour plus de détails.">نعم! نقدم خيارات تقسيط مرنة على 3 أشهر بدون فوائد. اتصل بنا لمعرفة التفاصيل.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Map -->
+<section class="map-section" id="location">
+  <div class="section-header reveal">
+    <div class="section-badge" data-ar="موقعنا" data-fr="Notre Emplacement">موقعنا</div>
+    <h2 class="section-title" data-ar="زورونا في عيادتنا" data-fr="Rendez-nous Visite">زورونا في عيادتنا</h2>
+    <p class="section-desc" data-ar="نحن located في قلب باب الزوار، الجزائر. سهل الوصول بالسيارة أو المواصلات العامة." data-fr="Situés au cœur de Bab Ezzouar, Alger. Facile d'accès en voiture ou en transports en commun.">نحن located في قلب باب الزوار، الجزائر. سهل الوصول بالسيارة أو المواصلات العامة.</p>
+  </div>
+  <div class="map-container">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3190.5!2d3.184!3d36.717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDQzJzAxLjIiTiAzwrAxMScwMi40IkU!5e0!3m2!1sen!2sdz!4v1234567890" width="100%" height="400" style="border:0;border-radius:20px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2 data-ar="ابتسامتك المثالية في انتظارك" data-fr="Votre Sourire Parfait Vous Attend">ابتسامتك المثالية في انتظارك</h2>
+  <p data-ar="انضم إلى أكثر من 5000 مريض سعيد حولوا ابتساماتهم بتقنية الأسنان بالذكاء الاصطناعي." data-fr="Rejoignez plus de 5 000 patients heureux qui ont transformé leurs sourires grâce à notre technologie dentaire IA.">انضم إلى أكثر من 5000 مريض سعيد حولوا ابتساماتهم بتقنية الأسنان بالذكاء الاصطناعي.</p>
+  <a href="#booking" class="btn" data-ar="احجز الآن — مجاناً" data-fr="Réserver Maintenant — Gratuit">احجز الآن — مجاناً</a>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-icon">🦷</div>
+        Smile Studio
+      </div>
+      <p data-ar="رعاية أسنان متميزة بتقنية الذكاء الاصطناعي. ابتسامتك المثالية تبدأ هنا." data-fr="Soins dentaires premium avec technologie IA. Votre sourire parfait commence ici.">رعاية أسنان متميزة بتقنية الذكاء الاصطناعي. ابتسامتك المثالية تبدأ هنا.</p>
+    </div>
+    <div class="footer-col">
+      <h4 data-ar="الخدمات" data-fr="Services">الخدمات</h4>
+      <a href="#services" data-ar="زراعة الأسنان" data-fr="Implants">زراعة الأسنان</a>
+      <a href="#services" data-ar="تصميم الابتسامة" data-fr="Design Sourire">تصميم الابتسامة</a>
+      <a href="#services" data-ar="قشور الأسنان" data-fr="Facettes">قشور الأسنان</a>
+      <a href="#services" data-ar="التبييض" data-fr="Blanchiment">التبييض</a>
+    </div>
+    <div class="footer-col">
+      <h4 data-ar="العيادة" data-fr="Clinique">العيادة</h4>
+      <a href="#about" data-ar="من نحن" data-fr="À Propos">من نحن</a>
+      <a href="#results" data-ar="النتائج" data-fr="Résultats">النتائج</a>
+      <a href="#testimonials" data-ar="التقييمات" data-fr="Avis">التقييمات</a>
+      <a href="#booking" data-ar="اتصل بنا" data-fr="Contact">اتصل بنا</a>
+    </div>
+    <div class="footer-col">
+      <h4 data-ar="تابعونا" data-fr="Suivez-nous">تابعونا</h4>
+      <a href="#" data-ar="انستغرام" data-fr="Instagram">انستغرام</a>
+      <a href="#" data-ar="فيسبوك" data-fr="Facebook">فيسبوك</a>
+      <a href="#" data-ar="واتساب" data-fr="WhatsApp">واتساب</a>
+      <a href="#location" data-ar="خرائط جوجل" data-fr="Google Maps">خرائط جوجل</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Smile Studio. <span data-ar="جميع الحقوق محفوظة" data-fr="Tous droits réservés">جميع الحقوق محفوظة</span></span>
+    <span data-ar="تصميم بواسطة Med Bot by Zakaria" data-fr="Conçu par Med Bot by Zakaria">تصميم بواسطة Med Bot by Zakaria</span>
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/213770433364" class="whatsapp-float" target="_blank" aria-label="WhatsApp">💬</a>
+
+<script>
+// Loading Screen
+let progress=0;const bar=document.getElementById('loader-bar');const pct=document.getElementById('loader-pct');
+const loadInterval=setInterval(()=>{progress+=Math.random()*15;if(progress>100)progress=100;
+bar.style.width=progress+'%';pct.textContent=Math.round(progress)+'%';
+if(progress===100){clearInterval(loadInterval);setTimeout(()=>{document.getElementById('loader').classList.add('hidden');initAnimations()},500)}},100);
+
+// Custom Cursor
+const cursor=document.getElementById('cursor');
+document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX-10+'px';cursor.style.top=e.clientY-10+'px'});
+document.querySelectorAll('a,button,.service-card,.result-card,.testimonial-card').forEach(el=>{el.addEventListener('mouseenter',()=>cursor.classList.add('active'));el.addEventListener('mouseleave',()=>cursor.classList.remove('active'))});
+
+// Header Scroll
+window.addEventListener('scroll',()=>{document.getElementById('header').classList.toggle('scrolled',window.scrollY>50)});
+
+// Mobile Menu
+document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('mobile-menu').classList.add('active'));
+document.getElementById('mobile-menu-close').addEventListener('click',()=>document.getElementById('mobile-menu').classList.remove('active'));
+document.querySelectorAll('.mobile-menu-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mobile-menu').classList.remove('active')));
+
+// Hero Canvas - Warp Speed + Galaxy Starfield (inspired by reactbits.dev)
+const warpCanvas=document.getElementById('warp-canvas');
+const wCtx=warpCanvas.getContext('2d');
+let wParticles=[];let wLines=[];let wOrbsArr=[];let wMouseX=0;let wMouseY=0;
+function resizeWarp(){warpCanvas.width=window.innerWidth;warpCanvas.height=window.innerHeight}
+window.addEventListener('resize',resizeWarp);resizeWarp();
+document.addEventListener('mousemove',e=>{wMouseX=e.clientX;wMouseY=e.clientY});
+
+// Galaxy stars (background layer)
+class WStar{constructor(){this.reset()}
+reset(){this.x=Math.random()*warpCanvas.width;this.y=Math.random()*warpCanvas.height;this.z=Math.random()*3;this.size=Math.random()*1.5+0.3;this.speedX=(Math.random()-0.5)*0.15;this.speedY=(Math.random()-0.5)*0.15;this.opacity=Math.random()*0.7+0.2;this.twinkle=Math.random()*Math.PI*2;this.twinkleSpeed=Math.random()*0.02+0.005;this.hue=160+Math.random()*30}
+update(){this.x+=this.speedX;this.y+=this.speedY;this.twinkle+=this.twinkleSpeed;
+if(this.x<0)this.x=warpCanvas.width;if(this.x>warpCanvas.width)this.x=0;
+if(this.y<0)this.y=warpCanvas.height;if(this.y>warpCanvas.height)this.y=0}
+draw(){const tw=Math.sin(this.twinkle)*0.3+0.7;wCtx.beginPath();wCtx.arc(this.x,this.y,this.size,0,Math.PI*2);
+wCtx.fillStyle=`hsla(${this.hue},70%,70%,${this.opacity*tw})`;wCtx.fill()}}
+
+// Warp speed lines (foreground layer, reactbits Hyperspeed-inspired)
+class WLine{constructor(){this.reset()}
+reset(){this.x=(Math.random()-0.5)*warpCanvas.width*2;this.y=warpCanvas.height*0.5+(Math.random()-0.5)*warpCanvas.height*0.8;
+this.z=Math.random()*800+200;this.pz=this.z;this.speed=4+Math.random()*6;this.hue=160+Math.random()*20;this.length=0;this.opacity=0}
+update(){this.pz=this.z;this.z-=this.speed;
+if(this.z<1){this.reset();this.pz=this.z=800+Math.random()*400}
+const sx=(this.x/this.z)*warpCanvas.width*0.5+warpCanvas.width*0.5;
+const sy=(this.y/this.z)*warpCanvas.height*0.5+warpCanvas.height*0.5;
+const px=(this.x/this.pz)*warpCanvas.width*0.5+warpCanvas.width*0.5;
+const py=(this.y/this.pz)*warpCanvas.height*0.5+warpCanvas.height*0.5;
+this.length=Math.sqrt((sx-px)*(sx-px)+(sy-py)*(sy-py));
+this.opacity=Math.min(1,(1-this.z/800)*0.8);this.sx=sx;this.sy=sy;this.px=px;this.py=py}
+draw(){wCtx.beginPath();wCtx.moveTo(this.px,this.py);wCtx.lineTo(this.sx,this.sy);
+wCtx.strokeStyle=`hsla(${this.hue},80%,70%,${this.opacity})`;wCtx.lineWidth=Math.max(0.5,(1-this.z/800)*2);wCtx.stroke()}}
+
+// Floating orbs (mid layer)
+class WOrb{constructor(){this.reset()}
+reset(){this.x=Math.random()*warpCanvas.width;this.y=Math.random()*warpCanvas.height;this.size=Math.random()*60+20;
+this.speedX=(Math.random()-0.5)*0.3;this.speedY=(Math.random()-0.5)*0.3;this.opacity=Math.random()*0.04+0.01;this.hue=160+Math.random()*40}
+update(){this.x+=this.speedX;this.y+=this.speedY;
+if(this.x<-this.size)this.x=warpCanvas.width+this.size;if(this.x>warpCanvas.width+this.size)this.x=-this.size;
+if(this.y<-this.size)this.y=warpCanvas.height+this.size;if(this.y>warpCanvas.height+this.size)this.y=-this.size}
+draw(){const g=wCtx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.size);
+g.addColorStop(0,`hsla(${this.hue},70%,50%,${this.opacity})`);g.addColorStop(1,'transparent');
+wCtx.fillStyle=g;wCtx.beginPath();wCtx.arc(this.x,this.y,this.size,0,Math.PI*2);wCtx.fill()}}
+
+for(let i=0;i<200;i++)wParticles.push(new WStar());
+for(let i=0;i<120;i++)wLines.push(new WLine());
+for(let i=0;i<6;i++)wOrbsArr.push(new WOrb());
+
+function animateWarp(){wCtx.clearRect(0,0,warpCanvas.width,warpCanvas.height);
+// Mouse parallax offset
+const mx=(wMouseX/warpCanvas.width-0.5)*15;const my=(wMouseY/warpCanvas.height-0.5)*15;
+wCtx.save();wCtx.translate(mx,my);
+wOrbsArr.forEach(o=>{o.update();o.draw()});
+wParticles.forEach(s=>{s.update();s.draw()});
+wLines.forEach(l=>{l.update();l.draw()});
+// Mouse glow
+const mg=wCtx.createRadialGradient(wMouseX-mx,wMouseY-my,0,wMouseX-mx,wMouseY-my,200);
+mg.addColorStop(0,'rgba(13,148,136,0.03)');mg.addColorStop(1,'transparent');
+wCtx.fillStyle=mg;wCtx.fillRect(0,0,warpCanvas.width,warpCanvas.height);
+wCtx.restore();requestAnimationFrame(animateWarp)}animateWarp();
+
+// 3D Tooth - Three.js (enhanced with wireframe, glow rings, particles)
+function initTooth(){const canvas=document.getElementById('tooth-canvas');
+const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(45,1,0.1,1000);
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+const parent=canvas.parentElement;renderer.setSize(parent.clientWidth,parent.clientHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.setClearColor(0x000000,0);
+camera.position.set(0,0,5);
+
+// Lighting
+const ambientLight=new THREE.AmbientLight(0xffffff,0.5);scene.add(ambientLight);
+const dirLight=new THREE.DirectionalLight(0xffffff,1.2);dirLight.position.set(5,5,5);scene.add(dirLight);
+const backLight=new THREE.DirectionalLight(0x14b8a6,0.6);backLight.position.set(-5,-5,-5);scene.add(backLight);
+const rimLight=new THREE.PointLight(0xf59e0b,0.4,10);rimLight.position.set(0,3,-3);scene.add(rimLight);
+
+const toothGroup=new THREE.Group();scene.add(toothGroup);
+
+// Crown - smooth porcelain material
+const crownMat=new THREE.MeshStandardMaterial({color:0xf8f8f0,metalness:0.05,roughness:0.2,emissive:0x14b8a6,emissiveIntensity:0.03});
+const crown=new THREE.Mesh(new THREE.SphereGeometry(0.8,64,64),crownMat);
+crown.scale.set(1,0.7,0.8);crown.position.y=0.3;toothGroup.add(crown);
+
+// Wireframe overlay on crown
+const wireMat=new THREE.MeshBasicMaterial({color:0x14b8a6,wireframe:true,transparent:true,opacity:0.08});
+const crownWire=new THREE.Mesh(new THREE.SphereGeometry(0.82,24,24),wireMat);
+crownWire.scale.set(1,0.7,0.8);crownWire.position.y=0.3;toothGroup.add(crownWire);
+
+// Root
+const rootMat=new THREE.MeshStandardMaterial({color:0xf0ebe0,metalness:0.02,roughness:0.5});
+const root=new THREE.Mesh(new THREE.ConeGeometry(0.3,1.2,64),rootMat);
+root.position.y=-0.5;toothGroup.add(root);
+
+// Glow rings (3 orbital rings)
+const ringGroup=new THREE.Group();toothGroup.add(ringGroup);
+const ringColors=[0x14b8a6,0xf59e0b,0x14b8a6];
+const ringRadii=[1.2,1.35,1.55];
+const ringOpacities=[0.35,0.15,0.1];
+for(let i=0;i<3;i++){
+  const rm=new THREE.MeshBasicMaterial({color:ringColors[i],transparent:true,opacity:ringOpacities[i]});
+  const r=new THREE.Mesh(new THREE.TorusGeometry(ringRadii[i],0.015-i*0.004,16,128),rm);
+  r.rotation.x=Math.PI/2+i*0.2;r.rotation.z=i*0.5;ringGroup.add(r)}
+
+// Floating particles (more, varied sizes)
+const pGeo=new THREE.BufferGeometry();const pCount=400;
+const pPos=new Float32Array(pCount*3);const pSizes=new Float32Array(pCount);
+for(let i=0;i<pCount;i++){const theta=Math.random()*Math.PI*2;const phi=Math.random()*Math.PI;
+const r=1.5+Math.random()*1.0;
+pPos[i*3]=r*Math.sin(phi)*Math.cos(theta);pPos[i*3+1]=r*Math.sin(phi)*Math.sin(theta);pPos[i*3+2]=r*Math.cos(phi);
+pSizes[i]=Math.random()*3+1}
+pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+const pMat=new THREE.PointsMaterial({color:0x14b8a6,size:0.025,transparent:true,opacity:0.5,sizeAttenuation:true});
+const particles=new THREE.Points(pGeo,pMat);scene.add(particles);
+
+// Inner glow sphere
+const glowMat=new THREE.MeshBasicMaterial({color:0x14b8a6,transparent:true,opacity:0.04,side:THREE.BackSide});
+const glowSphere=new THREE.Mesh(new THREE.SphereGeometry(2.2,32,32),glowMat);scene.add(glowSphere);
+
+// Mouse interaction
+let isDragging=false;let prevMouseX=0,prevMouseY=0;let targetRotX=0,targetRotY=0;
+canvas.addEventListener('mousedown',e=>{isDragging=true;prevMouseX=e.clientX;prevMouseY=e.clientY});
+canvas.addEventListener('mousemove',e=>{if(isDragging){const dx=e.clientX-prevMouseX;const dy=e.clientY-prevMouseY;
+targetRotY+=dx*0.008;targetRotX+=dy*0.008;prevMouseX=e.clientX;prevMouseY=e.clientY}});
+canvas.addEventListener('mouseup',()=>isDragging=false);
+canvas.addEventListener('mouseleave',()=>isDragging=false);
+canvas.addEventListener('touchstart',e=>{isDragging=true;prevMouseX=e.touches[0].clientX;prevMouseY=e.touches[0].clientY},{passive:true});
+canvas.addEventListener('touchmove',e=>{if(isDragging){const dx=e.touches[0].clientX-prevMouseX;const dy=e.touches[0].clientY-prevMouseY;
+targetRotY+=dx*0.008;targetRotX+=dy*0.008;prevMouseX=e.touches[0].clientX;prevMouseY=e.touches[0].clientY}},{passive:true});
+canvas.addEventListener('touchend',()=>isDragging=false);
+
+// Animate
+function animate(){requestAnimationFrame(animate);const t=Date.now()*0.001;
+if(!isDragging){targetRotY+=0.003;targetRotX=Math.sin(t*0.7)*0.15}
+toothGroup.rotation.y+=(targetRotY-toothGroup.rotation.y)*0.05;
+toothGroup.rotation.x+=(targetRotX-toothGroup.rotation.x)*0.05;
+toothGroup.position.y=Math.sin(t*0.8)*0.08;
+
+// Ring animations
+ringGroup.children.forEach((r,i)=>{r.rotation.z+=0.002*(i%2===0?1:-1);r.rotation.x+=0.001*(i%2===0?-1:1)});
+
+// Wireframe pulse
+crownWire.material.opacity=0.05+Math.sin(t*2)*0.03;
+
+// Particle orbit
+const pa=particles.geometry.attributes.position.array;
+for(let i=0;i<pCount;i++){const idx=i*3;const x=pa[idx],z=pa[idx+2];
+const angle=0.001+Math.sin(t+i)*0.0005;
+pa[idx]=x*Math.cos(angle)-z*Math.sin(angle);pa[idx+2]=x*Math.sin(angle)+z*Math.cos(angle)}
+particles.geometry.attributes.position.needsUpdate=true;
+particles.rotation.y+=0.0005;
+
+// Glow pulse
+glowSphere.material.opacity=0.03+Math.sin(t*1.5)*0.02;
+
+renderer.render(scene,camera)}
+animate();
+window.addEventListener('resize',()=>{const w=parent.clientWidth;const h=parent.clientHeight;
+camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h)})}
+
+// ===== 3D Clinic Walkthrough (Scroll-Driven) =====
+(function(){
+const c=document.getElementById('walkthrough-canvas');if(!c)return;
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,200);
+const renderer=new THREE.WebGLRenderer({canvas:c,antialias:true,alpha:false});
+renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
+renderer.setClearColor(0x0a0a0a,1);
+
+// Fog
+scene.fog=new THREE.FogExp2(0x0a0a0a,0.025);
+
+// ===== MATERIALS =====
+const floorMat=new THREE.MeshStandardMaterial({color:0x1a1a1a,metalness:0.3,roughness:0.6});
+const wallMat=new THREE.MeshStandardMaterial({color:0x141414,metalness:0.1,roughness:0.8});
+const glassMat=new THREE.MeshPhysicalMaterial({color:0xffffff,metalness:0,roughness:0,transmission:0.9,transparent:true,opacity:0.3});
+const deskMat=new THREE.MeshStandardMaterial({color:0x2a2a2a,metalness:0.2,roughness:0.5});
+const tealMat=new THREE.MeshStandardMaterial({color:0x0D9488,metalness:0.3,roughness:0.4,emissive:0x0D9488,emissiveIntensity:0.15});
+const warmMat=new THREE.MeshStandardMaterial({color:0xf5f5f0,metalness:0,roughness:0.9});
+const accentMat=new THREE.MeshStandardMaterial({color:0xf59e0b,metalness:0.3,roughness:0.4,emissive:0xf59e0b,emissiveIntensity:0.1});
+const chairMat=new THREE.MeshStandardMaterial({color:0x222222,metalness:0.1,roughness:0.7});
+const screenMat=new THREE.MeshBasicMaterial({color:0x0D9488});
+
+// ===== HELPER: Create room box =====
+function createRoom(x,z,w,d,h,openFront,openBack){
+  const hw=w/2,hd=d/2;
+  // Floor
+  const fl=new THREE.Mesh(new THREE.PlaneGeometry(w,d),floorMat);
+  fl.rotation.x=-Math.PI/2;fl.position.set(x,0,z);fl.receiveShadow=true;scene.add(fl);
+  // Ceiling
+  const cl=new THREE.Mesh(new THREE.PlaneGeometry(w,d),new THREE.MeshStandardMaterial({color:0x111111,roughness:1}));
+  cl.rotation.x=Math.PI/2;cl.position.set(x,h,z);scene.add(cl);
+  // Walls
+  if(!openFront){const wf=new THREE.Mesh(new THREE.PlaneGeometry(w,h),wallMat);wf.position.set(x,h/2,z-hd);scene.add(wf)}
+  if(!openBack){const wb=new THREE.Mesh(new THREE.PlaneGeometry(w,h),wallMat);wb.rotation.y=Math.PI;wb.position.set(x,h/2,z+hd);scene.add(wb)}
+  const wl=new THREE.Mesh(new THREE.PlaneGeometry(d,h),wallMat);wl.rotation.y=Math.PI/2;wl.position.set(x-hw,h/2,z);scene.add(wl);
+  const wr=new THREE.Mesh(new THREE.PlaneGeometry(d,h),wallMat);wr.rotation.y=-Math.PI/2;wr.position.set(x+hw,h/2,z);scene.add(wr);
+}
+
+// ===== ROOM 0: RECEPTION (z: 0 to -12) =====
+createRoom(0,-6,14,12,5,false,false);
+// Reception desk
+const desk=new THREE.Mesh(new THREE.BoxGeometry(6,1.2,1.5),deskMat);desk.position.set(0,0.6,-10);desk.castShadow=true;scene.add(desk);
+const deskTop=new THREE.Mesh(new THREE.BoxGeometry(6.2,0.08,1.7),tealMat);deskTop.position.set(0,1.24,-10);scene.add(deskTop);
+// Logo on back wall (teal box)
+const logo=new THREE.Mesh(new THREE.PlaneGeometry(3,1),tealMat);logo.position.set(0,3.5,-11.95);scene.add(logo);
+// Glass partition
+const glass=new THREE.Mesh(new THREE.PlaneGeometry(10,3),glassMat);glass.position.set(0,1.5,-3);scene.add(glass);
+// Chairs in waiting
+for(let i=0;i<4;i++){const ch=new THREE.Mesh(new THREE.BoxGeometry(0.8,0.9,0.8),chairMat);ch.position.set(-4+i*2.5,0.45,-6);scene.add(ch);
+const chBack=new THREE.Mesh(new THREE.BoxGeometry(0.8,0.8,0.1),chairMat);chBack.position.set(-4+i*2.5,1.1,-6.35);scene.add(chBack)}
+// Floor accent strip
+const strip=new THREE.Mesh(new THREE.PlaneGeometry(0.15,12),tealMat);strip.rotation.x=-Math.PI/2;strip.position.set(-3,0.01,-6);scene.add(strip);
+// Ceiling lights
+for(let i=0;i<3;i++){const lt=new THREE.Mesh(new THREE.BoxGeometry(2,0.05,0.3),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0.6}));lt.position.set(-3+i*3,4.95,-6);scene.add(lt);
+const pl=new THREE.PointLight(0xffffff,0.8,15);pl.position.set(-3+i*3,4.5,-6);scene.add(pl)}
+// Ambient light reception
+const ambR=new THREE.PointLight(0x0D9488,0.5,20);ambR.position.set(0,3,-6);scene.add(ambR);
+
+// ===== ROOM 1: WAITING LOUNGE (z: -14 to -26) =====
+createRoom(0,-20,14,12,5,true,false);
+// Comfortable sofas
+for(let side=-1;side<=1;side+=2){
+  const sofa=new THREE.Mesh(new THREE.BoxGeometry(4,0.6,1.2),chairMat);sofa.position.set(side*4,0.3,-20);scene.add(sofa);
+  const sofaBack=new THREE.Mesh(new THREE.BoxGeometry(4,0.7,0.2),chairMat);sofaBack.position.set(side*4,0.95,-20.5);scene.add(sofaBack)}
+// Coffee table
+const table=new THREE.Mesh(new THREE.CylinderGeometry(0.8,0.8,0.05,32),glassMat);table.position.set(0,0.5,-20);scene.add(table);
+const tableLeg=new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.05,0.5,8),deskMat);tableLeg.position.set(0,0.25,-20);scene.add(tableLeg);
+// TV on wall
+const tv=new THREE.Mesh(new THREE.BoxGeometry(3,1.8,0.05),screenMat);tv.position.set(0,3,-25.95);scene.add(tv);
+const tvFrame=new THREE.Mesh(new THREE.BoxGeometry(3.1,1.9,0.08),deskMat);tvFrame.position.set(0,3,-25.97);scene.add(tvFrame);
+// Plants
+for(let i=0;i<2;i++){const pot=new THREE.Mesh(new THREE.CylinderGeometry(0.25,0.2,0.4,16),new THREE.MeshStandardMaterial({color:0x555555}));pot.position.set(-5+i*10,0.2,-18);scene.add(pot);
+const leaf=new THREE.Mesh(new THREE.SphereGeometry(0.4,8,8),new THREE.MeshStandardMaterial({color:0x166534}));leaf.position.set(-5+i*10,0.8,-18);scene.add(leaf)}
+// Warm lighting
+const wl1=new THREE.PointLight(0xfbbf24,0.4,15);wl1.position.set(0,4,-20);scene.add(wl1);
+const wl2=new THREE.PointLight(0x0D9488,0.3,20);wl2.position.set(0,2,-20);scene.add(wl2);
+
+// ===== ROOM 2: TREATMENT ROOM (z: -28 to -40) =====
+createRoom(0,-34,14,12,5,true,false);
+// Dental chair
+const chairBase=new THREE.Mesh(new THREE.CylinderGeometry(0.4,0.5,0.3,16),deskMat);chairBase.position.set(0,0.15,-34);scene.add(chairBase);
+const chairPole=new THREE.Mesh(new THREE.CylinderGeometry(0.08,0.08,1.5,8),deskMat);chairPole.position.set(0,0.9,-34);scene.add(chairPole);
+const chairSeat=new THREE.Mesh(new THREE.BoxGeometry(0.8,0.15,1.8),chairMat);chairSeat.position.set(0,1.7,-34);scene.add(chairSeat);
+const chairBack=new THREE.Mesh(new THREE.BoxGeometry(0.8,0.8,0.12),chairMat);chairBack.rotation.x=-0.3;chairBack.position.set(0,2.1,-34.7);scene.add(chairBack);
+const chairHead=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.1,0.4),chairMat);chairHead.position.set(0,2.3,-35);scene.add(chairHead);
+// Overhead light
+const lightArm=new THREE.Mesh(new THREE.BoxGeometry(0.1,0.1,2),deskMat);lightArm.position.set(0,4.5,-33);scene.add(lightArm);
+const lightHead=new THREE.Mesh(new THREE.CylinderGeometry(0.4,0.3,0.2,16),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0.9}));lightHead.position.set(0,4.4,-33);scene.add(lightHead);
+const tl=new THREE.SpotLight(0xffffff,1.5,10,Math.PI/6,0.5);tl.position.set(0,4.4,-33);tl.target.position.set(0,1.5,-34);scene.add(tl);scene.add(tl.target);
+// Monitor
+const monitor=new THREE.Mesh(new THREE.BoxGeometry(1.2,0.8,0.05),screenMat);monitor.position.set(3,2,-33);scene.add(monitor);
+const monArm=new THREE.Mesh(new THREE.CylinderGeometry(0.03,0.03,1.5,8),deskMat);monArm.position.set(3,1.2,-33);scene.add(monArm);
+// Cabinet
+const cabinet=new THREE.Mesh(new THREE.BoxGeometry(1.5,2,0.6),deskMat);cabinet.position.set(-5.5,1,-32);scene.add(cabinet);
+for(let i=0;i<4;i++){const drawer=new THREE.Mesh(new THREE.BoxGeometry(1.4,0.4,0.02),new THREE.MeshStandardMaterial({color:0x333333,metalness:0.5}));drawer.position.set(-5.5,0.3+i*0.5,-31.68);scene.add(drawer)}
+// Teal accent line on floor
+const tStrip=new THREE.Mesh(new THREE.PlaneGeometry(14,0.1),tealMat);tStrip.rotation.x=-Math.PI/2;tStrip.position.set(0,0.01,-34);scene.add(tStrip);
+const tl2=new THREE.PointLight(0x0D9488,0.4,15);tl2.position.set(0,3,-34);scene.add(tl2);
+
+// ===== ROOM 3: SMILE GALLERY (z: -42 to -54) =====
+createRoom(0,-48,14,12,5,true,false);
+// Before/After display frames on walls
+for(let i=0;i<4;i++){const frame=new THREE.Mesh(new THREE.BoxGeometry(1.8,1.2,0.05),deskMat);frame.position.set(-4+i*2.7,2.5,-53.95);scene.add(frame);
+const inner=new THREE.Mesh(new THREE.PlaneGeometry(1.6,1),new THREE.MeshStandardMaterial({color:[0x0D9488,0xf59e0b,0x14b8a6,0xf59e0b][i]}));inner.position.set(-4+i*2.7,2.5,-53.9);scene.add(inner)}
+// Pedestal displays
+for(let i=0;i<3;i++){const ped=new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.35,1,16),deskMat);ped.position.set(-3+i*3,0.5,-46);scene.add(ped);
+const orb=new THREE.Mesh(new THREE.SphereGeometry(0.25,16,16),tealMat);orb.position.set(-3+i*3,1.3,-46);scene.add(orb)}
+// Floor pattern
+const fp1=new THREE.Mesh(new THREE.PlaneGeometry(6,0.08),tealMat);fp1.rotation.x=-Math.PI/2;fp1.position.set(0,0.01,-48);scene.add(fp1);
+const fp2=new THREE.Mesh(new THREE.PlaneGeometry(0.08,12),tealMat);fp2.rotation.x=-Math.PI/2;fp2.position.set(0,0.01,-48);scene.add(fp2);
+const gl1=new THREE.PointLight(0xffffff,0.6,15);gl1.position.set(0,4,-48);scene.add(gl1);
+const gl2=new THREE.PointLight(0x0D9488,0.3,20);gl2.position.set(0,2,-48);scene.add(gl2);
+
+// ===== ROOM 4: DENTAL LAB (z: -56 to -68) =====
+createRoom(0,-62,14,12,5,true,true);
+// Lab benches
+for(let side=-1;side<=1;side+=2){
+  const bench=new THREE.Mesh(new THREE.BoxGeometry(3,1,6),deskMat);bench.position.set(side*4,0.5,-62);scene.add(bench);
+  const benchTop=new THREE.Mesh(new THREE.BoxGeometry(3.1,0.05,6.1),new THREE.MeshStandardMaterial({color:0x444444,metalness:0.5}));benchTop.position.set(side*4,1.02,-62);scene.add(benchTop)}
+// Microscope
+const micBase=new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.25,0.3,16),deskMat);micBase.position.set(4,1.15,-60);scene.add(micBase);
+const micArm2=new THREE.Mesh(new THREE.CylinderGeometry(0.04,0.04,0.8,8),deskMat);micArm2.position.set(4,1.55,-60);scene.add(micArm2);
+const micHead=new THREE.Mesh(new THREE.SphereGeometry(0.15,16,16),deskMat);micHead.position.set(4,2,-60);scene.add(micHead);
+// 3D Printer
+const printer=new THREE.Mesh(new THREE.BoxGeometry(0.8,0.6,0.8),new THREE.MeshStandardMaterial({color:0x333333}));printer.position.set(-4,0.3,-60);scene.add(printer);
+const printerGlass=new THREE.Mesh(new THREE.BoxGeometry(0.7,0.4,0.7),glassMat);printerGlass.position.set(-4,0.6,-60);scene.add(printerGlass);
+const printLight=new THREE.PointLight(0x0D9488,0.3,3);printLight.position.set(-4,0.6,-60);scene.add(printLight);
+// Floating particles in lab
+const labPartGeo=new THREE.BufferGeometry();const labPartCount=300;
+const labPos=new Float32Array(labPartCount*3);
+for(let i=0;i<labPartCount;i++){labPos[i*3]=(Math.random()-0.5)*14;labPos[i*3+1]=Math.random()*5;labPos[i*3+2]=-62+(Math.random()-0.5)*12}
+labPartGeo.setAttribute('position',new THREE.BufferAttribute(labPos,3));
+const labPartMat=new THREE.PointsMaterial({color:0x0D9488,size:0.03,transparent:true,opacity:0.4});
+const labParts=new THREE.Points(labPartGeo,labPartMat);scene.add(labParts);
+const ll1=new THREE.PointLight(0xffffff,0.5,15);ll1.position.set(0,4,-62);scene.add(ll1);
+const ll2=new THREE.PointLight(0x0D9488,0.4,15);ll2.position.set(0,2,-62);scene.add(ll2);
+
+// ===== CAMERA PATH =====
+const cameraPath=[
+  {pos:new THREE.Vector3(0,2,2),look:new THREE.Vector3(0,1.5,-8)},    // Reception
+  {pos:new THREE.Vector3(0,2,-12),look:new THREE.Vector3(0,1.5,-22)}, // Lounge
+  {pos:new THREE.Vector3(0,2,-26),look:new THREE.Vector3(0,1.5,-36)}, // Treatment
+  {pos:new THREE.Vector3(0,2,-40),look:new THREE.Vector3(0,1.5,-50)}, // Gallery
+  {pos:new THREE.Vector3(0,2,-54),look:new THREE.Vector3(0,1.5,-64)}  // Lab
+];
+
+// ===== SCROLL TRACKING =====
+let scrollProgress=0;
+const walkSection=document.getElementById('walkthrough');
+window.addEventListener('scroll',()=>{
+  if(!walkSection)return;
+  const rect=walkSection.getBoundingClientRect();
+  const total=walkSection.offsetHeight-window.innerHeight;
+  scrollProgress=Math.max(0,Math.min(1,-rect.top/total));
+});
+
+// ===== ROOM LABELS =====
+const labels=[];
+for(let i=0;i<5;i++)labels.push(document.getElementById('wl-label-'+i));
+const dots=document.querySelectorAll('.walkthrough-dot');
+const scrollHint=document.getElementById('wl-scroll-hint');
+
+// ===== ANIMATE =====
+let prevRoom=-1;
+function animateWalk(){
+  requestAnimationFrame(animateWalk);
+  const t=scrollProgress*(cameraPath.length-1);
+  const idx=Math.min(Math.floor(t),cameraPath.length-2);
+  const frac=t-idx;
+  const from=cameraPath[idx],to=cameraPath[idx+1];
+
+  // Smooth interpolation
+  camera.position.lerpVectors(from.pos,to.pos,frac);
+  const lookTarget=new THREE.Vector3().lerpVectors(from.look,to.look,frac);
+  camera.lookAt(lookTarget);
+
+  // Room indicator
+  const currentRoom=Math.round(t);
+  if(currentRoom!==prevRoom){
+    prevRoom=currentRoom;
+    labels.forEach((l,i)=>{if(l){l.classList.toggle('active',i===currentRoom)}});
+    dots.forEach((d,i)=>{d.classList.toggle('active',i===currentRoom)});
+  }
+
+  // Hide scroll hint after scrolling
+  if(scrollHint)scrollHint.style.opacity=scrollProgress>0.05?'0':'1';
+
+  // Subtle camera sway
+  camera.position.x+=Math.sin(Date.now()*0.001)*0.02;
+  camera.position.y+=Math.cos(Date.now()*0.0007)*0.01;
+
+  // Lab particles drift
+  if(labParts){labParts.rotation.y+=0.0003;
+    const lp=labParts.geometry.attributes.position.array;
+    for(let i=0;i<labPartCount;i++){lp[i*3+1]+=Math.sin(Date.now()*0.001+i)*0.002}
+    labParts.geometry.attributes.position.needsUpdate=true}
+
+  renderer.render(scene,camera)}
+animateWalk();
+
+window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;
+camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight)});
+})();
+
+// ===== Before/After Sliders =====
+document.querySelectorAll('.ba-slider').forEach(slider=>{
+const before=slider.querySelector('.ba-before');const handle=slider.querySelector('.ba-handle');
+let isDown=false;
+function move(e){const rect=slider.getBoundingClientRect();const x=(e.clientX||e.touches[0].clientX)-rect.left;
+const pct=Math.max(0,Math.min(100,(x/rect.width)*100));before.style.clipPath=`inset(0 ${100-pct}% 0 0)`;
+handle.style.left=pct+'%'}
+slider.addEventListener('mousedown',e=>{isDown=true;move(e)});
+slider.addEventListener('touchstart',e=>{isDown=true;move(e)});
+document.addEventListener('mousemove',e=>{if(isDown)move(e)});
+document.addEventListener('touchmove',e=>{if(isDown)move(e)});
+document.addEventListener('mouseup',()=>isDown=false);
+document.addEventListener('touchend',()=>isDown=false)});
+
+// GSAP Animations
+function initAnimations(){gsap.registerPlugin(ScrollTrigger);
+// Counter animation
+document.querySelectorAll('.stat-number').forEach(el=>{const target=parseInt(el.dataset.count);
+gsap.to(el,{textContent:target,duration:2,snap:{textContent:1},scrollTrigger:{trigger:el,start:'top 80%'}})});
+// Reveal elements
+document.querySelectorAll('.reveal').forEach((el,i)=>{gsap.fromTo(el,{opacity:0,y:40},{opacity:1,y:0,duration:0.8,delay:i*0.1,
+scrollTrigger:{trigger:el,start:'top 85%',toggleActions:'play none none none'}})});
+// Parallax hero
+gsap.to('.hero-content',{y:-50,scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+// Service cards stagger
+gsap.utils.toArray('.service-card').forEach((card,i)=>{gsap.fromTo(card,{opacity:0,y:60},{opacity:1,y:0,duration:0.6,delay:i*0.1,
+scrollTrigger:{trigger:card,start:'top 85%'}})});
+// Initialize 3D
+initTooth()}
+
+// Form submit via WhatsApp
+document.getElementById('booking-form').addEventListener('submit',e=>{e.preventDefault();
+const f=e.target;const name=f.querySelector('input[type="text"]').value;
+const phone=f.querySelector('input[type="tel"]').value;
+const service=f.querySelector('select').value;
+const msg=f.querySelector('textarea').value;
+const waMsg=encodeURIComponent('مرحباً، أنا '+name+'. هاتف: '+phone+'. الخدمة: '+service+'. '+msg);
+window.open('https://wa.me/213770433364?text='+waMsg,'_blank');
+f.reset()});
+
+// Language Toggle
+let currentLang=localStorage.getItem('lang')||'ar';
+function toggleLang(){
+currentLang=currentLang==='ar'?'fr':'ar';
+localStorage.setItem('lang',currentLang);
+applyLang()}
+function applyLang(){
+document.querySelectorAll('[data-ar]').forEach(el=>{
+el.innerHTML=currentLang==='ar'?el.getAttribute('data-ar'):el.getAttribute('data-fr')});
+document.querySelectorAll('[data-placeholder-ar]').forEach(el=>{
+el.placeholder=currentLang==='ar'?el.getAttribute('data-placeholder-ar'):el.getAttribute('data-placeholder-fr')});
+document.documentElement.dir=currentLang==='ar'?'rtl':'ltr';
+document.documentElement.lang=currentLang==='ar'?'ar':'fr';
+const lt=document.getElementById('langToggle');
+if(lt)lt.textContent=currentLang==='ar'?'FR':'AR'}
+applyLang();
+
+// Back to Top
+window.addEventListener('scroll',()=>{
+document.getElementById('backToTop').classList.toggle('visible',window.scrollY>300)});
+
+// Nav links data-ar/data-fr
+document.querySelectorAll('.nav-links a').forEach(a=>{
+const ar=a.getAttribute('data-ar');const fr=a.getAttribute('data-fr');
+if(ar&&fr)a.innerHTML=currentLang==='ar'?ar:fr});
+
+// ===== 3D Card Tilt =====
+document.querySelectorAll('.tilt-card').forEach(card=>{
+card.addEventListener('mousemove',e=>{
+  const rect=card.getBoundingClientRect();
+  const x=(e.clientX-rect.left)/rect.width-0.5;
+  const y=(e.clientY-rect.top)/rect.height-0.5;
+  const inner=card.querySelector('.tilt-inner')||card;
+  inner.style.transform='perspective(800px) rotateY('+x*12+'deg) rotateX('+-y*12+'deg) scale3d(1.02,1.02,1.02)';
+  inner.style.transition='transform 0.1s ease'});
+card.addEventListener('mouseleave',()=>{
+  const inner=card.querySelector('.tilt-inner')||card;
+  inner.style.transform='perspective(800px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)';
+  inner.style.transition='transform 0.5s cubic-bezier(0.16,1,0.3,1)'});
+card.addEventListener('touchmove',()=>{})});
+
+// ===== Magnetic Hover Buttons =====
+document.querySelectorAll('.mag-btn').forEach(btn=>{
+btn.addEventListener('mousemove',e=>{
+  const rect=btn.getBoundingClientRect();
+  const x=e.clientX-rect.left-rect.width/2;
+  const y=e.clientY-rect.top-rect.height/2;
+  btn.style.transform='translate('+x*0.3+'px,'+y*0.3+'px) scale(1.05)';
+  btn.style.transition='transform 0.1s ease'});
+btn.addEventListener('mouseleave',()=>{
+  btn.style.transform='translate(0,0) scale(1)';
+  btn.style.transition='transform 0.5s cubic-bezier(0.16,1,0.3,1)'})});
+
+// ===== Text Blur Reveal (IntersectionObserver) =====
+const blurObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){
+    e.target.classList.add('active');
+    blurObs.unobserve(e.target)}})},{threshold:0.2});
+document.querySelectorAll('.blur-reveal').forEach(el=>blurObs.observe(el));
+
+// ===== Scroll Progress Bar =====
+const progressBar=document.querySelector('.scroll-progress');
+if(progressBar){
+  window.addEventListener('scroll',()=>{
+    const scrollTop=window.scrollY;
+    const docHeight=document.documentElement.scrollHeight-window.innerHeight;
+    const pct=(scrollTop/docHeight)*100;
+    progressBar.style.width=pct+'%'})}
+
+// ===== Section Enter Observer =====
+const sectionObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){
+    e.target.classList.add('active');
+    sectionObs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.section-enter').forEach(el=>sectionObs.observe(el));
+
+// ===== Stagger Children Observer =====
+const staggerObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){
+    e.target.classList.add('active');
+    staggerObs.unobserve(e.target)}})},{threshold:0.15});
+document.querySelectorAll('.stagger-children').forEach(el=>staggerObs.observe(el));
+
+// ===== FAQ Accordion =====
+document.querySelectorAll('.faq-q').forEach(q=>{
+  q.addEventListener('click',()=>{
+    const item=q.parentElement;
+    const isOpen=item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item').forEach(fi=>fi.classList.remove('open'));
+    // Toggle clicked
+    if(!isOpen)item.classList.add('open')})});
+
+// ===== Enhanced GSAP: Parallax layers =====
+if(typeof gsap!=='undefined'&&typeof ScrollTrigger!=='undefined'){
+  gsap.registerPlugin(ScrollTrigger);
+  // Parallax orbs
+  gsap.utils.toArray('.orb').forEach((orb,i)=>{
+    gsap.to(orb,{y:-80-i*30,x:Math.sin(i)*40,scrollTrigger:{trigger:orb.closest('section'),start:'top bottom',end:'bottom top',scrub:1}})});
+  // Glow border pulse on scroll
+  gsap.utils.toArray('.glow-border').forEach(el=>{
+    gsap.fromTo(el,{'--glow-angle':'0deg'},{'--glow-angle':'360deg',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:2}})})}
+
+// ===== Smooth scroll for anchor links =====
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const target=document.querySelector(a.getAttribute('href'));
+    if(target)target.scrollIntoView({behavior:'smooth',block:'start'})})});
+
+// ===== Init animations on load =====
+window.addEventListener('load',()=>{if(typeof initAnimations==='function')initAnimations()});
+</script>
+</body>
+</html>
